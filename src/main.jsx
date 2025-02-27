@@ -19,7 +19,7 @@ import {
 
 const router = createBrowserRouter([
   {
-    path: "/register1",
+    path: "/register",
     element: (<Register/>),
   },
   {
