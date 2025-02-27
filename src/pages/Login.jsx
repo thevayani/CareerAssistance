@@ -1,6 +1,6 @@
 function Login(){
     return<div>
-        login is started
+        Login
     </div>
 }
 
