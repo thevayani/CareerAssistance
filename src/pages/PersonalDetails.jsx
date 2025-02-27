@@ -1,6 +1,6 @@
 function PersonalDetails(){
     return <div>
-        pd
+        <h1>Update Details</h1>
     </div>
 }
 
