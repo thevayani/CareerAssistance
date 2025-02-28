@@ -1,14 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import careerSliceReducer from './slices/career'
+import registerSliceReducer from './slices/register'
 
 
 
 export default configureStore({
   reducer: {
-    register : careerSliceReducer,
-    login: careerSliceReducer,
-    personalDetails: careerSliceReducer,
-    CareerGuidance:careerSliceReducer,
-    careerGoals:careerSliceReducer,
+    register : registerSliceReducer,
+ 
   },
 })
