@@ -1,4 +1,4 @@
-import { Form, Container, Navbar, Button, Row, Col, FloatingLabel } from 'react-bootstrap';
+import { Form, Container, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 // import { useNavigate } from 'react-router';
@@ -8,7 +8,7 @@ import { setUserList } from '../redux/slices/userDetails';
 
 function PersonalDetails() {
 
-    const userGlobalState = useSelector((state) => state.userDetail)
+    const userGlobalState = useSelector((state) => state.userDetail.userList)
     const disPatch = useDispatch()
 
     const [languageValue, setLangauageValue] = useState([]);
@@ -47,51 +47,89 @@ function PersonalDetails() {
 
 
     const submitBtn = () => {
-        const initial = {fullname : "",fatherName:"",motherName:"",gender:"",dob:"",address:"",whether_employee:"",contact_number:""} 
-        
+        const initial = { fullname: "", fatherName: "", motherName: "", gender: "", dob: "", address: "", whether_employee: "", contact_number: "" }
+
         // if(userInputValue.fullname&&userInputValue.fatherName&&userInputValue.motherName&&userInputValue.gender&&userInputValue.dob&&userInputValue.address&&userInputValue.Language_known&&userInputValue.hobbies&&userInputValue.course&&userInputValue.workExperience&&userInputValue.whether_employee&&userInputValue.contact_number){
-         if(initial){
-            alert("please fill the Form")
-        } 
-        else{
-            let userData = [...userGlobalState.userList, userInputValue]
-            disPatch(setUserList(userData))
-            console.log(userData)
-            setuserInputValue(initial)
-            // setuserInputValue({fullname : "",fatherName:"",motherName:"",gender:"",dob:"",address:"",whether_employee:"",contact_number:""})
-        }
+        //     alert("please fill the Form")
+        // } 
+ 
+                let duplicate = false
+
+                userGlobalState.forEach((v) => {
+                    if (v.fullname == userInputValue.fullname) {
+                        duplicate = true
+                    }
+                })
+
+                if (duplicate) {
+                    alert("its already here..")
+                }
+                else if (userInputValue.fullname == "" ||
+                    userInputValue.fatherName == "" ||
+                    userInputValue.motherName == "" ||
+                    userInputValue.gender == "" ||
+                    userInputValue.dob == "" ||
+                    userInputValue.address == "" ||
+                    userInputValue.contact_number == "") {
+                    alert("please enter the value")
+                }
+                else {
+                    alert("Successfully submitted..")
+                    let userData = [...userGlobalState, userInputValue]
+                    disPatch(setUserList(userData))
+                    console.log(userData)
+                    setuserInputValue(initial)
+                }
     }
 
 
     const addLanguage = (() => {
-        let lang = [languageValue]
-        let y = [...userInputValue.Language_known, ...lang]
-        setuserInputValue({ ...userInputValue, Language_known: y })
-        setLangauageValue("")
-
+        if (languageValue == "") {
+            alert("please enter the value")
+        } else {
+            let lang = [languageValue]
+            let y = [...userInputValue.Language_known, ...lang]
+            setuserInputValue({ ...userInputValue, Language_known: y })
+            setLangauageValue("")
+        }
     })
 
 
     const addhobbies = () => {
-        let x = [hobbiesValue]
-        let y = [...userInputValue.hobbies, ...x]
-        setuserInputValue({ ...userInputValue, hobbies: y })
-        setHobbiesValue("")
+        if (hobbiesValue == "") {
+            alert("please enter the value")
+        } else {
+            let x = [hobbiesValue]
+            let y = [...userInputValue.hobbies, ...x]
+            setuserInputValue({ ...userInputValue, hobbies: y })
+            setHobbiesValue("")
+        }
     }
 
     const addWork_exp = () => {
-        let workExp = [workExp_Value]
-        let y = [...userInputValue.workExperience, ...workExp]
-        setuserInputValue({ ...userInputValue, workExperience: y})
+        if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
+            alert("please enter the value")
+        }
+        else {
+            let workExp = [workExp_Value]
+            let y = [...userInputValue.workExperience, ...workExp]
+            setuserInputValue({ ...userInputValue, workExperience: y })
 
-        setWorkExp_Value({companyName:"",institudeName:"",year:""})
+            setWorkExp_Value({ companyName: "", institudeName: "", year: "" })
+        }
     }
 
-    const addCourseBtn = () =>{
-        let education = [courseValue]
-        let  y = [...userInputValue.course,...education]
-        setuserInputValue({...userInputValue,course:y})
-        setCourseValue({courseName:"",institudeName:"",year:"",place:""})
+
+    const addCourseBtn = () => {
+        if (courseValue.courseName == "" || courseValue.institudeName == "" || courseValue.year == "" || courseValue.place == "") {
+            alert("please enter the value")
+        } else {
+            let education = [courseValue]
+            let y = [...userInputValue.course, ...education]
+            setuserInputValue({ ...userInputValue, course: y })
+
+            setCourseValue({ courseName: "", institudeName: "", year: "", place: "" })
+        }
     }
 
 
@@ -140,9 +178,11 @@ function PersonalDetails() {
                                         color: "white"
                                     }}
                                     type="text"
+                                    required 
                                     value={userInputValue.fullname}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, fullname: e.target.value })}
-                                    placeholder="Enter full Name" />
+                                    placeholder="Enter full Name"
+                                   />
                             </Col>
                         </Form.Group>
 
@@ -160,7 +200,8 @@ function PersonalDetails() {
                                     type="text"
                                     value={userInputValue.fatherName}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, fatherName: e.target.value })}
-                                    placeholder="Enter Father Name" />
+                                    placeholder="Enter Father Name" 
+                                    required />
                             </Col>
                         </Form.Group>
 
@@ -178,7 +219,8 @@ function PersonalDetails() {
                                     type="text"
                                     value={userInputValue.motherName}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, motherName: e.target.value })}
-                                    placeholder="Enter Mother Name" />
+                                    placeholder="Enter Mother Name" 
+                                    required />
                             </Col>
                         </Form.Group>
 
@@ -193,7 +235,8 @@ function PersonalDetails() {
                                         label="Male"
                                         value="male"
                                         checked={userInputValue.gender == "male"}
-                                        onChange={(e) => setuserInputValue({ ...userInputValue, gender: e.target.value })} />
+                                        onChange={(e) => setuserInputValue({ ...userInputValue, gender: e.target.value })} 
+                                         />
                                 </Col>
                                 <Col sm="2" className="mt-2">
                                     <Form.Check type="radio"
@@ -237,7 +280,8 @@ function PersonalDetails() {
                                     }}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, address: e.target.value })}
                                     value={userInputValue.address}
-                                    placeholder="Leave a comment here" />
+                                    placeholder="Leave a comment here" 
+                                    required />
                             </Col>
                         </Form.Group>
 
@@ -255,7 +299,8 @@ function PersonalDetails() {
                                             backgroundColor: "inherit",
                                             border: "1px solid black", color: "white"
                                         }}
-                                        placeholder="Hobbies" />
+                                        placeholder="Hobbies" 
+                                        required />
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -286,7 +331,8 @@ function PersonalDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Language Known" />
+                                        placeholder="Language Known" 
+                                        required />
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -353,7 +399,8 @@ function PersonalDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Company Name" />
+                                        placeholder="Company Name" 
+                                        required />
                                 </Col>
                             </Row>
 
@@ -375,7 +422,8 @@ function PersonalDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Institude Name" />
+                                        placeholder="Institude Name" 
+                                        required />
                                 </Col>
                             </Row>
 
@@ -397,7 +445,8 @@ function PersonalDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Year" />
+                                        placeholder="Year" 
+                                        required />
                                 </Col>
                             </Row>
 
@@ -438,7 +487,8 @@ function PersonalDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Course Name" />
+                                        placeholder="Course Name" 
+                                        required />
                                 </Col>
                             </Row>
 
@@ -462,7 +512,8 @@ function PersonalDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="Institude Name" />
+                                        placeholder="Institude Name" 
+                                        required />
                                 </Col>
                             </Row>
 
@@ -486,7 +537,8 @@ function PersonalDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="Year" />
+                                        placeholder="Year" 
+                                        required />
                                 </Col>
                             </Row>
 
@@ -511,7 +563,8 @@ function PersonalDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="place" />
+                                        placeholder="place" 
+                                         required />
                                 </Col>
                             </Row>
 
@@ -544,7 +597,8 @@ function PersonalDetails() {
                                         border: "1px solid black",
                                         color: "white"
                                     }}
-                                    placeholder="Contact Number" />
+                                    placeholder="Contact Number"
+                                    required  />
                             </Col>
                         </Form.Group>
                     </Col>
