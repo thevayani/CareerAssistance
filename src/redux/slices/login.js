@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const registerSlice = createSlice({
-    name: 'register',
+export const loginSlice = createSlice({
+    name: 'login',
     initialState: {
-        registerUsers : [],            //state
+        loginUsers : [],            //state
     },
     reducers: {
-        setRegisterUsers:(state,action)=>{
-        state.registerUsers = action.payload
+        setLoginUsers:(state,action)=>{
+        state.loginUsers = action.payload
        }
     },
 })
 
 
 // Action creators are generated for each case reducer function
-export const { setRegisterUsers } = registerSlice.actions
+export const { setLoginUsers } = loginSlice.actions
 
-export default registerSlice.reducer
+export default loginSlice.reducer
