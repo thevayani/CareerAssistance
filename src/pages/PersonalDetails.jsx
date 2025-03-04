@@ -1,4 +1,4 @@
-import { Form, Container, Button, Row, Col } from 'react-bootstrap';
+import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 // import { useNavigate } from 'react-router';
@@ -112,11 +112,12 @@ function PersonalDetails() {
 
         axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res)=>{
         let getData = res.data.data.data
-        setuserInputValue(JSON.parse(getData).userInputValue)
-        setLangauageValue(JSON.parse(getData).userInputValue.Language_known)
-        setHobbiesValue(JSON.parse(getData).userInputValue.hobbies)
-        setCourseValue(JSON.parse(getData).userInputValue.course)
-        setWorkExp_Value(JSON.parse(getData).userInputValue.workExperience)
+        console.log(getData)
+        setuserInputValue(JSON.parse(getData))
+        setLangauageValue(JSON.parse(getData).Language_known)
+        setHobbiesValue(JSON.parse(getData).hobbies)
+        // setCourseValue(JSON.parse(getData).userInputValue.course)
+        // setWorkExp_Value(JSON.parse(getData).userInputValue.workExperience)
         });
 
     }
@@ -181,16 +182,25 @@ function PersonalDetails() {
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "900px",
+            height: "1400px",
         }
     }>
+        <Navbar bg='dark' data-bs-theme="dark">
+        <Container className='mt-25'>
+            <Navbar.Brand href="#home"><h1>User Form</h1></Navbar.Brand>
+            <Nav className="ms-auto">
+                <Nav.Link href="/updateProfile"><h4>Update profile</h4></Nav.Link>
+            </Nav>  
+        </Container>
+        </Navbar>
+
         <Container>
-            <h1 style={{
+            {/* <h1 style={{
                 textAlign: "center",
                 textShadow: "5px 8px #888888",
                 marginBottom: "0px",
                 color: "white"
-            }}>User Form</h1>
+            }}>User Form</h1> */}
             <Form style={
                 {
                     backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -340,6 +350,8 @@ function PersonalDetails() {
                                         }}
                                         placeholder="Hobbies" 
                                         required />
+                                       
+                                         
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -372,6 +384,9 @@ function PersonalDetails() {
                                         }}
                                         placeholder="Language Known" 
                                         required />
+                                        <ul style={{marginTop:"20px"}}>
+                                             <li>{languageValue}</li>
+                                        </ul>
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -383,7 +398,9 @@ function PersonalDetails() {
                                         }}>
                                         Add
                                     </Button>
+            
                                 </Col>
+                                
                             </Row>
                         </Form.Group>
 
@@ -410,6 +427,25 @@ function PersonalDetails() {
 
                                 </Col>
                             </Row>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="mt-3"   >
+                            <Form.Label column sm="3">
+                                <h5>Contact Number</h5>
+                            </Form.Label>
+                            <Col sm="5">
+                                <Form.Control
+                                    type="number"
+                                    value={userInputValue.contact_number}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, contact_number: e.target.value})}
+                                    style={{
+                                        backgroundColor: "inherit",
+                                        border: "1px solid black",
+                                        color: "white"
+                                    }}
+                                    placeholder="Contact Number"
+                                    required  />
+                            </Col>
                         </Form.Group>
                     </Col>
 
@@ -501,6 +537,15 @@ function PersonalDetails() {
                                     Add
                                 </Button>
                             </Col>
+                            <Table  striped bordered hover style={{marginTop:"20px",borderRadius:"10px"}}>
+                                <thead>
+                                    <tr style={{backgroundColor:"inherit"}}>
+                                        <th>Company Name</th>
+                                        <th>Institude name</th>
+                                        <th>Year.of.year</th>
+                                     </tr>
+                                </thead>
+                            </Table>
                         </Form.Group>
 
 
@@ -607,6 +652,7 @@ function PersonalDetails() {
                                 </Col>
                             </Row>
 
+
                             <Col sm="3">
                                 <Button
                                     onClick={addCourseBtn}
@@ -619,27 +665,18 @@ function PersonalDetails() {
                                     Add
                                 </Button>
                             </Col>
+                            <Table  striped bordered hover style={{marginTop:"20px",borderRadius:"10px"}}>
+                                <thead>
+                                    <tr style={{backgroundColor:"inherit"}}>
+                                        <th>Course Name</th>
+                                        <th>Institude name</th>
+                                        <th>year</th>
+                                        <th>Place</th>
+                                     </tr>
+                                </thead>
+                            </Table>
                         </Form.Group>
 
-
-                        <Form.Group as={Row} className="mt-3"   >
-                            <Form.Label column sm="4">
-                                <h5>Contact Number</h5>
-                            </Form.Label>
-                            <Col sm="5">
-                                <Form.Control
-                                    type="number"
-                                    value={userInputValue.contact_number}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, contact_number: e.target.value })}
-                                    style={{
-                                        backgroundColor: "inherit",
-                                        border: "1px solid black",
-                                        color: "white"
-                                    }}
-                                    placeholder="Contact Number"
-                                    required  />
-                            </Col>
-                        </Form.Group>
                     </Col>
                 </Row>
 
