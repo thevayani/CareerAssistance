@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -85,6 +86,7 @@ function Login() {
         <Form.Control type="password" placeholder="Enter password" value={loginDetails.password} onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
 
         <Button variant="success" onClick={Save}>Save</Button>
+
     </div>
 }
 
