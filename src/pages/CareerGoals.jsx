@@ -50,6 +50,7 @@ function CareerGoals(){
             {
 
              let   data = [...careerGlobalState,goalsDetails]
+             
                         dispatch(setCareerUsers(data));
                         console.log(data)
                         alert("ok")
