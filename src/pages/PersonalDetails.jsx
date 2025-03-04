@@ -3,8 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 // import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import { setUserList } from '../redux/slices/userDetails';
+import axios from 'axios'
 
 function PersonalDetails() {
 
@@ -18,13 +20,17 @@ function PersonalDetails() {
         institudeName: "",
         year: ""
     });
-
+  
     const [courseValue, setCourseValue] = useState({
         courseName: "",
         institudeName: "",
         year: "",
         place: ""
     });
+
+    useEffect (() =>{
+        getApi()
+    },[])
 
 
 
@@ -64,6 +70,16 @@ function PersonalDetails() {
                 if (duplicate) {
                     alert("its already here..")
                 }
+                // if(userInputValue.fullname.trim() ||
+                //     userInputValue.fatherName.trim()||
+                //     userInputValue.motherName.trim()||
+                //     userInputValue.gender.trim()||
+                //     userInputValue.dob.trim()||
+                //     userInputValue.address.trim() ||
+                //     userInputValue.contact_number.trim()){
+                //     alert("please fill all details");
+                //     return;
+                // }
                 else if (userInputValue.fullname == "" ||
                     userInputValue.fatherName == "" ||
                     userInputValue.motherName == "" ||
@@ -74,12 +90,35 @@ function PersonalDetails() {
                     alert("please enter the value")
                 }
                 else {
-                    alert("Successfully submitted..")
-                    let userData = [...userGlobalState, userInputValue]
-                    disPatch(setUserList(userData))
-                    console.log(userData)
-                    setuserInputValue(initial)
+                    // alert("Successfully submitted..")
+                    // let userData = [...userGlobalState, userInputValue]
+                    // disPatch(setUserList(userData))
+                    // console.log(userData)
+                    // setuserInputValue(initial)
+
+
+                    const formData = new FormData();
+                    formData.append("user_id",4);
+                    formData.append("data",JSON.stringify(userInputValue))
+
+                    axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
+                    console.log(res)
+                    });
+
                 }
+    }
+
+    const getApi = () => {
+
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res)=>{
+        let getData = res.data.data.data
+        setuserInputValue(JSON.parse(getData).userInputValue)
+        setLangauageValue(JSON.parse(getData).userInputValue.Language_known)
+        setHobbiesValue(JSON.parse(getData).userInputValue.hobbies)
+        setCourseValue(JSON.parse(getData).userInputValue.course)
+        setWorkExp_Value(JSON.parse(getData).userInputValue.workExperience)
+        });
+
     }
 
 
@@ -100,8 +139,8 @@ function PersonalDetails() {
             alert("please enter the value")
         } else {
             let x = [hobbiesValue]
-            let y = [...userInputValue.hobbies, ...x]
-            setuserInputValue({ ...userInputValue, hobbies: y })
+            let y = [...userInputValue.hobbies,...x]
+            setuserInputValue({...userInputValue, hobbies: y})
             setHobbiesValue("")
         }
     }
@@ -112,7 +151,7 @@ function PersonalDetails() {
         }
         else {
             let workExp = [workExp_Value]
-            let y = [...userInputValue.workExperience, ...workExp]
+            let y = [...userInputValue.workExperience,...workExp]
             setuserInputValue({ ...userInputValue, workExperience: y })
 
             setWorkExp_Value({ companyName: "", institudeName: "", year: "" })
@@ -125,7 +164,7 @@ function PersonalDetails() {
             alert("please enter the value")
         } else {
             let education = [courseValue]
-            let y = [...userInputValue.course, ...education]
+            let y = [...userInputValue.course,...education]
             setuserInputValue({ ...userInputValue, course: y })
 
             setCourseValue({ courseName: "", institudeName: "", year: "", place: "" })
@@ -393,7 +432,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="text"
                                         value={workExp_Value.companyName}
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, companyName: e.target.value })}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value,companyName: e.target.value })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
