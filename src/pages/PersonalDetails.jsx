@@ -1,5 +1,11 @@
 import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CloseButton from 'react-bootstrap/CloseButton';
+import { CIcon } from '@coreui/icons-react';
+import { cilTrash } from '@coreui/icons';
+
+
+
 import { useState } from 'react';
 // import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +16,7 @@ import axios from 'axios'
 
 function PersonalDetails() {
 
-    const userGlobalState = useSelector((state) => state.userDetail.userList)
+    // const userGlobalState = useSelector((state) => state.userDetail.userList)
     const disPatch = useDispatch()
 
     const [languageValue, setLangauageValue] = useState([]);
@@ -59,17 +65,17 @@ function PersonalDetails() {
         //     alert("please fill the Form")
         // } 
  
-                let duplicate = false
+                // let duplicate = false
 
-                userGlobalState.forEach((v) => {
-                    if (v.fullname == userInputValue.fullname) {
-                        duplicate = true
-                    }
-                })
+                // userGlobalState.forEach((v) => {
+                //     if (v.fullname == userInputValue.fullname) {
+                //         duplicate = true
+                //     }
+                // })
 
-                if (duplicate) {
-                    alert("its already here..")
-                }
+                // if (duplicate) {
+                //     alert("its already here..")
+                // }
                 // if(userInputValue.fullname.trim() ||
                 //     userInputValue.fatherName.trim()||
                 //     userInputValue.motherName.trim()||
@@ -80,16 +86,16 @@ function PersonalDetails() {
                 //     alert("please fill all details");
                 //     return;
                 // }
-                else if (userInputValue.fullname == "" ||
-                    userInputValue.fatherName == "" ||
-                    userInputValue.motherName == "" ||
-                    userInputValue.gender == "" ||
-                    userInputValue.dob == "" ||
-                    userInputValue.address == "" ||
-                    userInputValue.contact_number == "") {
-                    alert("please enter the value")
-                }
-                else {
+                // else if (userInputValue.fullname == "" ||
+                //     userInputValue.fatherName == "" ||
+                //     userInputValue.motherName == "" ||
+                //     userInputValue.gender == "" ||
+                //     userInputValue.dob == "" ||
+                //     userInputValue.address == "" ||
+                //     userInputValue.contact_number == "") {
+                //     alert("please enter the value")
+                // }
+                // else {
                     // alert("Successfully submitted..")
                     // let userData = [...userGlobalState, userInputValue]
                     // disPatch(setUserList(userData))
@@ -105,7 +111,7 @@ function PersonalDetails() {
                     console.log(res)
                     });
 
-                }
+                // }
     }
 
     const getApi = () => {
@@ -114,10 +120,12 @@ function PersonalDetails() {
         let getData = res.data.data.data
         console.log(getData)
         setuserInputValue(JSON.parse(getData))
-        setLangauageValue(JSON.parse(getData).Language_known)
-        setHobbiesValue(JSON.parse(getData).hobbies)
-        // setCourseValue(JSON.parse(getData).userInputValue.course)
-        // setWorkExp_Value(JSON.parse(getData).userInputValue.workExperience)
+        // setLangauageValue(JSON.parse(getData).Language_known)
+        // setHobbiesValue(JSON.parse(getData).hobbies)
+        // setCourseValue(JSON.parse(getData).course)
+        // setWorkExp_Value(JSON.parse(getData).workExperience)
+        // console.log(languageValue)
+
         });
 
     }
@@ -171,6 +179,29 @@ function PersonalDetails() {
             setCourseValue({ courseName: "", institudeName: "", year: "", place: "" })
         }
     }
+
+    const deleteLanguage = (v) =>{
+        alert("Please Close")
+        let del = userInputValue.Language_known.filter((items) => items != v)
+        setuserInputValue({...userInputValue,Language_known:del})
+    }
+
+    const deletehobbies =((v) =>{
+        let del = userInputValue.hobbies.filter((items) => items != v)
+        console.log(del)
+        setuserInputValue({...userInputValue,hobbies:del})
+    })
+
+
+    const deleteWorkExp =((v) =>{
+        let del = userInputValue.workExperience.filter((items) => items != v)
+        setuserInputValue({...userInputValue,workExperience:del})
+    })
+
+    const deletecourse =((v) =>{
+        let del = userInputValue.course.filter((items) => items != v)
+        setuserInputValue({...userInputValue,course:del})
+    })
 
 
 
@@ -350,6 +381,19 @@ function PersonalDetails() {
                                         }}
                                         placeholder="Hobbies" 
                                         required />
+                                        <ul style={{marginTop:"8px"}}>
+                                        {userInputValue.hobbies.map((v) =>
+                                                <li>{v}<CloseButton 
+                                                onClick={() => deletehobbies(v)}
+                                                style={
+                                                        {
+                                                            fontSize:"12px",
+                                                            marginLeft:"10px",
+                                                            backgroundColor:"Background"
+                                                        }
+                                                    } />
+                                            </li>)}
+                                        </ul>
                                        
                                          
                                 </Col>
@@ -384,8 +428,18 @@ function PersonalDetails() {
                                         }}
                                         placeholder="Language Known" 
                                         required />
-                                        <ul style={{marginTop:"20px"}}>
-                                             <li>{languageValue}</li>
+                                        <ul style={{marginTop:"8px"}}>
+                                            {userInputValue.Language_known.map((v) =>
+                                                <li>{v}<CloseButton 
+                                                onClick={() => deleteLanguage(v)}
+                                                style={
+                                                        {
+                                                            fontSize:"12px",
+                                                            marginLeft:"10px",
+                                                            backgroundColor:"Background"
+                                                        }
+                                                    } />
+                                            </li>)}
                                         </ul>
                                 </Col>
                                 <Col sm="4">
@@ -537,14 +591,25 @@ function PersonalDetails() {
                                     Add
                                 </Button>
                             </Col>
-                            <Table  striped bordered hover style={{marginTop:"20px",borderRadius:"10px"}}>
-                                <thead>
-                                    <tr style={{backgroundColor:"inherit"}}>
+                            <Table   striped="columns" bordered hover  style={{marginTop:"20px",borderRadius:"10px",backgroundColor:"inherit"}}>
+                                <thead style={{backgroundColor:"inherit"}}>
+                                    <tr>
+                                        <th>S.No</th>
                                         <th>Company Name</th>
                                         <th>Institude name</th>
                                         <th>Year.of.year</th>
+                                        <th>Delete</th>
                                      </tr>
                                 </thead>
+                                <tbody>
+                                    {userInputValue.workExperience.map((v,i) => <tr>
+                                        <td>{i+1}</td>
+                                        <td>{v.companyName}</td>
+                                        <td>{v.institudeName}</td>
+                                        <td>{v.year}</td>
+                                        <td><CIcon icon={cilTrash} onClick={() => deleteWorkExp(v)} size="sm" style={{width:"30px",marginLeft:"9px"}} /></td>
+                                    </tr>)}
+                                </tbody>
                             </Table>
                         </Form.Group>
 
@@ -649,6 +714,7 @@ function PersonalDetails() {
                                         }
                                         placeholder="place" 
                                          required />
+
                                 </Col>
                             </Row>
 
@@ -665,16 +731,30 @@ function PersonalDetails() {
                                     Add
                                 </Button>
                             </Col>
-                            <Table  striped bordered hover style={{marginTop:"20px",borderRadius:"10px"}}>
-                                <thead>
-                                    <tr style={{backgroundColor:"inherit"}}>
-                                        <th>Course Name</th>
+
+                        <Table striped="columns" bordered hover  style={{marginTop:"20px",borderRadius:"20px",backgroundColor:"inherit"}}>
+                                <thead >
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Company Name</th>
                                         <th>Institude name</th>
-                                        <th>year</th>
+                                        <th>Year.of.year</th>
                                         <th>Place</th>
+                                        <th>Delete</th>
                                      </tr>
                                 </thead>
+                                <tbody>
+                                    {userInputValue.course.map((v,i) => <tr>
+                                        <td>{i+1}</td>
+                                        <td>{v.courseName}</td>
+                                        <td>{v.institudeName}</td>
+                                        <td>{v.year}</td>
+                                        <td>{v.place}</td>
+                                        <td><CIcon icon={cilTrash} onClick={() => deletecourse(v)} size="sm" style={{width:"30px",marginLeft:"9px"}} /></td>
+                                    </tr>)}
+                                </tbody>
                             </Table>
+                                        
                         </Form.Group>
 
                     </Col>
