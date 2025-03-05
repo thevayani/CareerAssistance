@@ -4,8 +4,10 @@ import './index.css'
 import App from './App.jsx'
 import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
-import PersonalDetails from './pages/PersonalDetails.jsx'
+// import PersonalDetails from './pages/PersonalDetails.jsx'
 import CareerGuidance from './pages/CareerGuidance.jsx'
+import Home from './pages/Home.jsx'
+
 // import CareerGoals from './pages/CareerGoals.jsx'
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
@@ -26,10 +28,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: (<Login/>),
   },
-  {
-    path: "/details",
-    element: (<PersonalDetails/>),
-  },
+  // {
+  //   path: "/details",
+  //   element: (<PersonalDetails/>),
+  // },
   {
     path: "/guidance",
     element: (<CareerGuidance/>),
@@ -38,6 +40,10 @@ const router = createBrowserRouter([
   //   path: "/goal",
   //   element: (<CareerGoals/>),
   // },
+  {
+    path: "/home",
+    element: (<Home/>),
+   },
   
   
  
