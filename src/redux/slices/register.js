@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const registerSlice = createSlice({
     name: 'register',
     initialState: {
-        registerUsers : [],            //state
+        registerUsers : {},            //state
     },
     reducers: {
         setRegisterUsers:(state,action)=>{

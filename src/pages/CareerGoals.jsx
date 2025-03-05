@@ -62,8 +62,6 @@ function CareerGoals(){
         }
     }
 
-
-
     return <div>
         <h1>Career Goal</h1>
         Enter your Goal

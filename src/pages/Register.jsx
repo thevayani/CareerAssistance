@@ -2,67 +2,35 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
 import{useState} from "react";
 import{useNavigate} from "react-router-dom";
-
-import {setRegisterUsers} from '../redux/slices/register.js';
-import { useSelector,useDispatch } from 'react-redux';
 import image from '../assets/compter.jpg';
 import axios from 'axios';
 
 
 function Register(){
     const navigate=useNavigate()
-    const dispatch=useDispatch()
-
-    const registerGlobalState=useSelector((state)=>state.register.registerUsers)
 
     const[user,setUser]=useState({
         name:"",
         email:"",
         password:""
     })
+
     const submit=()=>{
 
-        if(user.name && user.email && user.password){ 
+        const formData = new FormData();
+        formData.append("name",user.name);
+        formData.append("email",user.email);
+        formData.append("password",user.password);
 
-      let duplicateValue=false
-      registerGlobalState.map((e) =>{ 
-            if(e.email === user.email){
-                duplicateValue=true
+            axios.post("https://agaram.academy/api/b4/action.php?request=ai_carrier_user_register",formData)
+            .then((res)=>{
+                console.log(res)
 
-            }
-        })
-        if (duplicateValue) {
-            alert("Email already exists");
-            return;
-        
-        }
-
-        else{
-
-            let   data = [...registerGlobalState,user]
-            dispatch(setRegisterUsers(data));
-            console.log(data)
-
-           alert("ok")
-        setUser({name:"",email:"",password:""})
-        //  navigate('/login')
-        }
-    }
-    else{
-        alert("please fillup")
-    }
-    const formData = new FormData();
-    formData.append("name",user.name);
-    formData.append("email",user.email);
-    formData.append("password",user.password);
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_carrier_user_register",formData)
-        .then((res)=>{
-            console.log(res)
-        })
+                alert("Register Success")
+                setUser({name:"",email:"",password:""})
+                navigate('/login')
+            })   
 }
-
-
-
 
     return <div style={
         {
@@ -74,7 +42,6 @@ function Register(){
         }
     }>
 
-       {JSON.stringify(registerGlobalState)}
     <Container style={
         {
             width :  "500PX",
@@ -112,7 +79,8 @@ function Register(){
                     marginLeft:"140px",
                     marginTop:"20px"
                 }
-            } variant="dark" onClick={submit}>Register</Button>
+            } 
+            variant="dark" onClick={submit}>Register</Button>
 
             </Form>
 
