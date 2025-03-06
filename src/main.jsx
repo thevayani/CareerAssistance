@@ -43,10 +43,6 @@ const router = createBrowserRouter([
     path: "/careerAi",
     element: (<CareerAi />),
   },
-  
-  
- 
- 
 ]);
 
 createRoot(document.getElementById("root")).render(

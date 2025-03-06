@@ -1,3 +1,6 @@
+import { Form,Container,Navbar,Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
     GoogleGenerativeAI,
     HarmCategory,
@@ -8,6 +11,8 @@ import { useState, useEffect } from 'react';
 
 
 function CareerAi(){
+
+  const[summary,setSummary] = useState("")
 
         const details = {
             personal_details:{
@@ -42,8 +47,7 @@ function CareerAi(){
           ],
           skills:["java","phyton","html","css","react","redux","bootstrap"],
           languages_known:["tamil","english"],
-          goals:[["i want a job"]
-        ]
+          goals:["i want a job"]
     }
     
     
@@ -65,47 +69,47 @@ function CareerAi(){
         };
     
         async function run() {
-            const prompt  = `Make a summary of the following JSON details: ${JSON.stringify(details)}`;
+          
+            // const prompt  = `List a skills realted job using this:  ${JSON.stringify(details)}
+            // title: below Given title,
+            // solution : below skills related solution`;
+
+            const prompt = `skills realted job using this:${JSON.stringify(details)}
+
+              title = {'title': string}
+              solution = {'solution' : string}
+              Return: Array<title><solution>`;
+
+
             const result = await model.generateContent(prompt);
+           
             console.log("Summary Response: ",result.response.text());
-            // const chatSession = model.startChat({
-            //   generationConfig,
-            //   history: [
-            //   ],
-            // });
-    
-            // const result = await chatSession.sendMessage("What are the features avaialble in React");
-            // console.log(result.response.text());
+            setSummary(result.response.text().split(/[*,**]/));
+           
+            
         }
-        // const [data, setData] = useState([])
-        // const navigate = useNavigate()
+       
     
         useEffect(() => {
-            // FetchApI()
-            run();
-        }, [])
+            
+            run()
+        },[])
 
-        const FetchApI = async () => {
-            const fetchAPIData = async () => {
+        
     
-                try {
-                    const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=who is the indian prime minister?`;
-                    const response = await fetch(url);
-    
-                    if (!response.ok) {
-                        throw new Error(`Error fetching search results: ${response.statusText}`);
-                    }
-    
-                    const data = await response.json();
-                    console.log("response", data)
-                } catch (error) {
-                    console.log("error", error)
-                }
-            }
-    
-        }
+        
     return <div>
-        <hi>hi</hi>
+      <Container style={{
+      marginLeft:"580px",
+      marginTop:"20px"
+      
+    }}>
+       <h1>Carrer Ai</h1>
+        <Button variant='primary' style={{marginLeft:"40px"}} onClick={run}>Click</Button>
+
+
+      </Container>
+             <p style={{marginTop:"20px"}}>{summary}</p>
     </div>
 }
 
