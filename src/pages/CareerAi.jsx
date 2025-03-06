@@ -75,7 +75,11 @@ function CareerAi(){
     
         async function run() {
           
-            // const prompt  = `List a skills realted job using this:  ${JSON.stringify(details)}
+            const prompt  = `based on my skills and my goals,place,salary,location,
+            Provide careers and job roles well suited to a [insert a name]
+            provide guidance format as HTML within <div> tag with Css and Bootstrap design and 
+            avoid below  key improvement explanation: 
+              ${JSON.stringify(details)}`
             // title: below Given title,
             // solution : below skills related solution`;
 
@@ -91,11 +95,14 @@ function CareerAi(){
             // console.log("Summary Response: ",result.response.text());
             // setSummary(result.response.text().split(/[*,**]/));
 
-            const prompt = `based on my skills and my goals 
-                  what career paths should I consider and what steps should I take to reach that goal?
-                 provide guidance format as HTML within <div> tag with Css design fromat
-                   ${JSON.stringify(details)}`;
-       
+            // const prompt = `based on my skills and my goals 
+            //       what career paths should I consider and what steps should I take to reach that goal?
+            //      provide guidance format as HTML within <div> tag with Css and Bootstrap design 
+            //      not to show HTML structure & best practise & Key improvements in this version:
+            //        ${JSON.stringify(details)}`;
+
+          
+          
             const result = await model.generateContent(prompt);
             console.log("Summary Response:", result.response.text());
     
@@ -103,14 +110,7 @@ function CareerAi(){
             const responseText = result.response.text();
             // const parts = responseText.split(/[*]|<-->|<-C->/);
 
-            // let newResponse;
-            // for(let i = 0 ; i < parts.length; i++){
-            //   if( i == 0 || i%2 !== 1){
-            //     newResponse += parts[i]
-            //   }else{
-            //     newResponse += "<b>" + parts[i] + "</b>"
-            //   }
-            // }
+           
     
     // let formattedSummary = [];
     //   for (let i = 1; i < parts.length; i+= 2) {
@@ -138,7 +138,7 @@ function CareerAi(){
         
     return <div>
       <Container style={{
-      // marginLeft:"580px",
+    
       marginTop:"20px"
       
     }}>
