@@ -1,64 +1,91 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button,Form } from 'react-bootstrap';
-import{useState} from "react";
-import{useNavigate} from "react-router-dom";
-
-import { setCareerUsers } from '../redux/slices/careergoal';
-import { useSelector,useDispatch } from 'react-redux';
-
-
-
-function CareerGoals(){
-
-    const careerGlobalState=useSelector((state)=>state.careerGoal.careerGoalUsers)
-    const dispatch=useDispatch()
+import { Button, Form } from 'react-bootstrap';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { setCareerGoalUsers } from '../redux/slices/careergoal';
+import { useSelector, useDispatch } from 'react-redux';
 
 
-    const[skillDetails,setSkillDetails]=useState([])
-    const[goalsDetails,setGoalDetails]=useState({
-        goal:"",
-        skill:[],
-        what_industries_are_you_most_interested_in:"",
-        what_relevant_certification_do_you_hold:"",
-        period_of_time_to_get_the_job:""
+
+function CareerGoals() {
+
+    const careerGlobalState = useSelector((state) => state.careerGoal.careerGoalUsers)
+    const dispatch = useDispatch()
+    const [goalsQues, setgoalsQues] = useState({
+        question1: "what is your preferred work location?",
+        answer1: "",
+        question2: "what relevant certification do you hold?",
+        answer2: "",
+        question3: "period of time to get the job?",
+        answer3: "",
+        question4: "What is your salary range expectation?",
+        answer4: ""
+    })
+
+    const [skillDetails, setSkillDetails] = useState([])
+    const [goalsDetails, setGoalDetails] = useState({
+        goal: "",
+        skill: [],
+        questions: [],
+
     })
 
 
 
-    const addskill=()=>{
+    const addskill = () => {
 
-        if(skillDetails == ""){
+        if (skillDetails == "") {
             alert("Please enter the value")
 
         }
-        else{
-        setSkillDetails("")
-        let value=[skillDetails]
-        console.log(value)
-        let skills=[...goalsDetails.skill,...value]
-        setGoalDetails({...goalsDetails,skill:skills})
+        else {
+            setSkillDetails("")
+            let value = [skillDetails]
+            //console.log(value)
+            let skills = [...goalsDetails.skill, ...value]
+            setGoalDetails({ ...goalsDetails, skill: skills })
         }
- 
+
 
     }
 
-        const submit=()=>{
-            if(goalsDetails.goal && goalsDetails.skill && goalsDetails.what_industries_are_you_most_interested_in &&
-                goalsDetails.what_relevant_certification_do_you_hold && goalsDetails.period_of_time_to_get_the_job)
+    const submit = () => {
 
-            {
 
-             let   data = [...careerGlobalState,goalsDetails]
-             
-                        dispatch(setCareerUsers(data));
-                        console.log(data)
-                        alert("ok")
-                        setGoalDetails({goal:"",skill:"",what_industries_are_you_most_interested_in:"",what_relevant_certification_do_you_hold:"",
-                            period_of_time_to_get_the_job:""
-                        })
+
+        if (goalsDetails.goal && goalsDetails.skill && goalsQues.answer1
+            && goalsQues.answer2 && goalsQues.answer3) {
+                
+            let question = [...goalsDetails.questions, goalsQues]
+            console.log(question)
+            setGoalDetails({ ...goalsDetails, questions: question });
+
+            
+
+            let data = [...careerGlobalState, { ...goalsDetails, questions: question }];
+            dispatch(setCareerGoalUsers(data));
+            //console.log(data)
+            
+            alert("submitted")
+            setGoalDetails({goal:"",skill:"",questions:""})
+            setgoalsQues({   
+                question1: "what is your preferred work location?",
+                answer1: "",
+                question2: "what relevant certification do you hold?",
+                answer2: "",
+                question3: "period of time to get the job?",
+                answer3: "",
+                question4: "What is your salary range expectation?",
+                answer4: ""
+
+            })
+
+            
+
+
         }
-        else{
+        else {
             alert("Please fillup")
         }
     }
@@ -66,23 +93,32 @@ function CareerGoals(){
 
 
     return <div>
+        <small>{JSON.stringify(goalsDetails)}</small>
         <h1>Career Goal</h1>
-        Enter your Goal
-        <Form.Control type="text" value={goalsDetails.goal}onChange={(e)=>setGoalDetails({...goalsDetails,goal:e.target.value})} required  ></Form.Control> 
-         skill 
-         <div>
-        <Form.Control type="text" value={skillDetails} onChange={(e)=>setSkillDetails(e.target.value)} required ></Form.Control>
-        <Button variant="info"onClick={addskill}>Add</Button>
+
+        Enter your Goal:
+        <Form.Control type="text" value={goalsDetails.goal} onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value })} required  ></Form.Control>
+
+        skill:
+        <div>
+            <Form.Control type="text" value={skillDetails} onChange={(e) => setSkillDetails(e.target.value)} required ></Form.Control>
+            <Button variant="info" onClick={addskill}>Add</Button>
         </div>
 
-        what industries are you most interested in?
-        <Form.Control type="text" value={goalsDetails.what_industries_are_you_most_interested_in} onChange={(e)=>setGoalDetails({...goalsDetails,what_industries_are_you_most_interested_in:e.target.value})} required ></Form.Control> 
-        what relevant certification do you hold?
-        <Form.Control type="text" value={goalsDetails.what_relevant_certification_do_you_hold} onChange={(e)=>setGoalDetails({...goalsDetails,what_relevant_certification_do_you_hold:e.target.value})} required></Form.Control> 
-        period of time to get the job?
-        <Form.Control type="text" value={goalsDetails.period_of_time_to_get_the_job} onChange={(e)=>setGoalDetails({...goalsDetails,period_of_time_to_get_the_job:e.target.value})} required></Form.Control> 
+        {goalsQues.question1}
+        <Form.Control type="text" value={goalsQues.answer1} onChange={(e) => setgoalsQues({ ...goalsQues, answer1: e.target.value })} required ></Form.Control>
+
+        {goalsQues.question2}
+        <Form.Control type="text" value={goalsQues.answer2} onChange={(e) => setgoalsQues({ ...goalsQues, answer2: e.target.value })} required></Form.Control>
+
+        {goalsQues.question3}
+        <Form.Control type="text" value={goalsQues.answer3} onChange={(e) => setgoalsQues({ ...goalsQues, answer3: e.target.value })} required></Form.Control>
+
+        {goalsQues.question4}
+        <Form.Control type="text" value={goalsQues.answer4} onChange={(e) => setgoalsQues({ ...goalsQues, answer4: e.target.value })} required></Form.Control>
+
         <Button variant="primary" onClick={submit}>Submit</Button>
 
     </div>
 }
- export default CareerGoals
+export default CareerGoals

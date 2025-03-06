@@ -6,15 +6,15 @@ export const careergoalSlice = createSlice({
         careerGoalUsers : [],            //state
     },
     reducers: {
-        setCareerUsers:(state,action)=>{
-        state.setCareerUsers = action.payload
+        setCareerGoalUsers:(state,action)=>{
+        state.careerGoalUsers = action.payload
        }
     },
 })
 
 
 // Action creators are generated for each case reducer function
-export const { setCareerUsers } = careergoalSlice.actions
+export const { setCareerGoalUsers } = careergoalSlice.actions
 
 export default careergoalSlice.reducer
 
