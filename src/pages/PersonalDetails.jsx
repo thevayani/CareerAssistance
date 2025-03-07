@@ -61,9 +61,16 @@ function PersonalDetails() {
 
     const submitBtn = () => {
 
-        if(!userInputValue.fullname.trim()){
-            alert("please fill details")
-        }
+                if(!userInputValue.fullname.trim()||
+                !userInputValue.fatherName.trim()||
+                !userInputValue.motherName.trim()||
+                !userInputValue.gender.trim()||
+                !userInputValue.dob.trim()||
+                !userInputValue.address.trim()||
+                !userInputValue.contact_number.trim()
+                ){
+                    alert("please fill details")
+                }
 
        
                 else if (userInputValue.fullname == "" ||
@@ -99,7 +106,11 @@ function PersonalDetails() {
 
 
     const addLanguage = (() => {
-        if (languageValue == "") {
+        if (!languageValue.trim()) {
+            alert("please fill the details")
+        }
+
+        else if (languageValue == "") {
             alert("please enter the value")
         } else {
             let lang = [languageValue]
@@ -111,7 +122,10 @@ function PersonalDetails() {
 
 
     const addhobbies = () => {
-        if (hobbiesValue == "") {
+        if (!hobbiesValue.trim()) {
+            alert("please fill the details")
+        }
+        else if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
             let x = [hobbiesValue]
@@ -122,6 +136,9 @@ function PersonalDetails() {
     }
 
     const addWork_exp = () => {
+        if (!workExp_Value.companyName.trim() || !workExp_Value.institudeName.trim() || !workExp_Value.year.trim()) {
+            alert("please enter the value")
+        }
         if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
             alert("please enter the value")
         }
@@ -136,7 +153,11 @@ function PersonalDetails() {
 
 
     const addCourseBtn = () => {
-        if (courseValue.courseName == "" || courseValue.institudeName == "" || courseValue.year == "" || courseValue.place == "") {
+        if (!courseValue.courseName.trim() || !courseValue.institudeName.trim() || !courseValue.year.trim() || !courseValue.place.trim()) {
+            alert("please fill the details")
+        }
+
+        else if (courseValue.courseName == "" || courseValue.institudeName == "" || courseValue.year == "" || courseValue.place == "") {
             alert("please enter the value")
         } else {
             let education = [courseValue]
