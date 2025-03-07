@@ -9,6 +9,7 @@ function Home() {
   const navigate = useNavigate()
 
   const [inputValue, setInputValue] = useState({})
+  const [goalValue,setGoalValue]=useState({})
 
 
   const getApi = () => {
@@ -20,7 +21,21 @@ function Home() {
           setInputValue(getData);
         }
       })
+
+      axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=4')
+      .then((res)=>{
+        if(res.data.data.data){
+          const getDatas =JSON.parse(res.data.data.data);
+        console.log(getDatas);
+        setGoalValue(getDatas);
+        }
+        
+
+      })
   }
+
+
+
 
   useEffect(() => {
     getApi();
@@ -193,6 +208,10 @@ function Home() {
               </div>
             </Col>
         </Row>
+      </div>
+
+      <div>
+        
       </div>
       <Button variant="primary" onClick={submit}>Ask Guidance</Button>
       <div>
