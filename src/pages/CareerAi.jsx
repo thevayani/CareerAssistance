@@ -1,4 +1,4 @@
-import { Form,Container,Navbar,Button } from 'react-bootstrap';
+import { Form,Container,Navbar,Button,Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
@@ -11,6 +11,8 @@ import { useState, useEffect } from 'react';
 
 
 function CareerAi(){
+
+  const [loading, setLoading] = useState(false);
 
   const[summary,setSummary] = useState("")
 
@@ -74,29 +76,14 @@ function CareerAi(){
         };
     
         async function run() {
-          
+          setLoading(true)
             const prompt  = `based on my skills and my goals,place,salary,location,
             Provide careers and job roles well suited to a [insert a name]
             provide guidance format as HTML within <div> tag with Css and Bootstrap design and 
-            avoid below  key improvement explanation: 
+            avoid below  key improvement explanation Output response will be HTML format only and avoid text which are placed outside HTML: 
               ${JSON.stringify(details)}`
 
-            // title: below Given title,
-            // solution : below skills related solution`;
-
-            // const prompt = `skills realted tips job using this:${JSON.stringify(details)}
-
-            //   title = {'title': string}
-            //   solution = {'solution' : string}
-            //   Return: Array<title><solution>`;
-
-
-            // const result = await model.generateContent(prompt);
-           
-            // console.log("Summary Response: ",result.response.text());
-            // setSummary(result.response.text().split(/[*,**]/));
-
-            // const prompt = `based on my skills and my goals 
+                     // const prompt = `based on my skills and my goals 
             //       what career paths should I consider and what steps should I take to reach that goal?
             //      provide guidance format as HTML within <div> tag with Css and Bootstrap design 
             //      not to show HTML structure & best practise & Key improvements in this version:
@@ -109,31 +96,13 @@ function CareerAi(){
     
 
             const responseText = result.response.text();
-            // const parts = responseText.split(/[*]|<-->|<-C->/);
-
-           
-    
-    // let formattedSummary = [];
-    //   for (let i = 1; i < parts.length; i+= 2) {
-    //     const title = parts[i]?.trim();
-    //     const content = parts[i + 3]?.trim();
-    //     if(title && content){
-    //       formattedSummary.push({
-    //          title: title, 
-    //         content: content
-    //       });
-    //     }
-       
-    //   }
-
-      setSummary(responseText);
+          
+            setSummary(responseText);
+            setLoading(false)
   }
        
     
-        useEffect(() => {        
-            run()
-        },[])
-
+      
         
     
         
@@ -141,32 +110,27 @@ function CareerAi(){
       <Container style={{
     
       marginTop:"20px"
-      
     }}>
        <h1>Carrer Ai</h1>
-
-
       </Container>
       <div
           dangerouslySetInnerHTML={{__html: summary}}
 
-          
         />
-        <Button variant='primary' style={{marginLeft:"600px"}} onClick={run}>Regenerate</Button>
+        <Button variant='primary' style={{marginLeft:"600px"}} disabled = {loading} onClick={run}>
+          {loading ? 
+              (
+          <>
+          <Spinner animation="border"  size='sm' variant="danger" />Generating...
+          </>
+              ): (
+              "Generate tips.."
+              )
+          }
+          
+        </Button>
 
-      {/* {summary.length === 0 ? (
-          <h6>No Data..</h6>
-        ) : (
-          summary.map((item, index) => (
-            <div key={index}>
-             <h6>{item.title}</h6>
-              <li>{item.content}</li>
-            </div>
-          ))
-        )} */}
-        
-             {/* <div style={{marginTop:"20px"}}>{summary}</div> */}
-             
+     
     </div>
 }
 
