@@ -35,9 +35,9 @@ function PersonalDetails() {
         place: ""
     });
 
-    // useEffect (() =>{
-    //     getApi()
-    // },[])
+    useEffect (() =>{
+        getApi()
+    },[])
 
 
 
