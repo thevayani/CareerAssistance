@@ -7,7 +7,7 @@ import { cilTrash } from '@coreui/icons';
 
 
 import { useState } from 'react';
-// import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
@@ -61,8 +61,12 @@ function PersonalDetails() {
 
     const submitBtn = () => {
 
+        if(!userInputValue.fullname.trim()){
+            alert("please fill details")
+        }
+
        
-                if (userInputValue.fullname == "" ||
+                else if (userInputValue.fullname == "" ||
                     userInputValue.fatherName == "" ||
                     userInputValue.motherName == "" ||
                     userInputValue.gender == "" ||
@@ -73,7 +77,6 @@ function PersonalDetails() {
                 }
                 else {
                   
-                   
                     const formData = new FormData();
                     formData.append("user_id",4);
                     formData.append("data",JSON.stringify(userInputValue))
@@ -81,7 +84,6 @@ function PersonalDetails() {
                     axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
                         console.log(res)
                     });
-
                 }
     }
 
@@ -146,23 +148,26 @@ function PersonalDetails() {
     }
 
     const deleteLanguage = (v) =>{
-        alert("Please Close")
+        alert("Do you want to delete?")
         let del = userInputValue.Language_known.filter((items) => items != v)
         setuserInputValue({...userInputValue,Language_known:del})
     }
 
     const deletehobbies =((v) =>{
+        alert("Do you want to delete?")
         let del = userInputValue.hobbies.filter((items) => items != v)
         setuserInputValue({...userInputValue,hobbies:del})
     })
 
 
     const deleteWorkExp =((v) =>{
+        alert("Do you want to delete?")
         let del = userInputValue.workExperience.filter((items) => items != v)
         setuserInputValue({...userInputValue,workExperience:del})
     })
 
     const deletecourse =((v) =>{
+        alert("Do you want to delete?")
         let del = userInputValue.course.filter((items) => items != v)
         setuserInputValue({...userInputValue,course:del})
     })
