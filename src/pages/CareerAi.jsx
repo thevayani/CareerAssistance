@@ -80,7 +80,7 @@ function CareerAi(){
             const prompt  = `based on my skills and my goals,place,salary,location,
             Provide careers and job roles well suited to a [insert a name]
             provide guidance format as HTML within <div> tag with Css and Bootstrap design and 
-            avoid below  key improvement explanation Output response will be HTML format only and avoid text which are placed outside HTML: 
+            avoid below  key improvement explanation Output response will be HTML format only and avoid text which are placed outside HTML and html tagn: 
               ${JSON.stringify(details)}`
 
                      // const prompt = `based on my skills and my goals 

@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@coreui/icons": "^3.0.1",
     "@google/generative-ai": "^0.23.0",
     "@reduxjs/toolkit": "^2.6.0",
     "axios": "^1.8.1",
