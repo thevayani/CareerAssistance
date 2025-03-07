@@ -45,7 +45,7 @@ function Register(){
 
            alert("ok")
         setUser({name:"",email:"",password:""})
-        //  navigate('/login')
+         navigate('/login')
         }
     }
     else{
