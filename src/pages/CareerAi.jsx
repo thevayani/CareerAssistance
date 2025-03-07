@@ -80,6 +80,7 @@ function CareerAi(){
             provide guidance format as HTML within <div> tag with Css and Bootstrap design and 
             avoid below  key improvement explanation: 
               ${JSON.stringify(details)}`
+
             // title: below Given title,
             // solution : below skills related solution`;
 
@@ -143,13 +144,16 @@ function CareerAi(){
       
     }}>
        <h1>Carrer Ai</h1>
-        <Button variant='primary' style={{marginLeft:"40px"}} onClick={run}>Click</Button>
 
 
       </Container>
       <div
           dangerouslySetInnerHTML={{__html: summary}}
+
+          
         />
+        <Button variant='primary' style={{marginLeft:"600px"}} onClick={run}>Regenerate</Button>
+
       {/* {summary.length === 0 ? (
           <h6>No Data..</h6>
         ) : (
