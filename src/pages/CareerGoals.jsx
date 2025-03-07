@@ -12,16 +12,24 @@ function CareerGoals() {
 
     const careerGlobalState = useSelector((state) => state.careerGoal.careerGoalUsers)
     const dispatch = useDispatch()
-    const [goalsQues, setgoalsQues] = useState({
-        question1: "what is your preferred work location?",
-        answer1: "",
-        question2: "what relevant certification do you hold?",
-        answer2: "",
-        question3: "period of time to get the job?",
-        answer3: "",
-        question4: "What is your salary range expectation?",
-        answer4: ""
-    })
+    const [goalsQues, setgoalsQues] = useState([
+        {
+            question: "what is your preferred work location?",
+            answer: ""
+        },
+        {
+            question: "what relevant certification do you hold?",
+            answer: ""
+        },
+        {
+            question: "Get a job within?",
+            answer: ""
+        },
+        {
+            question: "What is your salary range expectation?",
+            answer: ""
+        }
+    ])
 
     const [skillDetails, setSkillDetails] = useState([])
     const [goalsDetails, setGoalDetails] = useState({
@@ -30,6 +38,7 @@ function CareerGoals() {
         questions: [],
 
     })
+
 
 
 
@@ -50,38 +59,47 @@ function CareerGoals() {
 
     }
 
+    const handleQuestion = (index, value) => {
+        const updatedQuestions = [...goalsQues];
+        updatedQuestions[index].answer = value;
+        setgoalsQues(updatedQuestions);
+
+    };
+
     const submit = () => {
 
 
+//         const formData = new FormData();
+//         formData.append("goal", goalsDetails.goal);
+//         formData.append("skill", goalsDetails.skill);
+//         formData.append("questions", goalsDetails.questions);
 
-        if (goalsDetails.goal && goalsDetails.skill && goalsQues.answer1
-            && goalsQues.answer2 && goalsQues.answer3) {
-                
-            let question = [...goalsDetails.questions, goalsQues]
-            console.log(question)
-            setGoalDetails({ ...goalsDetails, questions: question });
+       
+// axios.post('',formData).then((res)=>{
+//     console.log(res)
+//   })
 
-            
+        if (goalsDetails.goal && goalsDetails.skill && goalsQues[0].answer
+            && goalsQues[1].answer && goalsQues[2].answer  && goalsQues[3].answer) {
+        
+       
 
-            let data = [...careerGlobalState, { ...goalsDetails, questions: question }];
-            dispatch(setCareerGoalUsers(data));
-            //console.log(data)
-            
-            alert("submitted")
-            setGoalDetails({goal:"",skill:"",questions:""})
-            setgoalsQues({   
-                question1: "what is your preferred work location?",
-                answer1: "",
-                question2: "what relevant certification do you hold?",
-                answer2: "",
-                question3: "period of time to get the job?",
-                answer3: "",
-                question4: "What is your salary range expectation?",
-                answer4: ""
+        let question = [...goalsDetails.questions, goalsQues]
+        console.log(question)
+        setGoalDetails({ ...goalsDetails, questions: goalsQues });
+        console.log(goalsDetails)
 
-            })
 
-            
+        // let data = [...careerGlobalState, {  ...goalsDetails, questions: goalsQues }];
+        // console .log(data)
+        // dispatch(setCareerGoalUsers(data));
+        //console.log(data)
+
+        alert("submitted")
+        // setGoalDetails({goal:"",skill:"",questions:""})
+        
+
+
 
 
         }
@@ -105,20 +123,32 @@ function CareerGoals() {
             <Button variant="info" onClick={addskill}>Add</Button>
         </div>
 
-        {goalsQues.question1}
-        <Form.Control type="text" value={goalsQues.answer1} onChange={(e) => setgoalsQues({ ...goalsQues, answer1: e.target.value })} required ></Form.Control>
+        {goalsQues.map((q, index) => (
+            <div>
+                {q.question}
+                <Form.Control type="text" value={q.answer} onChange={(e) => handleQuestion(index, e.target.value)} required />
+            </div>
+        ))}
 
-        {goalsQues.question2}
-        <Form.Control type="text" value={goalsQues.answer2} onChange={(e) => setgoalsQues({ ...goalsQues, answer2: e.target.value })} required></Form.Control>
+      
 
-        {goalsQues.question3}
-        <Form.Control type="text" value={goalsQues.answer3} onChange={(e) => setgoalsQues({ ...goalsQues, answer3: e.target.value })} required></Form.Control>
+
+        {/* {goalsQues[0].question}
+        <Form.Control type="text" value={goalsQues.answer}  onChange={(e) => setgoalsQues({...goalsQues[0], answer: e.target.value })} required ></Form.Control>  */}
+
+
+
+
+        {/* {goalsQues.question}
+        <Form.Control type="text" value={goalsQues.answer} onChange={(e) => setgoalsQues({ ...goalsQues, answer: e.target.value })} required></Form.Control>
+
+        {goalsQues.question}
+        <Form.Control type="text" value={goalsQues.answer} onChange={(e) => setgoalsQues({ ...goalsQues, answer: e.target.value })} required></Form.Control>
 
         {goalsQues.question4}
-        <Form.Control type="text" value={goalsQues.answer4} onChange={(e) => setgoalsQues({ ...goalsQues, answer4: e.target.value })} required></Form.Control>
+        <Form.Control type="text" value={goalsQues.answer} onChange={(e) => setgoalsQues({ ...goalsQues, answer: e.target.value })} required></Form.Control>  */}
 
         <Button variant="primary" onClick={submit}>Submit</Button>
-
     </div>
 }
 export default CareerGoals
