@@ -19,6 +19,7 @@ function PersonalDetails() {
     // const userGlobalState = useSelector((state) => state.userDetail.userList)
     const disPatch = useDispatch()
 
+    
     const [languageValue, setLangauageValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -34,9 +35,9 @@ function PersonalDetails() {
         place: ""
     });
 
-    useEffect (() =>{
-        getApi()
-    },[])
+    // useEffect (() =>{
+    //     getApi()
+    // },[])
 
 
 
@@ -59,59 +60,29 @@ function PersonalDetails() {
 
 
     const submitBtn = () => {
-        const initial = { fullname: "", fatherName: "", motherName: "", gender: "", dob: "", address: "", whether_employee: "", contact_number: "" }
 
-        // if(userInputValue.fullname&&userInputValue.fatherName&&userInputValue.motherName&&userInputValue.gender&&userInputValue.dob&&userInputValue.address&&userInputValue.Language_known&&userInputValue.hobbies&&userInputValue.course&&userInputValue.workExperience&&userInputValue.whether_employee&&userInputValue.contact_number){
-        //     alert("please fill the Form")
-        // } 
- 
-                // let duplicate = false
-
-                // userGlobalState.forEach((v) => {
-                //     if (v.fullname == userInputValue.fullname) {
-                //         duplicate = true
-                //     }
-                // })
-
-                // if (duplicate) {
-                //     alert("its already here..")
-                // }
-                // if(userInputValue.fullname.trim() ||
-                //     userInputValue.fatherName.trim()||
-                //     userInputValue.motherName.trim()||
-                //     userInputValue.gender.trim()||
-                //     userInputValue.dob.trim()||
-                //     userInputValue.address.trim() ||
-                //     userInputValue.contact_number.trim()){
-                //     alert("please fill all details");
-                //     return;
-                // }
-                // else if (userInputValue.fullname == "" ||
-                //     userInputValue.fatherName == "" ||
-                //     userInputValue.motherName == "" ||
-                //     userInputValue.gender == "" ||
-                //     userInputValue.dob == "" ||
-                //     userInputValue.address == "" ||
-                //     userInputValue.contact_number == "") {
-                //     alert("please enter the value")
-                // }
-                // else {
-                    // alert("Successfully submitted..")
-                    // let userData = [...userGlobalState, userInputValue]
-                    // disPatch(setUserList(userData))
-                    // console.log(userData)
-                    // setuserInputValue(initial)
-
-
+       
+                if (userInputValue.fullname == "" ||
+                    userInputValue.fatherName == "" ||
+                    userInputValue.motherName == "" ||
+                    userInputValue.gender == "" ||
+                    userInputValue.dob == "" ||
+                    userInputValue.address == "" ||
+                    userInputValue.contact_number == "") {
+                    alert("please enter the value")
+                }
+                else {
+                  
+                   
                     const formData = new FormData();
                     formData.append("user_id",4);
                     formData.append("data",JSON.stringify(userInputValue))
 
                     axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
-                    console.log(res)
+                        console.log(res)
                     });
 
-                // }
+                }
     }
 
     const getApi = () => {
@@ -120,14 +91,8 @@ function PersonalDetails() {
         let getData = res.data.data.data
         console.log(getData)
         setuserInputValue(JSON.parse(getData))
-        // setLangauageValue(JSON.parse(getData).Language_known)
-        // setHobbiesValue(JSON.parse(getData).hobbies)
-        // setCourseValue(JSON.parse(getData).course)
-        // setWorkExp_Value(JSON.parse(getData).workExperience)
-        // console.log(languageValue)
-
+        
         });
-
     }
 
 
@@ -188,7 +153,6 @@ function PersonalDetails() {
 
     const deletehobbies =((v) =>{
         let del = userInputValue.hobbies.filter((items) => items != v)
-        console.log(del)
         setuserInputValue({...userInputValue,hobbies:del})
     })
 
@@ -213,25 +177,18 @@ function PersonalDetails() {
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "1400px",
+            height: "1300px",
         }
     }>
-        <Navbar bg='dark' data-bs-theme="dark">
+        <Navbar bg='dark' data-bs-theme="dark" sticky>
         <Container className='mt-25'>
-            <Navbar.Brand href="#home"><h1>User Form</h1></Navbar.Brand>
-            <Nav className="ms-auto">
-                <Nav.Link href="/updateProfile"><h4>Update profile</h4></Nav.Link>
-            </Nav>  
+            <Navbar.Brand href="#home" style={{textAlign:"center",marginLeft:"440px"}}><h1>User Details</h1></Navbar.Brand>
+           
         </Container>
         </Navbar>
 
         <Container>
-            {/* <h1 style={{
-                textAlign: "center",
-                textShadow: "5px 8px #888888",
-                marginBottom: "0px",
-                color: "white"
-            }}>User Form</h1> */}
+            
             <Form style={
                 {
                     backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -381,20 +338,20 @@ function PersonalDetails() {
                                         }}
                                         placeholder="Hobbies" 
                                         required />
-                                        <ul style={{marginTop:"8px"}}>
-                                        {userInputValue.hobbies.map((v) =>
-                                                <li>{v}<CloseButton 
-                                                onClick={() => deletehobbies(v)}
-                                                style={
-                                                        {
-                                                            fontSize:"12px",
-                                                            marginLeft:"10px",
-                                                            backgroundColor:"Background"
-                                                        }
-                                                    } />
-                                            </li>)}
-                                        </ul>
-                                       
+                                      
+                                            <ul style={{marginTop:"10px"}}>
+                                            {userInputValue.hobbies.map((v) =>
+                                                    <li>{v}<CloseButton 
+                                                    onClick={() => deletehobbies(v)}
+                                                    style={
+                                                            {
+                                                                fontSize:"12px",
+                                                                marginLeft:"10px",
+                                                                backgroundColor:"Background"
+                                                            }
+                                                        } />
+                                                </li>)}
+                                            </ul>
                                          
                                 </Col>
                                 <Col sm="4">
