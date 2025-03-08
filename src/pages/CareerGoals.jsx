@@ -1,17 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState,useEffect} from "react";
 import axios from 'axios';
-import { setCareerGoalUsers } from '../redux/slices/careergoal';
-import { useSelector, useDispatch } from 'react-redux';
-
 
 
 function CareerGoals() {
 
-    const careerGlobalState = useSelector((state) => state.careerGoal.careerGoalUsers)
-    const dispatch = useDispatch()
+   
+
     const [goalsQues, setgoalsQues] = useState([
         {
             question: "what is your preferred work location?",
@@ -39,6 +35,10 @@ function CareerGoals() {
 
     })
 
+    useEffect(() => {
+        getApi()
+    }, [])
+
 
 
 
@@ -51,67 +51,89 @@ function CareerGoals() {
         else {
             setSkillDetails("")
             let value = [skillDetails]
-            //console.log(value)
-            let skills = [...goalsDetails.skill, ...value]
+            console.log(value)
+            let skills = [...goalsDetails.skill,...value]
             setGoalDetails({ ...goalsDetails, skill: skills })
         }
 
 
     }
 
+    const deleteBtn = (v) => {
+        alert("do you want to delete?")
+        let del = goalsDetails.skill.filter((items) => items != v)
+        setGoalDetails({ ...goalsDetails, skill: del })
+    }
+    
+
     const handleQuestion = (index, value) => {
         const updatedQuestions = [...goalsQues];
+        
         updatedQuestions[index].answer = value;
-        setgoalsQues(updatedQuestions);
+        setGoalDetails({...goalsDetails, questions: updatedQuestions });
+ };
 
-    };
+ 
+    
 
+    
     const submit = () => {
 
 
-//         const formData = new FormData();
-//         formData.append("goal", goalsDetails.goal);
-//         formData.append("skill", goalsDetails.skill);
-//         formData.append("questions", goalsDetails.questions);
+        const formData = new FormData();
+        formData.append("user_id", 4);
+        formData.append("data", JSON.stringify(goalsDetails));
+
+        axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_goals', formData).then((res) => {
+            // console.log(res)
+        })
 
        
-// axios.post('',formData).then((res)=>{
-//     console.log(res)
-//   })
 
         if (goalsDetails.goal && goalsDetails.skill && goalsQues[0].answer
-            && goalsQues[1].answer && goalsQues[2].answer  && goalsQues[3].answer) {
-        
-       
+            && goalsQues[1].answer && goalsQues[2].answer && goalsQues[3].answer) {
 
-        let question = [...goalsDetails.questions, goalsQues]
-        console.log(question)
-        setGoalDetails({ ...goalsDetails, questions: goalsQues });
-        console.log(goalsDetails)
+                console.log(goalsDetails)
+                setGoalDetails({goal:""})
 
-
-        // let data = [...careerGlobalState, {  ...goalsDetails, questions: goalsQues }];
-        // console .log(data)
-        // dispatch(setCareerGoalUsers(data));
-        //console.log(data)
-
-        alert("submitted")
-        // setGoalDetails({goal:"",skill:"",questions:""})
-        
-
-
-
-
-        }
-        else {
+             
+           
+            setgoalsQues([
+                {
+                    question: "what is your preferred work location?",
+                    answer: ""
+                },
+                {
+                    question: "what relevant certification do you hold?",
+                    answer: ""
+                },
+                {
+                    question: "Get a job within?",
+                    answer: ""
+                },
+                {
+                    question: "What is your salary range expectation?",
+                    answer: ""
+                }
+            ])
+            alert("submitted")
+         }
+        else{
             alert("Please fillup")
         }
     }
 
+    const getApi = () => {
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=4')
+            .then((res) => {
+                let getData = res.data.data.data
+                setGoalDetails(JSON.parse(getData))
+                console.log(getData)
 
+            })
+        }
 
     return <div>
-        <small>{JSON.stringify(goalsDetails)}</small>
         <h1>Career Goal</h1>
 
         Enter your Goal:
@@ -120,35 +142,24 @@ function CareerGoals() {
         skill:
         <div>
             <Form.Control type="text" value={skillDetails} onChange={(e) => setSkillDetails(e.target.value)} required ></Form.Control>
+            <ul>
+                                    {goalsDetails.skill?.map((v) =>
+                                        <li>{v}<Button onClick={()=> deleteBtn(v)}>delete</Button></li>
+                                    )}
+                                </ul>
+           
             <Button variant="info" onClick={addskill}>Add</Button>
+            
         </div>
 
         {goalsQues.map((q, index) => (
             <div>
                 {q.question}
-                <Form.Control type="text" value={q.answer} onChange={(e) => handleQuestion(index, e.target.value)} required />
+                <Form.Control type="text" value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value)} required />
             </div>
         ))}
 
-      
-
-
-        {/* {goalsQues[0].question}
-        <Form.Control type="text" value={goalsQues.answer}  onChange={(e) => setgoalsQues({...goalsQues[0], answer: e.target.value })} required ></Form.Control>  */}
-
-
-
-
-        {/* {goalsQues.question}
-        <Form.Control type="text" value={goalsQues.answer} onChange={(e) => setgoalsQues({ ...goalsQues, answer: e.target.value })} required></Form.Control>
-
-        {goalsQues.question}
-        <Form.Control type="text" value={goalsQues.answer} onChange={(e) => setgoalsQues({ ...goalsQues, answer: e.target.value })} required></Form.Control>
-
-        {goalsQues.question4}
-        <Form.Control type="text" value={goalsQues.answer} onChange={(e) => setgoalsQues({ ...goalsQues, answer: e.target.value })} required></Form.Control>  */}
-
-        <Button variant="primary" onClick={submit}>Submit</Button>
+ <Button variant="primary" onClick={submit}>Submit</Button>
     </div>
 }
 export default CareerGoals
