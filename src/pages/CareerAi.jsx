@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 
 function CareerAi(){
 
+  const [generate,setRegenerate] = useState("generate")
   const [loading, setLoading] = useState(false);
 
   const[summary,setSummary] = useState("")
@@ -80,13 +81,13 @@ function CareerAi(){
             const prompt  = `based on my skills and my goals,place,salary,location,
             Provide careers and job roles well suited to a [insert a name]
             provide guidance format as HTML within <div> tag with Css and Bootstrap design and 
-            avoid below  key improvement explanation Output response will be HTML format only and avoid text which are placed outside HTML and html tagn: 
+            avoid below  key improvement explanation Output response will be HTML format only and avoid text which are placed outside HTML and html tag also : 
               ${JSON.stringify(details)}`
 
                      // const prompt = `based on my skills and my goals 
             //       what career paths should I consider and what steps should I take to reach that goal?
             //      provide guidance format as HTML within <div> tag with Css and Bootstrap design 
-            //      not to show HTML structure & best practise & Key improvements in this version:
+            //      not to show HTML structure & best practise & Key improvements in this version
             //        ${JSON.stringify(details)}`;
 
           
@@ -99,6 +100,7 @@ function CareerAi(){
           
             setSummary(responseText);
             setLoading(false)
+            setRegenerate("upDate")
   }
        
     
@@ -111,26 +113,38 @@ function CareerAi(){
     
       marginTop:"20px"
     }}>
-       <h1>Carrer Ai</h1>
+       <h1 style={{textAlign:"center"}}>Carrer Ai Guidance</h1>
       </Container>
-      <div
-          dangerouslySetInnerHTML={{__html: summary}}
-
-        />
-        <Button variant='primary' style={{marginLeft:"600px"}} disabled = {loading} onClick={run}>
+     
+       {generate == "generate" ? <Button variant='primary' style={{marginLeft:"610px"}} disabled = {loading} onClick={run}>
           {loading ? 
               (
           <>
-          <Spinner animation="border"  size='sm' variant="danger" />Generating...
+          <Spinner animation="border"  size='sm' style={{marginRight:"10px"}} variant="light" />Generating...
           </>
               ): (
               "Generate tips.."
               )
           }
           
-        </Button>
+        </Button>:
+        <Button variant='primary' style={{marginLeft:"600px"}} onClick={run}>
+          {loading == false ? (
+            "Re-generate" 
+           ) :
+          (
+            <>
+            <Spinner animation="border"  size='sm' style={{marginRight:"10px"}} variant="light" />Generating...
+            </>
+          )
+        }
+          </Button>
+      }
 
-     
+        <div
+             dangerouslySetInnerHTML={{__html: summary}}
+        />
+
     </div>
 }
 
