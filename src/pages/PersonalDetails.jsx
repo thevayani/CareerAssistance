@@ -1,3 +1,6 @@
+
+
+
 import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -35,8 +38,6 @@ function PersonalDetails() {
         getApi()
     },[])
 
-
-
     const [userInputValue, setuserInputValue] = useState(
         {
             fullname: "",
@@ -57,19 +58,15 @@ function PersonalDetails() {
 
     const submitBtn = () => {
 
-                if(!userInputValue.fullname.trim()||
-                !userInputValue.fatherName.trim()||
-                !userInputValue.motherName.trim()||
-                !userInputValue.gender.trim()||
-                !userInputValue.dob.trim()||
-                !userInputValue.address.trim()||
-                !userInputValue.contact_number.trim()
-                ){
-                    alert("please fill details")
-                }
+                // let fullname = userInputValue.fullname.trim()
+                // let fatherName =userInputValue.fatherName.trim()
+                // let motherName =  userInputValue.motherName.trim()
+                // let address =  userInputValue.address.trim()
+                // let contact_number  = userInputValue.contact_number.trim()
+                
 
        
-                else if (userInputValue.fullname == "" ||
+                if (userInputValue.fullname == "" ||
                     userInputValue.fatherName == "" ||
                     userInputValue.motherName == "" ||
                     userInputValue.gender == "" ||
@@ -136,7 +133,7 @@ function PersonalDetails() {
         if (!workExp_Value.companyName.trim() || !workExp_Value.institudeName.trim() || !workExp_Value.year.trim()) {
             alert("please recorrect the value")
         }
-        if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
+        else if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
             alert("please enter the value")
         }
         else {
@@ -191,9 +188,6 @@ function PersonalDetails() {
     })
 
 
-
-
-
     return <div style={
         {
             backgroundImage: `url(${react})`,
@@ -239,7 +233,7 @@ function PersonalDetails() {
                                     type="text"
                                     required 
                                     value={userInputValue.fullname}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, fullname: e.target.value })}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, fullname: e.target.value.trim()})}
                                     placeholder="Enter full Name"
                                    />
                             </Col>
@@ -258,7 +252,7 @@ function PersonalDetails() {
                                     }}
                                     type="text"
                                     value={userInputValue.fatherName}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, fatherName: e.target.value })}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, fatherName: e.target.value.trim() })}
                                     placeholder="Enter Father Name" 
                                     required />
                             </Col>
@@ -277,7 +271,7 @@ function PersonalDetails() {
                                     }}
                                     type="text"
                                     value={userInputValue.motherName}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, motherName: e.target.value })}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, motherName: e.target.value.trim() })}
                                     placeholder="Enter Mother Name" 
                                     required />
                             </Col>
@@ -323,6 +317,7 @@ function PersonalDetails() {
                                     placeholder="Enter full Name" />
                             </Col>
                         </Form.Group>
+                        
 
 
                         <Form.Group as={Row} className="mb-3"   >
@@ -337,7 +332,7 @@ function PersonalDetails() {
                                         color: "white",
                                         height: "70px"
                                     }}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, address: e.target.value })}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, address: e.target.value.trim() })}
                                     value={userInputValue.address}
                                     placeholder="Leave a comment here" 
                                     required />
@@ -352,7 +347,7 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        onChange={(e) => setHobbiesValue(e.target.value)}
+                                        onChange={(e) => setHobbiesValue(e.target.value.trim())}
                                         value={hobbiesValue}
                                         style={{
                                             backgroundColor: "inherit",
@@ -398,7 +393,7 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        onChange={(e) => setLanguageValue(e.target.value)}
+                                        onChange={(e) => setLanguageValue(e.target.value.trim())}
                                         value={languageValue}
                                         style={{
                                             backgroundColor: "inherit",
@@ -470,7 +465,7 @@ function PersonalDetails() {
                                 <Form.Control
                                     type="number"
                                     value={userInputValue.contact_number}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, contact_number: e.target.value})}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, contact_number: e.target.value.trim()})}
                                     style={{
                                         backgroundColor: "inherit",
                                         border: "1px solid black",
@@ -501,7 +496,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="text"
                                         value={workExp_Value.companyName}
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value,companyName: e.target.value })}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value,companyName: e.target.value.trim() })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
@@ -524,7 +519,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="text"
                                         value={workExp_Value.institudeName}
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, institudeName: e.target.value })}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, institudeName: e.target.value.trim() })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
@@ -545,7 +540,7 @@ function PersonalDetails() {
                                 </Col>
                                 <Col sm="3">
                                     <Form.Control
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, year: e.target.value })}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, year: e.target.value.trim() })}
                                         type="number"
                                         value={workExp_Value.year}
                                         style={{
@@ -609,7 +604,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="text"
                                         value={courseValue.courseName}
-                                        onChange={(e) => setCourseValue({ ...courseValue, courseName: e.target.value })}
+                                        onChange={(e) => setCourseValue({ ...courseValue, courseName: e.target.value.trim() })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
@@ -632,7 +627,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="text"
                                         value={courseValue.institudeName}
-                                        onChange={(e) => setCourseValue({ ...courseValue, institudeName: e.target.value })}
+                                        onChange={(e) => setCourseValue({ ...courseValue, institudeName: e.target.value.trim() })}
                                         style={
                                             {
                                                 backgroundColor: "inherit",
@@ -657,7 +652,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="number"
                                         value={courseValue.year}
-                                        onChange={(e) => setCourseValue({ ...courseValue, year: e.target.value })}
+                                        onChange={(e) => setCourseValue({ ...courseValue, year: e.target.value.trim() })}
                                         style={
                                             {
                                                 backgroundColor: "inherit",
@@ -683,7 +678,7 @@ function PersonalDetails() {
                                     <Form.Control
                                         type="text"
                                         value={courseValue.place}
-                                        onChange={(e) => setCourseValue({ ...courseValue, place: e.target.value })}
+                                        onChange={(e) => setCourseValue({ ...courseValue, place: e.target.value.trim() })}
                                         style={
                                             {
                                                 backgroundColor: "inherit",
