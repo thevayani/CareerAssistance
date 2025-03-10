@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Row, Col, Button,Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import image from '../assets/image.jpg'
 
 
 function Home() {
@@ -47,20 +48,33 @@ function Home() {
   }
 
   return (
-    <div>
+    <div style={
+      {
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          height: "1100px",
+      }}>
       <h3 style={{ textAlign: "center" }}>My Profile</h3>
 
       <div>
+
         <Row>
           <Col sm="6">
-            <div style={{ width: "80%", height: "100%" }}>
-              <Table striped bordered hover style={{
-                borderCollapse: "collapse", marginLeft: "80px", marginTop: "50px",
-                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
+                <h4>Personal Details</h4>
+            <div>
+              <table style={{
+                borderCollapse: "collapse", marginLeft: "80px", marginTop: "20px",
+                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
+                backgroundColor:"inherit", width: "80%", height: "325px"
               }}>
-                <thead >
+                <thead style={
+                  {
+                    backgroundColor:"teal",
+                  }
+                }>
                   <tr>
-                    <th>Key</th>
+                    <th style={{marginLeft:"29px"}}>Key</th>
                     <th>Value</th>
                   </tr>
                 </thead>
@@ -94,22 +108,27 @@ function Home() {
                     <td>{inputValue.contact_number}</td>
                   </tr>
                 </tbody>
-              </Table>
+              </table>
             </div>
           </Col>
 
 
           <Col sm="6">
-            <div>
+          
+          <div>
+          <h4>Hobbies & Languages</h4>
               <div style={{
-                marginLeft: "7%", width: "80%", height: "325px", borderRadius: "1px",
-                boxShadow: "0 0 10px black"
+                 marginLeft: "40px", width: "80%", height: "325px", borderRadius: "1px",
+                boxShadow: "0 0 10px black",
+                backgroundColor:"white"
               }}>
-                <div style={{ marginLeft: "30%", marginTop: "50px", padding: "30px" }}>
+                
+                <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px" }}>
+                  
                   <Col sm="3">
                     <div>
                       <h4>Hobbies</h4>
-                      <ul>
+                      <ul style={{listStyleType:"square"}}>
                         {inputValue.hobbies?.map((v) => <li>
                           {v}
                         </li>
@@ -121,7 +140,7 @@ function Home() {
                   <Col sm="3">
                     <div>
                       <h4>Language</h4>
-                      <ul>
+                      <ul style={{listStyleType:"square"}}>
                         {inputValue.Language_known?.map((v) => <li>
                           {v}
                         </li>
@@ -137,12 +156,44 @@ function Home() {
 
         <Row>
           <Col sm="6">
+          <div>
+          <h5 style={{
+              marginTop: "10px",
+              marginBottom: "20px",
+            }}>Work Experience</h5>
+              <table striped bordered hover style={{
+                marginLeft: "80px", marginTop: "5%", width: "80%",marginTop: "1%",
+                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
+              }}>
+                <thead>
+                  <tr>
+                    <th>companyName</th>
+                    <th>instituteName</th>
+                    <th>Year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {inputValue.workExperience?.map((workExperience) => (
+                    <tr >
+                      <td>{workExperience.companyName}</td>
+                      <td>{workExperience.institudeName}</td>
+                      <td>{workExperience.year}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            </Col>
+
+
+          <Col sm="6">
+
             <h5 style={{
               marginTop: "10px",
               marginBottom: "20px",
             }}>Course Details</h5>
-            <Table striped bordered hover style={{
-              marginLeft: "80px", marginTop: "1%", width: "80%",
+            <table striped bordered hover style={{
+              marginLeft: "40px", marginTop: "1%", width: "80%",
               boxShadow: "0 0 10px black"
             }}>
               <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px" }}>
@@ -163,94 +214,92 @@ function Home() {
                   </tr>
                 ))}
               </tbody>
-            </Table>
-          </Col>
+            </table>
 
-
-          <Col sm="6">
-            <div>
-              <h5>Work Experience Details</h5>
-              <Table striped bordered hover style={{
-                marginLeft: "40px", marginTop: "5%", width: "80%",
-                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
-              }}>
-                <thead>
-                  <tr>
-                    <th>companyName</th>
-                    <th>instituteName</th>
-                    <th>Year</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {inputValue.workExperience?.map((workExperience) => (
-                    <tr >
-                      <td>{workExperience.companyName}</td>
-                      <td>{workExperience.institudeName}</td>
-                      <td>{workExperience.year}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
           </Col>
         </Row>
       </div>
 
 
 
+     <Row>
+        <Col sm = "6">
+                 <div>
+            <h4>Question:</h4>
+              <div style={{
+                    marginLeft: "80px", marginTop: "20px", width: "80%",height:"300px",
+                    borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",backgroundColor:"white"
 
-      <div>
-        <h5>User Goal</h5>
-        <input
-          type="text" placeholder="Enter Goal" value={goalValue.goal} onChange={(e) => setGoalValue({ ...goalValueoal, goal: e.target.value })}
-        />
-      </div>
-
-
-      <div style={{ marginLeft: "0%", padding: "20px" }}>
-        <Col sm="3">
-          <div>
-            <h4>Skills</h4>
-            <ul>
-              {goalValue.skill?.map((v) => <li>
-                {v}
-              </li>
-              )}
-            </ul>
-          </div>
-        </Col>
-      </div>
-
-
-      <div>
-        <Col sm="6">
-      <h4>Question:</h4>
-          <div style={{
-                marginLeft: "20px", marginTop: "5%", width: "70%",
-                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
-              }}>
-              {goalValue.questions?.map((v) => 
-              <ul>
-                <h6><li style={{listStyleType:"none",color:"black",textAlign:"center"}}>
-                  {v.question}
-                </li></h6>
-                <li style={{listStyleType:"none",textAlign:"center"}}>
-                  {v.answer}
+                  }}>
+                  {goalValue.questions?.map((v) => 
+                  <ul>
+                    <h6><li style={{listStyleType:"none",color:"black",textAlign:"center"}}>
+                      {v.question}
+                    </li></h6>
+                    <li style={{listStyleType:"none",textAlign:"center"}}>
+                      {v.answer}
+                      </li>
+                  </ul>
+                  )}         
+                <ul>
+                  {goalValue.answer?.map((v,index) => <li>
+                    {v}
                   </li>
-              </ul>
-              )}         
-            <ul>
-              {goalValue.answer?.map((v,index) => <li>
-                {v}
-              </li>
-              )}
-            </ul>  
+                  )}
+                </ul>  
+              </div>
             </div>
-      </Col>
-        </div>
-      <div>
+        </Col>
+          <Col sm="6">
+          <h4>Skils & Goals</h4>
+
+          <div style={
+            {
+                marginLeft: "40px",
+                marginTop: "20px", 
+                width: "80%",
+                height:"300px",
+                borderRadius: "5px 5px 0 0", 
+                boxShadow: "0 0 10px black",
+                padding:"25px",
+                backgroundColor:"white"
+                }}>
+                   <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px",listStyleType:"square" }}>
+                      <h5>Goal</h5>
+                        <ul style={{ listStyleType:"square"}} >
+                            <li>{goalValue.goal}</li>
+                        </ul>
+        
+                  
+                        <div>
+                          <h5>Skils</h5>
+                              <ul style={{ listStyleType:"square"}} >
+                                  {goalValue.skill?.map((v) => <li>
+                                    {v}
+                                  </li>
+                                  )}
+                            </ul>
+                        </div>
+                     </div>
+                  </div>
+          </Col>
+      </Row>           
+      
+
+
+      
+      <div style={
+                    {
+                    textAlign:"center",
+                    marginTop:"30px"
+                    }
+                  } >
       <Button variant="primary" onClick={submit}>Ask Guidance</Button>
-        <Button variant="dark" onClick={save}>Update</Button>
+        <Button style={
+                        {
+                        marginLeft:"20px"
+                        }
+                     } variant="dark" onClick={save}>Update</Button>
       </div>
     </div>
   )
