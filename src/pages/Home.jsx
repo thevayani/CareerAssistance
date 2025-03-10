@@ -197,6 +197,8 @@ function Home() {
       </div>
 
 
+
+
       <div>
         <h5>User Goal</h5>
         <input
@@ -234,9 +236,9 @@ function Home() {
                 </li></h6>
                 <li style={{listStyleType:"none",textAlign:"center"}}>
                   {v.answer}
-                </li>
+                  </li>
               </ul>
-              )}
+              )}         
             <ul>
               {goalValue.answer?.map((v,index) => <li>
                 {v}
