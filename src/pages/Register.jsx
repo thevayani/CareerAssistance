@@ -2,14 +2,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
 import{useState} from "react";
 import{useNavigate} from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import image from '../assets/design.jpeg';
+import image from '../assets/image2.jpg';
 import axios from 'axios';
 
 
 function Register(){
     const navigate=useNavigate()
-    const dispatch=useDispatch()
 
 
     const[user,setUser]=useState({
@@ -18,29 +16,31 @@ function Register(){
         password:""
     })
     const submit=()=>{
-        const formData = new FormData();
-        formData.append("name",user.name);
-        formData.append("email",user.email);
-        formData.append("password",user.password);
-            axios.post("https://agaram.academy/api/b4/action.php?request=ai_carrier_user_register",formData)
-            .then((res)=>{
-                console.log(res)
-            })
+       
 
-            if(!user.name.trim()|| 
-                !user.email.trim()||
-                !user.password.trim()){
+            if(!user?.name?.trim()|| 
+                !user?.email?.trim()||
+                !user?.password?.trim()){
                     alert("Please fill the input value")
+                     return
                 }
 
-        else if(user.name && user.email && user.password){ 
-           alert("Register Success")
-        setUser({name:"",email:"",password:""})
-         navigate('/login')
-    }
-    else{
-        alert("please fillup")
-    }
+                else if(user.name && user.email && user.password){ 
+                    alert("Register Success")
+                    const formData = new FormData();
+                    formData.append("name",user.name);
+                    formData.append("email",user.email);
+                    formData.append("password",user.password);
+                        axios.post("https://agaram.academy/api/b4/action.php?request=ai_carrier_user_register",formData)
+                        .then((res)=>{
+                            console.log(res)
+                        })
+                    setUser({name:"",email:"",password:""})
+                    navigate('/login')
+                 }
+                 else{
+                    alert("Please fill up")
+                 }
 }
 
     return <div style={
@@ -65,7 +65,7 @@ function Register(){
         <Form style={
             
                 {
-                    backgroundColor: "rgba(163, 24, 66, 0.22)",
+                    backgroundColor: "rgba(24, 154, 163, 0.22)",
                     WebkitBackdropFilter: "blur(5px)",
                     backdropFilter: "blur(5px)",
                     marginTop: "20px",
@@ -73,7 +73,7 @@ function Register(){
                     borderRadius: "45px",
                     marginRight: "20px",
                     marginTop : "70px",
-                    boxShadow: "6px 8px rgb(12, 9, 1)"
+                    boxShadow: "6px 8px rgba(12, 9, 1, 0.98)"
                 }
 
         
