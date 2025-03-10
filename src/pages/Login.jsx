@@ -1,9 +1,10 @@
 
-import { useState} from 'react';
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form} from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import image from '../assets/image.jpg'
 
 
 function Login() {
@@ -48,18 +49,41 @@ function Login() {
 
     }
 
-    return <div>
+    return <div style={
+        {
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            height: "750px",
+        }
+    }>
 
-        Email:
+        <h1 style={{ textAlign: "center" }}>Login</h1>
 
-        <Form.Control type="email" placeholder="Enter emailid" value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
+        <div style={{
+            backgroundColor: "rgba(163, 24, 91, 0.27)",
+            width: "500px",
+            marginLeft: "350px",
+            borderRadius: "15px",
+            marginLeft: "500px",
+            marginTop: "60px",
+            background: "transparent",
+            boxShadow: "0 0 10px"
+        }}>
 
-        Password:
+            <Form style={{ padding: "45px" }}>
 
-        <Form.Control type="password" placeholder="Enter password" value={loginDetails.password} onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
+                Email:
 
-        <Button variant="success" onClick={Save}>Save</Button>
+                <Form.Control type="email" placeholder="Enter emailid"  style={{ marginTop: "10px", marginBottom: "16px" }} value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
 
+                Password:
+
+                <Form.Control type="password"  style={{marginTop: "10px",marginBottom: "16px"}}placeholder="Enter password" value={loginDetails.password} onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
+
+                <Button variant="success"  style={{ textAlign: "center", marginLeft: "170px", marginTop: "20px" }} onClick={Save}>Save</Button>
+            </Form>
+        </div>
     </div>
 }
 
