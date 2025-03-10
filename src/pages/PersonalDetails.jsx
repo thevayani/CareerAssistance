@@ -8,15 +8,13 @@ import { cilTrash } from '@coreui/icons';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import axios from 'axios'
 
 function PersonalDetails() {
 
-    const disPatch = useDispatch();
-
+    // const navigate =  useNavigate()
     
     const [languageValue, setLanguageValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
@@ -89,6 +87,7 @@ function PersonalDetails() {
                     axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
                         console.log(res)
                     });
+                    // navigate("/home")
                 }
     }
 
@@ -206,7 +205,7 @@ function PersonalDetails() {
     }>
         <Navbar bg='dark' data-bs-theme="dark" sticky>
         <Container className='mt-25'>
-            <Navbar.Brand href="#home" style={{textAlign:"center",marginLeft:"440px"}}>User Details</Navbar.Brand>
+            <Navbar.Brand href="#home" style={{textAlign:"center",marginLeft:"440px"}}><h2>User Details</h2></Navbar.Brand>
            
         </Container>
         </Navbar>
