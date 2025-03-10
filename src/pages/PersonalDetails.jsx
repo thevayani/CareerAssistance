@@ -100,11 +100,8 @@ function PersonalDetails() {
 
 
     const addLanguage = (() => {
-        if (!languageValue.trim()) {
-            alert("please fill the details")
-        }
-
-        else if (languageValue == "") {
+       
+        if (languageValue == "") {
             alert("please enter the value")
         } else {
             let lang = [languageValue]
@@ -116,10 +113,8 @@ function PersonalDetails() {
 
 
     const addhobbies = () => {
-        if (!hobbiesValue.trim()) {
-            alert("please recorrect the details")
-        }
-        else if (hobbiesValue == "") {
+      
+        if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
             let x = [hobbiesValue]
@@ -130,10 +125,8 @@ function PersonalDetails() {
     }
 
     const addWork_exp = () => {
-        if (!workExp_Value.companyName.trim() || !workExp_Value.institudeName.trim() || !workExp_Value.year.trim()) {
-            alert("please recorrect the value")
-        }
-        else if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
+       
+        if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
             alert("please enter the value")
         }
         else {
@@ -147,11 +140,9 @@ function PersonalDetails() {
 
 
     const addCourseBtn = () => {
-        if (!courseValue.courseName.trim() || !courseValue.institudeName.trim() || !courseValue.year.trim() || !courseValue.place.trim()) {
-            alert("please fill the details")
-        }
+       
 
-        else if (courseValue.courseName == "" || courseValue.institudeName == "" || courseValue.year == "" || courseValue.place == "") {
+        if (courseValue.courseName == "" || courseValue.institudeName == "" || courseValue.year == "" || courseValue.place == "") {
             alert("please enter the value")
         } else {
             let education = [courseValue]
