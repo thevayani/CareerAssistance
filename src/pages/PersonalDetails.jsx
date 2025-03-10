@@ -11,16 +11,14 @@ import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
-import { setUserList } from '../redux/slices/userDetails';
 import axios from 'axios'
 
 function PersonalDetails() {
 
-    // const userGlobalState = useSelector((state) => state.userDetail.userList)
-    const disPatch = useDispatch()
+    const disPatch = useDispatch();
 
     
-    const [languageValue, setLangauageValue] = useState([]);
+    const [languageValue, setLanguageValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
         companyName: "",
@@ -114,22 +112,22 @@ function PersonalDetails() {
             alert("please enter the value")
         } else {
             let lang = [languageValue]
-            let y = [...userInputValue.Language_known, ...lang]
+            let y = [...userInputValue?.Language_known, ...lang]
             setuserInputValue({ ...userInputValue, Language_known: y })
-            setLangauageValue("")
+            setLanguageValue("")
         }
     })
 
 
     const addhobbies = () => {
         if (!hobbiesValue.trim()) {
-            alert("please fill the details")
+            alert("please recorrect the details")
         }
         else if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
             let x = [hobbiesValue]
-            let y = [...userInputValue.hobbies,...x]
+            let y = [...userInputValue?.hobbies,...x]
             setuserInputValue({...userInputValue, hobbies: y})
             setHobbiesValue("")
         }
@@ -137,14 +135,14 @@ function PersonalDetails() {
 
     const addWork_exp = () => {
         if (!workExp_Value.companyName.trim() || !workExp_Value.institudeName.trim() || !workExp_Value.year.trim()) {
-            alert("please enter the value")
+            alert("please recorrect the value")
         }
         if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
             alert("please enter the value")
         }
         else {
             let workExp = [workExp_Value]
-            let y = [...userInputValue.workExperience,...workExp]
+            let y = [...userInputValue?.workExperience,...workExp]
             setuserInputValue({ ...userInputValue, workExperience: y })
 
             setWorkExp_Value({ companyName: "", institudeName: "", year: "" })
@@ -161,7 +159,7 @@ function PersonalDetails() {
             alert("please enter the value")
         } else {
             let education = [courseValue]
-            let y = [...userInputValue.course,...education]
+            let y = [...userInputValue?.course,...education]
             setuserInputValue({ ...userInputValue, course: y })
 
             setCourseValue({ courseName: "", institudeName: "", year: "", place: "" })
@@ -208,13 +206,12 @@ function PersonalDetails() {
     }>
         <Navbar bg='dark' data-bs-theme="dark" sticky>
         <Container className='mt-25'>
-            <Navbar.Brand href="#home" style={{textAlign:"center",marginLeft:"440px"}}><h1>User Details</h1></Navbar.Brand>
+            <Navbar.Brand href="#home" style={{textAlign:"center",marginLeft:"440px"}}>User Details</Navbar.Brand>
            
         </Container>
         </Navbar>
 
         <Container>
-            
             <Form style={
                 {
                     backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -231,7 +228,7 @@ function PersonalDetails() {
                     <Col sm="6">
                         <Form.Group as={Row} className="mb-3"   >
                             <Form.Label column sm="3">
-                                <h5>Full Name</h5>
+                                Full Name
                             </Form.Label>
                             <Col sm="8">
                                 <Form.Control
@@ -366,7 +363,7 @@ function PersonalDetails() {
                                         required />
                                       
                                             <ul style={{marginTop:"10px"}}>
-                                            {userInputValue.hobbies.map((v) =>
+                                            {userInputValue.hobbies?.map((v) =>
                                                     <li>{v}<CloseButton 
                                                     onClick={() => deletehobbies(v)}
                                                     style={
@@ -402,7 +399,7 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        onChange={(e) => setLangauageValue(e.target.value)}
+                                        onChange={(e) => setLanguageValue(e.target.value)}
                                         value={languageValue}
                                         style={{
                                             backgroundColor: "inherit",
@@ -585,7 +582,7 @@ function PersonalDetails() {
                                      </tr>
                                 </thead>
                                 <tbody>
-                                    {userInputValue.workExperience.map((v,i) => <tr>
+                                    {userInputValue.workExperience?.map((v,i) => <tr>
                                         <td>{i+1}</td>
                                         <td>{v.companyName}</td>
                                         <td>{v.institudeName}</td>
@@ -727,7 +724,7 @@ function PersonalDetails() {
                                      </tr>
                                 </thead>
                                 <tbody>
-                                    {userInputValue.course.map((v,i) => <tr>
+                                    {userInputValue.course?.map((v,i) => <tr>
                                         <td>{i+1}</td>
                                         <td>{v.courseName}</td>
                                         <td>{v.institudeName}</td>
