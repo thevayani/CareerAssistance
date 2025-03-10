@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import { useState,useEffect} from "react";
 import axios from 'axios';
-
+import image from '../assets/flower.jpg'
 
 function CareerGoals() {
 
@@ -133,38 +133,63 @@ function CareerGoals() {
             })
         }
 
-    return <div>
-        <h1>Career Goal</h1>
+    return <div  style={
+        {
+            backgroundImage:   `url(${image})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            height: "750px",
+        }
+    }>
+        <h1 style={{ textAlign: "center", color:"black"}}>Career Goal</h1>
 
-        Enter your Goal:
-        <Form.Control type="text" value={goalsDetails.goal} onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value })} required  ></Form.Control>
+        <div style={{
+            backgroundColor: "rgb(24, 163, 161)",
+            width: "500px",
+            marginLeft: "350px",
+            borderRadius: "15px",
+            marginLeft: "400px",
+            marginTop: "50px",
+            background: "transparent",
+            boxShadow: "0 0 10px",
+            padding:"30px"
 
-        skill:
+        }}>
+
+        <h5 style={{ textAlign: "left", color:"black", marginLeft: "25px"}}>Enter your Goal:</h5>
+        <Form.Control type="text" value={goalsDetails.goal} onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trim() })} required  ></Form.Control>
+
+        <h5 style={{ textAlign: "left", color:"black", marginLeft: "25px"}}>skill:</h5>
         <div>
-            <Form.Control type="text" value={skillDetails} onChange={(e) => setSkillDetails(e.target.value)} required ></Form.Control>
+            <Form.Control type="text" value={skillDetails} onChange={(e) => setSkillDetails(e.target.value.trim())} required ></Form.Control>
             <ul>
                                     {goalsDetails.skill?.map((v) =>
-                                        <li>{v}<Button onClick={()=> deleteBtn(v)}>delete</Button></li>
+                                        <li>{v}<Button onClick={()=> deleteBtn(v)}>delete</Button>
+                                         
+                                        </li>
                                     )}
                                 </ul>
            
-            <Button variant="info" onClick={addskill}>Add</Button>
+            <Button variant="warning" onClick={addskill}>Add</Button>
             
         </div>
 
-        {goalsDetails?.questions.length ?  goalsDetails.questions.map((q, index) => (
+
+        {goalsDetails?.questions.length?  goalsDetails.questions.map((q, index) => (
             <div>
                 {q.question}
-                <Form.Control type="text" value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value)} required />
+                <Form.Control type="text"  value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
             </div>
         )) : goalsQues.map((q, index) => (
             <div>
-                {q.question}
-                <Form.Control type="text" value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value)} required />
+                {q.question }
+                <Form.Control type="text" style={{ textAlign: "left", color:"black", marginLeft: "25px"}}value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
             </div>
         ))}
 
- <Button variant="primary" onClick={submit}>Submit</Button>
+ <Button variant="dark" onClick={submit}>Submit</Button>
     </div>
+    </div>
+    
 }
 export default CareerGoals
