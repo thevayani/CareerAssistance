@@ -85,7 +85,7 @@ function CareerGoals() {
         formData.append("data", JSON.stringify(goalsDetails));
 
         axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_goals', formData).then((res) => {
-            // console.log(res)
+            console.log(res)
         })
 
        
@@ -152,7 +152,12 @@ function CareerGoals() {
             
         </div>
 
-        {goalsQues.map((q, index) => (
+        {goalsDetails?.questions.length ?  goalsDetails.questions.map((q, index) => (
+            <div>
+                {q.question}
+                <Form.Control type="text" value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value)} required />
+            </div>
+        )) : goalsQues.map((q, index) => (
             <div>
                 {q.question}
                 <Form.Control type="text" value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value)} required />
