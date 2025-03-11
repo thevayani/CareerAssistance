@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
 import{useState} from "react";
 import{useNavigate} from "react-router-dom";
-import image from '../assets/image2.jpg';
+import image from '../assets/register1.avif';
 import axios from 'axios';
 
 
@@ -18,22 +18,21 @@ function Register(){
     const submit=()=>{
        
 
-            if(!user?.name?.trim()|| 
-                !user?.email?.trim()||
-                !user?.password?.trim()){
-                    alert("Please fill the input value")
-                     return
-                }
+        const name = user.name.trim();
+        const email = user.email.trim();
+        const password = user.password.trim();
+        
+    
 
-                else if(user.name && user.email && user.password){ 
+                if(name && email && password){ 
                     alert("Register Success")
                     const formData = new FormData();
-                    formData.append("name",user.name);
-                    formData.append("email",user.email);
-                    formData.append("password",user.password);
+                    formData.append("name",name);
+                    formData.append("email",email);
+                    formData.append("password",password);
                         axios.post("https://agaram.academy/api/b4/action.php?request=ai_carrier_user_register",formData)
                         .then((res)=>{
-                            console.log(res)
+                             console.log(res)
                         })
                     setUser({name:"",email:"",password:""})
                     navigate('/login')
@@ -59,21 +58,20 @@ function Register(){
         }
     }>
                     <h1 style={{
-                        textAlign:"center"
+                        textAlign:"center" ,marginTop: "10px",
+
                     }}>Register</h1>
 
         <Form style={
             
                 {
-                    backgroundColor: "rgba(24, 154, 163, 0.22)",
+                    backgroundColor: "rgba(24, 131, 163, 0.78)",
                     WebkitBackdropFilter: "blur(5px)",
                     backdropFilter: "blur(5px)",
                     marginTop: "20px",
                     padding: "30px",
-                    borderRadius: "45px",
                     marginRight: "20px",
                     marginTop : "70px",
-                    boxShadow: "6px 8px rgba(12, 9, 1, 0.98)"
                 }
 
         
