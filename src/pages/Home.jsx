@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Row, Col, Button,Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import image from '../assets/image.jpg'
+import image from '../assets/green1.jpg'
 
 
 function Home() {
@@ -53,7 +53,7 @@ function Home() {
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          height: "1100px",
+          height: "1000px",
       }}>
       <h3 style={{ textAlign: "center" }}>My Profile</h3>
 
@@ -70,7 +70,7 @@ function Home() {
               }}>
                 <thead style={
                   {
-                    backgroundColor:"teal",
+                    backgroundColor:"",
                   }
                 }>
                   <tr>
@@ -117,11 +117,11 @@ function Home() {
           
           <div>
           <h4>Hobbies & Languages</h4>
-              <div style={{
+              {/* <div style={{
                  marginLeft: "40px", width: "80%", height: "325px", borderRadius: "1px",
                 boxShadow: "0 0 10px black",
-                backgroundColor:"white"
-              }}>
+                backgroundColor:"lightyellow"
+              }}> */}
                 
                 <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px" }}>
                   
@@ -136,6 +136,7 @@ function Home() {
                       </ul>
                     </div>
                   </Col>
+                  
 
                   <Col sm="3">
                     <div>
@@ -149,7 +150,7 @@ function Home() {
                     </div>
                   </Col>
                 </div>
-              </div>
+              {/* </div> */}
             </div>
           </Col>
         </Row>
@@ -165,7 +166,11 @@ function Home() {
                 marginLeft: "80px", marginTop: "5%", width: "80%",marginTop: "1%",
                 borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
               }}>
-                <thead>
+                <thead style={
+                  {
+                    backgroundColor:"",
+                  }
+                }>
                   <tr>
                     <th>companyName</th>
                     <th>instituteName</th>
@@ -196,7 +201,7 @@ function Home() {
               marginLeft: "40px", marginTop: "1%", width: "80%",
               boxShadow: "0 0 10px black"
             }}>
-              <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px" }}>
+              <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px", backgroundColor:""}}>
                 <tr>
                   <th>Course Name</th>
                   <th>Institute Name</th>
@@ -223,14 +228,49 @@ function Home() {
 
 
      <Row>
-        <Col sm = "6">
+        
+          <Col sm="6">
+          <h4>Skils & Goals</h4>
+
+          {/* <div style={
+            {
+                marginLeft: "80px",
+                marginTop: "20px", 
+                width: "80%",
+                height:"300px",
+                borderRadius: "5px 5px 0 0", 
+                boxShadow: "0 0 10px black",
+                padding:"25px",
+                backgroundColor:"white"
+                }}> */}
+                   <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px",listStyleType:"square" }}>
+                      <h5>Goal</h5>
+                        <ul style={{ listStyleType:"square"}} >
+                            <li>{goalValue.goal}</li>
+                        </ul>
+        
+                  
+                        <div>
+                          <h5>Skills</h5>
+                              <ul style={{ listStyleType:"square"}} >
+                                  {goalValue.skill?.map((v) => <li>
+                                    {v}
+                                  </li>
+                                  )}
+                            </ul>
+                        </div>
+                     </div>
+                  {/* </div> */}
+          </Col>
+
+          <Col sm = "6">
                  <div>
             <h4>Question:</h4>
-              <div style={{
-                    marginLeft: "80px", marginTop: "20px", width: "80%",height:"300px",
+              {/* <div style={{
+                    marginLeft: "40px", marginTop: "20px", width: "80%",height:"300px",
                     borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",backgroundColor:"white"
 
-                  }}>
+                  }}> */}
                   {goalValue.questions?.map((v) => 
                   <ul>
                     <h6><li style={{listStyleType:"none",color:"black",textAlign:"center"}}>
@@ -247,42 +287,9 @@ function Home() {
                   </li>
                   )}
                 </ul>  
-              </div>
+              {/* </div> */}
             </div>
         </Col>
-          <Col sm="6">
-          <h4>Skils & Goals</h4>
-
-          <div style={
-            {
-                marginLeft: "40px",
-                marginTop: "20px", 
-                width: "80%",
-                height:"300px",
-                borderRadius: "5px 5px 0 0", 
-                boxShadow: "0 0 10px black",
-                padding:"25px",
-                backgroundColor:"white"
-                }}>
-                   <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px",listStyleType:"square" }}>
-                      <h5>Goal</h5>
-                        <ul style={{ listStyleType:"square"}} >
-                            <li>{goalValue.goal}</li>
-                        </ul>
-        
-                  
-                        <div>
-                          <h5>Skils</h5>
-                              <ul style={{ listStyleType:"square"}} >
-                                  {goalValue.skill?.map((v) => <li>
-                                    {v}
-                                  </li>
-                                  )}
-                            </ul>
-                        </div>
-                     </div>
-                  </div>
-          </Col>
       </Row>           
       
 
@@ -294,7 +301,7 @@ function Home() {
                     marginTop:"30px"
                     }
                   } >
-      <Button variant="primary" onClick={submit}>Ask Guidance</Button>
+      <Button variant="success" onClick={submit}>Ask Guidance</Button>
         <Button style={
                         {
                         marginLeft:"20px"
