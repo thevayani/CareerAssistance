@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
 import{useState} from "react";
 import{useNavigate} from "react-router-dom";
-import image from '../assets/register1.avif';
+import image from '../assets/green.jpg';
 import axios from 'axios';
 
 
@@ -48,30 +48,35 @@ function Register(){
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "620px",
+            height: "550px",
+            width:"500px",
+            marginLeft:"350px"
+            
+            
         }
     }>
 
     <Container style={
         {
-            width :  "500PX",
+            width :  "500PX"
         }
     }>
                     <h1 style={{
-                        textAlign:"center" ,marginTop: "10px",
+                        textAlign:"center",
+
 
                     }}>Register</h1>
 
         <Form style={
             
                 {
-                    backgroundColor: "rgba(24, 131, 163, 0.78)",
                     WebkitBackdropFilter: "blur(5px)",
                     backdropFilter: "blur(5px)",
                     marginTop: "20px",
                     padding: "30px",
                     marginRight: "20px",
                     marginTop : "70px",
+
                 }
 
         
