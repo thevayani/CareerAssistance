@@ -7,6 +7,7 @@ import Login from './pages/Login.jsx'
 import PersonalDetails from './pages/PersonalDetails.jsx'
 import CareerGuidance from './pages/CareerGuidance.jsx'
 // import CareerGoals from './pages/CareerGoals.jsx'
+import QuestionAi from './pages/quiz/QuestionAi.jsx'
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
 
@@ -38,7 +39,10 @@ const router = createBrowserRouter([
   //   path: "/goal",
   //   element: (<CareerGoals/>),
   // },
-  
+   {
+    path: "/goal",
+    element: (<CareerGoals/>),
+  },
   
  
  
