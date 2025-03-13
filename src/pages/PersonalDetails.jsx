@@ -1,6 +1,3 @@
-
-
-
 import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -10,7 +7,7 @@ import { cilTrash } from '@coreui/icons';
 
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import axios from 'axios'
@@ -19,7 +16,7 @@ function PersonalDetails() {
 
     // const navigate =  useNavigate()
     
-    const [languageValue, setLanguageValue] = useState([]);
+    const [languageKnownValue, setlanguageKnownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
         companyName: "",
@@ -34,9 +31,9 @@ function PersonalDetails() {
         place: ""
     });
 
-    // useEffect (() =>{
-    //     getApi()
-    // },[])
+    useEffect (() =>{
+        getApi()
+    },[])
 
     const [userInputValue, setuserInputValue] = useState(
         {
@@ -46,7 +43,7 @@ function PersonalDetails() {
             gender: "",
             dob: "",
             address: "",
-            Language_known: [],
+            languageKnown: [],
             hobbies: [],
             course: [],
             workExperience: [],
@@ -93,17 +90,19 @@ function PersonalDetails() {
     }
 
 
-    const addLanguage = (() => {
+    const addLanguage = () => {
        
-        if (languageValue == "") {
+        if (languageKnownValue == "") {
             alert("please enter the value")
         } else {
-            let lang = [languageValue]
-            let y = [...userInputValue?.Language_known, ...lang]
-            setuserInputValue({ ...userInputValue, Language_known: y })
-            setLanguageValue("")
+            let x = [languageKnownValue]
+            console.log(x)
+            let y = [...userInputValue.languageKnown,...x]
+            console.log(y)
+            setuserInputValue({...userInputValue, languageKnown: y})
+            setlanguageKnownValue("")
         }
-    })
+    }
 
 
     const addhobbies = () => {
@@ -113,6 +112,7 @@ function PersonalDetails() {
         } else {
             let x = [hobbiesValue]
             let y = [...userInputValue?.hobbies,...x]
+            console.log(y)
             setuserInputValue({...userInputValue, hobbies: y})
             setHobbiesValue("")
         }
@@ -149,8 +149,8 @@ function PersonalDetails() {
 
     const deleteLanguage = (v) =>{
         alert("Do you want to delete?")
-        let del = userInputValue.Language_known.filter((items) => items != v)
-        setuserInputValue({...userInputValue,Language_known:del})
+        let del = userInputValue.languageKnown.filter((items) => items != v)
+        setuserInputValue({...userInputValue,languageKnown:del})
     }
 
     const deletehobbies =((v) =>{
@@ -182,12 +182,13 @@ function PersonalDetails() {
             height: "1100px",
         }
     }>
-        <Navbar bg='dark' data-bs-theme="dark" sticky>
+        {/* <Navbar bg='dark' data-bs-theme="dark" sticky>
         <Container className='mt-25'>
-            <Navbar.Brand href="#home" style={{textAlign:"center",marginLeft:"440px"}}><h2>User Details</h2></Navbar.Brand>
-           
+            <Navbar.Brand href="#" style={{textAlign:"center",marginLeft:"440px"}}>
+                User Details
+            </Navbar.Brand>
         </Container>
-        </Navbar>
+        </Navbar> */}
 
         <Container>
             <Form style={
@@ -378,28 +379,29 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        onChange={(e) => setLanguageValue(e.target.value.trim())}
-                                        value={languageValue}
+                                        onChange={(e) => setlanguageKnownValue(e.target.value.trim())}
+                                        value={languageKnownValue}
                                         style={{
                                             backgroundColor: "inherit",
-                                            border: "1px solid black",
-                                            color: "white"
+                                            border: "1px solid black", color: "white"
                                         }}
-                                        placeholder="Language Known" 
+                                        placeholder="Language" 
                                         required />
-                                        <ul style={{marginTop:"8px"}}>
-                                            {userInputValue.Language_known.map((v) =>
-                                                <li>{v}<CloseButton 
-                                                onClick={() => deleteLanguage(v)}
-                                                style={
-                                                        {
-                                                            fontSize:"12px",
-                                                            marginLeft:"10px",
-                                                            backgroundColor:"Background"
-                                                        }
-                                                    } />
-                                            </li>)}
-                                        </ul>
+                                      
+                                            <ul style={{marginTop:"10px"}}>
+                                            {userInputValue.languageKnown?.map((v) =>
+                                                    <li>{v}<CloseButton 
+                                                    onClick={() => deleteLanguage(v)}
+                                                    style={
+                                                            {
+                                                                fontSize:"12px",
+                                                                marginLeft:"10px",
+                                                                backgroundColor:"Background"
+                                                            }
+                                                        } />
+                                                </li>)}
+                                            </ul>
+                                         
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -411,11 +413,11 @@ function PersonalDetails() {
                                         }}>
                                         Add
                                     </Button>
-            
                                 </Col>
-                                
                             </Row>
                         </Form.Group>
+
+                       
 
                         <Form.Group as={Row} className="mb-3">
                             <Row>
