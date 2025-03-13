@@ -34,9 +34,9 @@ function PersonalDetails() {
         place: ""
     });
 
-    useEffect (() =>{
-        getApi()
-    },[])
+    // useEffect (() =>{
+    //     getApi()
+    // },[])
 
     const [userInputValue, setuserInputValue] = useState(
         {
@@ -58,13 +58,7 @@ function PersonalDetails() {
 
     const submitBtn = () => {
 
-                // let fullname = userInputValue.fullname.trim()
-                // let fatherName =userInputValue.fatherName.trim()
-                // let motherName =  userInputValue.motherName.trim()
-                // let address =  userInputValue.address.trim()
-                // let contact_number  = userInputValue.contact_number.trim()
-                
-
+             
        
                 if (userInputValue.fullname == "" ||
                     userInputValue.fatherName == "" ||
@@ -185,7 +179,7 @@ function PersonalDetails() {
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "1300px",
+            height: "1100px",
         }
     }>
         <Navbar bg='dark' data-bs-theme="dark" sticky>
