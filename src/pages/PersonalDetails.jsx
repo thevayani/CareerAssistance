@@ -7,14 +7,14 @@ import { cilTrash } from '@coreui/icons';
 
 
 import { useState } from 'react';
-// import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import axios from 'axios'
 
 function PersonalDetails() {
 
-    // const navigate =  useNavigate()
+    const navigate =  useNavigate()
     
     const [languageKnownValue, setlanguageKnownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
@@ -67,7 +67,7 @@ function PersonalDetails() {
                     alert("please enter the value")
                 }
                 else {
-                  
+                  alert("Submitted Successfully")
                     const formData = new FormData();
                     formData.append("user_id",4);
                     formData.append("data",JSON.stringify(userInputValue))
@@ -75,7 +75,7 @@ function PersonalDetails() {
                     axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
                         console.log(res)
                     });
-                    // navigate("/home")
+                    navigate("/home")
                 }
     }
 
@@ -96,10 +96,9 @@ function PersonalDetails() {
             alert("please enter the value")
         } else {
             let x = [languageKnownValue]
-            console.log(x)
             let y = [...userInputValue.languageKnown,...x]
             console.log(y)
-            setuserInputValue({...userInputValue, languageKnown: y})
+            setuserInputValue({...userInputValue,languageKnown: y})
             setlanguageKnownValue("")
         }
     }
@@ -182,13 +181,13 @@ function PersonalDetails() {
             height: "1100px",
         }
     }>
-        {/* <Navbar bg='dark' data-bs-theme="dark" sticky>
+        <Navbar bg='dark' data-bs-theme="dark" sticky>
         <Container className='mt-25'>
             <Navbar.Brand href="#" style={{textAlign:"center",marginLeft:"440px"}}>
                 User Details
             </Navbar.Brand>
         </Container>
-        </Navbar> */}
+        </Navbar>
 
         <Container>
             <Form style={
