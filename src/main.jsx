@@ -40,8 +40,8 @@ const router = createBrowserRouter([
   //   element: (<CareerGoals/>),
   // },
    {
-    path: "/goal",
-    element: (<CareerGoals/>),
+    path: "/quiz",
+    element: (<QuestionAi/>),
   },
   
  
