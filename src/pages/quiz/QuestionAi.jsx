@@ -1,5 +1,8 @@
 import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import{useNavigate} from "react-router-dom";
+import { useSelector,useDispatch } from 'react-redux';
+import { setanswer } from '../../redux/slices/quiz';
 import {
     GoogleGenerativeAI,
     HarmCategory,
@@ -10,11 +13,14 @@ import { useEffect, useState } from "react";
 
 function QuestionAi (){
 
+  const globalAnswer = useSelector((state) => state.quiz)
+
+     const navigate = useNavigate()
+     const dispatch = useDispatch()
+
     const[summary,setSummary] = useState([])
 
-    const[answers,setAnswer] = useState({
-      answer:""
-    })
+    const[answers,setAnswer] = useState({})
 
     const cx = "84c171dacf1aa43c1"
     const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
@@ -38,7 +44,7 @@ function QuestionAi (){
 
 
     async function run() {
-          const prompt  = `Generate 10 random questions with 4 multiple choice and 
+          const prompt  = `Generate 5 random questions with 4 multiple choice and 
           answer seperately it should be follwing JSON fromat:{"questions":[
             {
           "id":0,
@@ -52,42 +58,57 @@ function QuestionAi (){
           const responseText = result.response.text();
           let val = JSON.parse(responseText)
           setSummary(val)
-
-        
         
 }
 
-console.log(answers)
+const checkHandler = (v,i) => {
+    setAnswer((prev) => ({
+      ...prev,[i]:v,  
+    }))
+}
+
+const submitBtn =() => {
+    let x = [...globalAnswer.answer,answers]
+    dispatch(setanswer(x))
+    navigate("/show")
+}
+
     return <div>
+     
         <h1 style={{textAlign:"center"}}>Quiz Question</h1>
         {summary.questions?.map((v) => 
           <div style={
               {
-                marginLeft:"500px",
+                marginLeft:"480px",
                 marginTop:"30px"
               }
             }>
             <h4>{v.question}</h4>
                 <span>{v.options.map((option) => 
                      <Form.Check type="radio" 
-                     style={{marginLeft:"100px",marginTop:"20px"}} 
-                     aria-label="radio 1"  
-                     label={option}
-                     value={option}
-                     checked={option == answers.answer}
-                     onChange={(e) => setAnswer({ ...answers, answer: e.target.value })} 
+                        style={{marginLeft:"120px",marginTop:"20px"}} 
+                        aria-label="radio 1"  
+                        label={option}
+                        value={option}
+                        onChange={() => checkHandler(option,v.id)}
+                        checked = {answers[v.id] == option}
                      />
                   
                    )}
                 
-                 
+                   
                   </span>
+
             </div>
 
           
         )}
          
-
+        <Button style={{
+          marginLeft:"600px",
+          textAlign:"center",
+          marginTop:"30px"
+        }} variant='primary' onClick={submitBtn}>Submit</Button>
     </div>
 }
 
