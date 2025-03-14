@@ -6,6 +6,7 @@ import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
 import PersonalDetails from './pages/PersonalDetails.jsx'
 import CareerGuidance from './pages/CareerGuidance.jsx'
+import Show from './pages/quiz/Show.jsx'
 // import CareerGoals from './pages/CareerGoals.jsx'
 import QuestionAi from './pages/quiz/QuestionAi.jsx'
 import store from './redux/store.js'
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
    {
     path: "/quiz",
     element: (<QuestionAi/>),
+  },
+  {
+    path: "/show",
+    element: (<Show/>),
   },
   
  
