@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
 import{useState} from "react";
 import{useNavigate} from "react-router-dom";
-import image from '../assets/compter.jpg';
+import image from '../assets/brown.jpg';
 import axios from 'axios';
 
 
@@ -57,7 +57,6 @@ function Register(){
                     backgroundColor: "rgba(8, 247, 207, 0.38)",
                     WebkitBackdropFilter: "blur(5px)",
                     backdropFilter: "blur(5px)",
-                    marginTop: "20px",
                     padding: "30px",
                     borderRadius: "45px",
                     marginRight: "20px",

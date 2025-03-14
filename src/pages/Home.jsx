@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Row, Col, Button,Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import image from '../assets/green1.jpg'
+import image from '../assets/home1.avif'
 
 
 function Home() {
@@ -39,12 +39,12 @@ function Home() {
 
   const submit = () => {
     alert("Ask Guidance")
-    navigate("/Ai")
+    navigate("/careerAi")
   }
 
   const save = () => {
     alert("update")
-    navigate("/")
+    navigate( "/details")
   }
 
   return (
@@ -53,7 +53,7 @@ function Home() {
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          height: "1000px",
+          height: "1200px",
       }}>
       <h3 style={{ textAlign: "center" }}>My Profile</h3>
 
@@ -74,37 +74,37 @@ function Home() {
                   }
                 }>
                   <tr>
-                    <th style={{marginLeft:"29px"}}>Key</th>
+                    <th style={{padding:"10px"}}>Key</th>
                     <th>Value</th>
                   </tr>
                 </thead>
                 <tbody >
                   <tr>
-                    <td>fullname</td>
+                    <td style={{padding:"10px"}}>fullname</td>
                     <td>{inputValue.fullname}</td>
                   </tr>
                   <tr>
-                    <td>fatherName</td>
+                    <td  style={{padding:"10px"}}>fatherName</td>
                     <td>{inputValue.fatherName}</td>
                   </tr>
                   <tr>
-                    <td>motherName</td>
+                    <td  style={{padding:"10px"}}>motherName</td>
                     <td>{inputValue.motherName}</td>
                   </tr>
                   <tr>
-                    <td>dob</td>
+                    <td  style={{padding:"10px"}}>dob</td>
                     <td>{inputValue.dob}</td>
                   </tr>
                   <tr>
-                    <td>address</td>
+                    <td  style={{padding:"10px"}}>address</td>
                     <td>{inputValue.address}</td>
                   </tr>
                   <tr>
-                    <td>whether_employee</td>
+                    <td  style={{padding:"10px"}}>whether_employee</td>
                     <td>{inputValue.whether_employee}</td>
                   </tr>
                   <tr>
-                    <td>contact_number</td>
+                    <td  style={{padding:"10px"}}>contact_number</td>
                     <td>{inputValue.contact_number}</td>
                   </tr>
                 </tbody>
@@ -117,11 +117,11 @@ function Home() {
           
           <div>
           <h4>Hobbies & Languages</h4>
-              {/* <div style={{
+              <div style={{
                  marginLeft: "40px", width: "80%", height: "325px", borderRadius: "1px",
                 boxShadow: "0 0 10px black",
-                backgroundColor:"lightyellow"
-              }}> */}
+                backgroundColor:"inherit"
+              }}>
                 
                 <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px" }}>
                   
@@ -142,7 +142,7 @@ function Home() {
                     <div>
                       <h4>Language</h4>
                       <ul style={{listStyleType:"square"}}>
-                        {inputValue.Language_known?.map((v) => <li>
+                        {inputValue.languageKnown?.map((v) => <li>
                           {v}
                         </li>
                         )}
@@ -150,7 +150,7 @@ function Home() {
                     </div>
                   </Col>
                 </div>
-              {/* </div> */}
+              </div>
             </div>
           </Col>
         </Row>
@@ -159,12 +159,12 @@ function Home() {
           <Col sm="6">
           <div>
           <h5 style={{
-              marginTop: "10px",
+            marginTop:"20px",
               marginBottom: "20px",
             }}>Work Experience</h5>
               <table striped bordered hover style={{
-                marginLeft: "80px", marginTop: "5%", width: "80%",marginTop: "1%",
-                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
+                marginLeft: "80px", marginTop: "5%", width: "80%",
+                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",padding:"28px"
               }}>
                 <thead style={
                   {
@@ -172,17 +172,17 @@ function Home() {
                   }
                 }>
                   <tr>
-                    <th>companyName</th>
-                    <th>instituteName</th>
-                    <th>Year</th>
+                    <th style={{padding:"15px"}}>companyName</th>
+                    <th style={{padding:"15px"}}>instituteName</th>
+                    <th style={{padding:"15px"}}>Year</th>
                   </tr>
                 </thead>
                 <tbody>
                   {inputValue.workExperience?.map((workExperience) => (
-                    <tr >
-                      <td>{workExperience.companyName}</td>
-                      <td>{workExperience.institudeName}</td>
-                      <td>{workExperience.year}</td>
+                    <tr>
+                      <td style={{padding:"15px"}}>{workExperience.companyName}</td>
+                      <td style={{padding:"15px"}}>{workExperience.institudeName}</td>
+                      <td style={{padding:"15px"}}>{workExperience.year}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -194,7 +194,7 @@ function Home() {
           <Col sm="6">
 
             <h5 style={{
-              marginTop: "10px",
+              marginTop: "20px",
               marginBottom: "20px",
             }}>Course Details</h5>
             <table striped bordered hover style={{
@@ -202,20 +202,20 @@ function Home() {
               boxShadow: "0 0 10px black"
             }}>
               <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px", backgroundColor:""}}>
-                <tr>
-                  <th>Course Name</th>
-                  <th>Institute Name</th>
-                  <th>Year</th>
-                  <th>Place</th>
+                <tr >
+                  <th style={{padding:"10px"}}>Course Name</th>
+                  <th style={{padding:"10px"}}>Institute Name</th>
+                  <th style={{padding:"10px"}}>Year</th>
+                  <th style={{padding:"10px"}}>Place</th>
                 </tr>
               </thead>
               <tbody>
                 {inputValue.course?.map((course) => (
                   <tr>
-                    <td>{course.courseName}</td>
-                    <td>{course.institudeName}</td>
-                    <td>{course.year}</td>
-                    <td>{course.place}</td>
+                    <td style={{padding:"10px"}}>{course.courseName}</td>
+                    <td style={{padding:"10px"}}>{course.institudeName}</td>
+                    <td style={{padding:"10px"}}>{course.year}</td>
+                    <td style={{padding:"10px"}}>{course.place}</td>
                   </tr>
                 ))}
               </tbody>
@@ -230,20 +230,20 @@ function Home() {
      <Row>
         
           <Col sm="6">
-          <h4>Skils & Goals</h4>
+          <h4 style={{marginTop:"20px"}}>Skils & Goals</h4>
 
-          {/* <div style={
+          <div style={
             {
                 marginLeft: "80px",
                 marginTop: "20px", 
-                width: "80%",
-                height:"300px",
+                width: "70%",
+                maxHeight:"350px",
                 borderRadius: "5px 5px 0 0", 
                 boxShadow: "0 0 10px black",
-                padding:"25px",
-                backgroundColor:"white"
-                }}> */}
-                   <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px",listStyleType:"square" }}>
+                padding:"10px",
+                  backgroundColor:"inherit"
+                }}>
+                   <div style={{ marginLeft: "30%",  padding: "30px",listStyleType:"square" }}>
                       <h5>Goal</h5>
                         <ul style={{ listStyleType:"square"}} >
                             <li>{goalValue.goal}</li>
@@ -260,17 +260,17 @@ function Home() {
                             </ul>
                         </div>
                      </div>
-                  {/* </div> */}
+                  </div>
           </Col>
 
           <Col sm = "6">
                  <div>
-            <h4>Question:</h4>
-              {/* <div style={{
+            <h4 style={{marginTop:"20px"}}>Question:</h4>
+              <div style={{
                     marginLeft: "40px", marginTop: "20px", width: "80%",height:"300px",
-                    borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",backgroundColor:"white"
+                    borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",backgroundColor:"inherit"
 
-                  }}> */}
+                  }}>
                   {goalValue.questions?.map((v) => 
                   <ul>
                     <h6><li style={{listStyleType:"none",color:"black",textAlign:"center"}}>
@@ -287,7 +287,7 @@ function Home() {
                   </li>
                   )}
                 </ul>  
-              {/* </div> */}
+              </div>
             </div>
         </Col>
       </Row>           
