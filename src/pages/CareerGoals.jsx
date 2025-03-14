@@ -1,14 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
-import { useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
-import image from '../assets/flower.jpg'
+import image from '../assets/goal.jpg'
+import { IoAddOutline } from "react-icons/io5";
+import { AiTwotoneDelete } from "react-icons/ai";
 
 function CareerGoals() {
-
-   
-
-    const [goalsQues, setgoalsQues] = useState([
+const [goalsQues, setgoalsQues] = useState([
         {
             question: "what is your preferred work location?",
             answer: ""
@@ -52,7 +51,7 @@ function CareerGoals() {
             setSkillDetails("")
             let value = [skillDetails]
             console.log(value)
-            let skills = [...goalsDetails.skill,...value]
+            let skills = [...goalsDetails.skill, ...value]
             setGoalDetails({ ...goalsDetails, skill: skills })
         }
 
@@ -60,23 +59,23 @@ function CareerGoals() {
     }
 
     const deleteBtn = (v) => {
-        alert("do you want to delete?")
+        //alert("do you want to delete?")
         let del = goalsDetails.skill.filter((items) => items != v)
         setGoalDetails({ ...goalsDetails, skill: del })
     }
-    
+
 
     const handleQuestion = (index, value) => {
         const updatedQuestions = [...goalsQues];
-        
+
         updatedQuestions[index].answer = value;
-        setGoalDetails({...goalsDetails, questions: updatedQuestions });
- };
+        setGoalDetails({ ...goalsDetails, questions: updatedQuestions });
+    };
 
- 
-    
 
-    
+
+
+
     const submit = () => {
 
 
@@ -88,16 +87,16 @@ function CareerGoals() {
             console.log(res)
         })
 
-       
+
 
         if (goalsDetails.goal && goalsDetails.skill && goalsQues[0].answer
             && goalsQues[1].answer && goalsQues[2].answer && goalsQues[3].answer) {
 
-                console.log(goalsDetails)
-                setGoalDetails({goal:""})
+            console.log(goalsDetails)
+            setGoalDetails({ goal: "" })
 
-             
-           
+
+
             setgoalsQues([
                 {
                     question: "what is your preferred work location?",
@@ -117,8 +116,8 @@ function CareerGoals() {
                 }
             ])
             alert("submitted")
-         }
-        else{
+        }
+        else {
             alert("Please fillup")
         }
     }
@@ -131,65 +130,80 @@ function CareerGoals() {
                 console.log(getData)
 
             })
-        }
+    }
 
-    return <div  style={
+    return <div style={
         {
-            backgroundImage:   `url(${image})`,
+            backgroundImage: `url(${image})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            height: "750px",
+            height: "1000px",
+            background : "20"
         }
     }>
-        <h1 style={{ textAlign: "center", color:"black"}}>Career Goal</h1>
+        <h1 style={{ textAlign: "center", color: "black" }}>Career Goal</h1>
 
         <div style={{
-            backgroundColor: "rgb(24, 163, 161)",
+            backgroundColor: "rgb(34, 160, 195)",
             width: "500px",
-            marginLeft: "350px",
+           marginLeft: "34%",
             borderRadius: "15px",
-            marginLeft: "400px",
+            marginRight: "50%",
             marginTop: "50px",
-            background: "transparent",
+            // background: "transparent",
             boxShadow: "0 0 10px",
-            padding:"30px"
+            padding: "30px"
 
         }}>
 
-        <h5 style={{ textAlign: "left", color:"black", marginLeft: "25px"}}>Enter your Goal:</h5>
-        <Form.Control type="text" value={goalsDetails.goal} onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trim() })} required  ></Form.Control>
+            <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>Goal:</h5>
+            <Form.Control type="text" value={goalsDetails.goal} placeholder="Enter your goal" onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trim() })} required  ></Form.Control>
 
-        <h5 style={{ textAlign: "left", color:"black", marginLeft: "25px"}}>skill:</h5>
-        <div>
-            <Form.Control type="text" value={skillDetails} onChange={(e) => setSkillDetails(e.target.value.trim())} required ></Form.Control>
-            <ul>
-                                    {goalsDetails.skill?.map((v) =>
-                                        <li>{v}<Button onClick={()=> deleteBtn(v)}>delete</Button>
-                                         
-                                        </li>
-                                    )}
-                                </ul>
-           
-            <Button variant="warning" onClick={addskill}>Add</Button>
-            
+            <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>skill:</h5>
+
+
+            <div>
+                <div className="d-flex align-items-center">
+                    <Form.Control
+                        type="text"
+                        value={skillDetails}
+                        onChange={(e) => setSkillDetails(e.target.value.trim())}
+                        required
+                        className="me-2"  
+                    />
+                    <Button variant="warning" onClick={addskill}><IoAddOutline /></Button>
+                </div>
+
+                <ul>
+                    <div>
+                    {goalsDetails.skill?.map((v) =>
+                        <li>{v} <Button variant="danger" onClick={() => deleteBtn(v)}><AiTwotoneDelete /></Button>
+
+                        </li>
+                    )}
+                    </div>
+                </ul>
+
+
+            </div>
+
+            {() => console.log(goalsDetails.questions)}
+            {goalsDetails?.questions?.length ? goalsDetails.questions.map((q, index) => (
+                <div>
+                   <b>{q.question}</b> 
+                    <Form.Control type="text" value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
+                </div>
+            )) : goalsQues.map((q, index) => (
+                <div>
+                    {q.question}
+                    <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "25px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
+                </div>
+            ))}
+        <div style={{ textAlign: "center", color: "black", paddingTop:"20px"}} >
+            <Button variant="success"  onClick={submit}>Submit</Button>
+            </div>
         </div>
-
-
-        {goalsDetails?.questions.length?  goalsDetails.questions.map((q, index) => (
-            <div>
-                {q.question}
-                <Form.Control type="text"  value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
-            </div>
-        )) : goalsQues.map((q, index) => (
-            <div>
-                {q.question }
-                <Form.Control type="text" style={{ textAlign: "left", color:"black", marginLeft: "25px"}}value={q.answer}  onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
-            </div>
-        ))}
-
- <Button variant="dark" onClick={submit}>Submit</Button>
     </div>
-    </div>
-    
+
 }
 export default CareerGoals
