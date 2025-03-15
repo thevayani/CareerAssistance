@@ -30,7 +30,8 @@ function Selfintro(){
         },[])
         async function run() {
          
-            const prompt  = `self introduction ramya` 
+            const prompt  = `How to introduce yourself in an interview: 6 tips format as  HTML form
+            avoid text which are placed outside HTML and html tag also :` 
               
 
                 //      const prompt = `based on my skills and my goals 
@@ -49,13 +50,13 @@ function Selfintro(){
           
             setSummary(responseText);
 
-            <button varient= "primary" onClick={run}></button>
+          
           
   }
  return <div>
- <h2>Self Introduction</h2>
+ <h2 style={{ textAlign: "center", color: "black" }}>Self Introduction</h2>
  
- <button varient= "primary" onClick={run} >Generate Introduction</button>
+ <button varient= "primary" style={{ textAlign: "center", color: "black" }} onClick={run} >Generate Introduction</button>
 
  <div dangerouslySetInnerHTML={{ __html: summary }} />
 
