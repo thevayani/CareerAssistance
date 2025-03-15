@@ -9,6 +9,7 @@ import CareerGuidance from './pages/CareerGuidance.jsx'
 import CareerGoals from './pages/CareerGoals.jsx'
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
+import Selfintro from './pages/selfintro.jsx'
 
 import {
   createBrowserRouter,
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/goal",
     element: (<CareerGoals/>),
+  },
+  {
+    path: "/self",
+    element: (<Selfintro/>),
   },
   
   
