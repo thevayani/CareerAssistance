@@ -26,17 +26,14 @@ function QuestionAi (){
 
     const[answers,setAnswer] = useState({})
 
-    const[questionAi,setQuestionAi] = useState()
+    // const[questionAi,setQuestionAi] = useState()
 
     const cx = "84c171dacf1aa43c1"
     const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
 
     const genAI = new GoogleGenerativeAI(apiKey);
 
-    // const model = genAI.getGenerativeModel({
-    //     model: "gemini-2.0-flash",
-    // });
-
+   
     const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash",
         generationConfig: {
@@ -55,7 +52,7 @@ function QuestionAi (){
             {
           "id":0,
             "question":"",
-            "options":[],"answer":""            
+            "options":[]           
             },...]}`
 
        
@@ -68,6 +65,7 @@ function QuestionAi (){
 }
 
 const checkHandler = (v,i) => {
+    
     setAnswer((prev) => ({
       ...prev,[i]: v,  
     }))
@@ -77,15 +75,19 @@ const submitBtn =() => {
 
   // console.log(answers[3])
 
-  // summary.forEach((q) => {
+  
 
-  // })
+    // let x = [...globalAnswer.answer,answers]
+    // dispatch(setanswer(x))
+    // console.log(x)
 
-    let x = [...globalAnswer.answer,answers]
-    dispatch(setanswer(x))
 
-    let y =  [...globalQuestion.question,summary]
+
+        let z = {...summary,answer: answers}
+
+    let y =  [...globalQuestion.question,z]
     dispatch(setquestion(y))
+
 
     navigate("/show")
 }
