@@ -3,6 +3,7 @@ import loginReducer from './slices/login'
 import registerSliceReducer from './slices/register'
 import careergoalSlice from './slices/careergoal'
 import quizSlice  from './slices/quiz'
+import  questionSlice  from './slices/quizQuestion'
 
 
 export default configureStore({
@@ -10,6 +11,7 @@ export default configureStore({
     login: loginReducer,
     register : registerSliceReducer,
     careerGoal : careergoalSlice,
-    quiz : quizSlice
+    quiz : quizSlice,
+    question : questionSlice
   },
 })

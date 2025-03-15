@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import{useNavigate} from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { setanswer } from '../../redux/slices/quiz';
+import { setquestion } from '../../redux/slices/quizQuestion';
+
 import {
     GoogleGenerativeAI,
     HarmCategory,
@@ -15,12 +17,16 @@ function QuestionAi (){
 
   const globalAnswer = useSelector((state) => state.quiz)
 
+  const globalQuestion  =  useSelector((state) => state.question)
+
      const navigate = useNavigate()
      const dispatch = useDispatch()
 
     const[summary,setSummary] = useState([])
 
     const[answers,setAnswer] = useState({})
+
+    const[questionAi,setQuestionAi] = useState()
 
     const cx = "84c171dacf1aa43c1"
     const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
@@ -63,16 +69,26 @@ function QuestionAi (){
 
 const checkHandler = (v,i) => {
     setAnswer((prev) => ({
-      ...prev,[i]:v,  
+      ...prev,[i]: v,  
     }))
 }
 
 const submitBtn =() => {
+
+  // console.log(answers[3])
+
+  // summary.forEach((q) => {
+
+  // })
+
     let x = [...globalAnswer.answer,answers]
     dispatch(setanswer(x))
+
+    let y =  [...globalQuestion.question,summary]
+    dispatch(setquestion(y))
+
     navigate("/show")
 }
-
     return <div>
      
         <h1 style={{textAlign:"center"}}>Quiz Question</h1>
@@ -91,7 +107,7 @@ const submitBtn =() => {
                         label={option}
                         value={option}
                         onChange={() => checkHandler(option,v.id)}
-                        checked = {answers[v.id] == option}
+                        checked = {answers[v.id] === option}
                      />
                   
                    )}

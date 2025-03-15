@@ -2,61 +2,32 @@ import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-boots
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector,useDispatch } from 'react-redux';
 import { setanswer } from '../../redux/slices/quiz';
-import {
-    GoogleGenerativeAI,
-    HarmCategory,
-    HarmBlockThreshold,
-} from "@google/generative-ai";
+import { setquestion } from '../../redux/slices/quizQuestion';
+
 
 import { useEffect, useState } from "react";
 
 function Show (){
 
   const globalAnswer = useSelector((state) => state.quiz)
+  const globalQuestion  =  useSelector((state) => state.question)
 
    
-
+    const [answer,getAnswer] = useState({})
     const[summary,setSummary] = useState([])
 
-
-    const cx = "84c171dacf1aa43c1"
-    const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
-
-    const genAI = new GoogleGenerativeAI(apiKey);
-
-    
-
-    const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash",
-        generationConfig: {
-          responseMimeType: "application/json",
-        },
-      });
-
-    useEffect(() =>{
-        run()
+    useEffect(() => {
+      show()
     },[])
 
+    const show = () => {
+        let val = globalAnswer
+        // console.log(val)
+        let y = globalQuestion
+        console.log(y)
+    }
+   
 
-    async function run() {
-          const prompt  = `Generate 5 random questions with 4 multiple choice and 
-          answer seperately it should be follwing JSON fromat:{"questions":[
-            {
-          "id":0,
-            "question":"",
-            "options":[],"answer":""            
-            },...]}`
-
-       
-          const result = await model.generateContent(prompt);
-
-          const responseText = result.response.text();
-          let val = JSON.parse(responseText)
-          setSummary(val)
-        
-}
-
-console.log(globalAnswer.answer.map((val,index) => val.index))
 
     return <div>
      
@@ -80,10 +51,8 @@ console.log(globalAnswer.answer.map((val,index) => val.index))
                    )}
               
                   </span>
-                  <h6>{v.id}</h6>
-                    {/* {globalAnswer.answer.map((val) => val.id === v.id ?
-                    <h6>{val}</h6>:"Not entered"
-                )} */}
+                  {/* <h6>{v.id}</h6> */}
+                   <h6 style={{color:"gray",marginTop:"15px"}}>User Answer :<span style={{color:'black',marginLeft:"10px"}}>{globalAnswer.answer.map((val) => val[v.id])}</span></h6>
             </div>      
         )}
          
