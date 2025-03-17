@@ -3,9 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { CIcon } from '@coreui/icons-react';
 import { cilTrash } from '@coreui/icons';
-
-
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
@@ -16,18 +13,18 @@ function PersonalDetails() {
 
     const navigate =  useNavigate()
     
-    const [languageKnownValue, setlanguageKnownValue] = useState([]);
+    const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
         companyName: "",
-        institudeName: "",
-        year: ""
+        courseinstitute: "",
+        courseyear: ""
     });
   
     const [courseValue, setCourseValue] = useState({
-        courseName: "",
-        institudeName: "",
-        year: "",
+        coursename: "",
+        courseinstitute: "",
+        courseyear: "",
         place: ""
     });
 
@@ -38,17 +35,17 @@ function PersonalDetails() {
     const [userInputValue, setuserInputValue] = useState(
         {
             fullname: "",
-            fatherName: "",
-            motherName: "",
+            fathername: "",
+            mothername: "",
             gender: "",
             dob: "",
             address: "",
-            languageKnown: [],
+            languageknown: [],
             hobbies: [],
-            course: [],
-            workExperience: [],
+            educationdetails: [],
+            workexperience: [],
             whether_employee: "",
-            contact_number: "",
+            phone: "",
         }
     );
 
@@ -57,16 +54,16 @@ function PersonalDetails() {
 
              
        
-                if (userInputValue.fullname == "" ||
-                    userInputValue.fatherName == "" ||
-                    userInputValue.motherName == "" ||
-                    userInputValue.gender == "" ||
-                    userInputValue.dob == "" ||
-                    userInputValue.address == "" ||
-                    userInputValue.contact_number == "") {
-                    alert("please enter the value")
-                }
-                else {
+                // if (userInputValue.fullname == "" ||
+                //     userInputValue.fathername == "" ||
+                //     userInputValue.mothername == "" ||
+                //     userInputValue.gender == "" ||
+                //     userInputValue.dob == "" ||
+                //     userInputValue.address == "" ||
+                //     userInputValue.phone == "") {
+                //     alert("please enter the value")
+                // }
+                // else {
                   alert("Submitted Successfully")
                     const formData = new FormData();
                     formData.append("user_id",4);
@@ -76,7 +73,7 @@ function PersonalDetails() {
                         console.log(res)
                     });
                     navigate("/home")
-                }
+                // }
     }
 
     const getApi = () => {
@@ -92,14 +89,14 @@ function PersonalDetails() {
 
     const addLanguage = () => {
        
-        if (languageKnownValue == "") {
+        if (languageknownValue == "") {
             alert("please enter the value")
         } else {
-            let x = [languageKnownValue]
-            let y = [...userInputValue.languageKnown,...x]
+            let x = [languageknownValue]
+            let y = [...userInputValue?.languageknown,...x]
             console.log(y)
-            setuserInputValue({...userInputValue,languageKnown: y})
-            setlanguageKnownValue("")
+            setuserInputValue({...userInputValue,languageknown: y})
+            setlanguageknownValue("")
         }
     }
 
@@ -119,15 +116,15 @@ function PersonalDetails() {
 
     const addWork_exp = () => {
        
-        if (workExp_Value.companyName == "" || workExp_Value.institudeName == "" || workExp_Value.year == "") {
+        if (workExp_Value.companyName == "" || workExp_Value.courseinstitute == "" || workExp_Value.courseyear == "") {
             alert("please enter the value")
         }
         else {
             let workExp = [workExp_Value]
-            let y = [...userInputValue?.workExperience,...workExp]
-            setuserInputValue({ ...userInputValue, workExperience: y })
+            let y = [...userInputValue?.workexperience,...workExp]
+            setuserInputValue({ ...userInputValue, workexperience: y })
 
-            setWorkExp_Value({ companyName: "", institudeName: "", year: "" })
+            setWorkExp_Value({ companyName: "", courseinstitute: "", courseyear: "" })
         }
     }
 
@@ -135,21 +132,21 @@ function PersonalDetails() {
     const addCourseBtn = () => {
        
 
-        if (courseValue.courseName == "" || courseValue.institudeName == "" || courseValue.year == "" || courseValue.place == "") {
+        if (courseValue.coursename == "" || courseValue.courseinstitute == "" || courseValue.courseyear == "" || courseValue.place == "") {
             alert("please enter the value")
         } else {
             let education = [courseValue]
-            let y = [...userInputValue?.course,...education]
-            setuserInputValue({ ...userInputValue, course: y })
+            let y = [...userInputValue?.educationdetails,...education]
+            setuserInputValue({ ...userInputValue, educationdetails: y })
 
-            setCourseValue({ courseName: "", institudeName: "", year: "", place: "" })
+            setCourseValue({ coursename: "", courseinstitute: "", courseyear: "", place: "" })
         }
     }
 
     const deleteLanguage = (v) =>{
         alert("Do you want to delete?")
-        let del = userInputValue.languageKnown.filter((items) => items != v)
-        setuserInputValue({...userInputValue,languageKnown:del})
+        let del = userInputValue.languageknown.filter((items) => items != v)
+        setuserInputValue({...userInputValue,languageknown:del})
     }
 
     const deletehobbies =((v) =>{
@@ -161,14 +158,14 @@ function PersonalDetails() {
 
     const deleteWorkExp =((v) =>{
         alert("Do you want to delete?")
-        let del = userInputValue.workExperience.filter((items) => items != v)
-        setuserInputValue({...userInputValue,workExperience:del})
+        let del = userInputValue.workexperience.filter((items) => items != v)
+        setuserInputValue({...userInputValue,workexperience:del})
     })
 
     const deletecourse =((v) =>{
         alert("Do you want to delete?")
-        let del = userInputValue.course.filter((items) => items != v)
-        setuserInputValue({...userInputValue,course:del})
+        let del = userInputValue.educationdetails.filter((items) => items != v)
+        setuserInputValue({...userInputValue,educationdetails:del})
     })
 
 
@@ -236,8 +233,8 @@ function PersonalDetails() {
                                         color: "white"
                                     }}
                                     type="text"
-                                    value={userInputValue.fatherName}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, fatherName: e.target.value.trim() })}
+                                    value={userInputValue.fathername}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, fathername: e.target.value.trim() })}
                                     placeholder="Enter Father Name" 
                                     required />
                             </Col>
@@ -255,8 +252,8 @@ function PersonalDetails() {
                                         color: "white"
                                     }}
                                     type="text"
-                                    value={userInputValue.motherName}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, motherName: e.target.value.trim() })}
+                                    value={userInputValue.mothername}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, mothername: e.target.value.trim() })}
                                     placeholder="Enter Mother Name" 
                                     required />
                             </Col>
@@ -378,8 +375,8 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        onChange={(e) => setlanguageKnownValue(e.target.value.trim())}
-                                        value={languageKnownValue}
+                                        onChange={(e) => setlanguageknownValue(e.target.value.trim())}
+                                        value={languageknownValue}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black", color: "white"
@@ -388,7 +385,7 @@ function PersonalDetails() {
                                         required />
                                       
                                             <ul style={{marginTop:"10px"}}>
-                                            {userInputValue.languageKnown?.map((v) =>
+                                            {userInputValue.languageknown?.map((v) =>
                                                     <li>{v}<CloseButton 
                                                     onClick={() => deleteLanguage(v)}
                                                     style={
@@ -450,8 +447,8 @@ function PersonalDetails() {
                             <Col sm="5">
                                 <Form.Control
                                     type="number"
-                                    value={userInputValue.contact_number}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, contact_number: e.target.value.trim()})}
+                                    value={userInputValue.phone}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, phone: e.target.value.trim()})}
                                     style={{
                                         backgroundColor: "inherit",
                                         border: "1px solid black",
@@ -504,8 +501,8 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        value={workExp_Value.institudeName}
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, institudeName: e.target.value.trim() })}
+                                        value={workExp_Value.courseinstitute}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, courseinstitute: e.target.value.trim() })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
@@ -520,21 +517,21 @@ function PersonalDetails() {
                                 <Col sm="4">
                                     <p>
                                         <Form.Label style={{ marginTop: "10px", marginLeft: "20px" }}>
-                                            Year.Of.Exp
+                                            year.Of.Exp
                                         </Form.Label>
                                     </p>
                                 </Col>
                                 <Col sm="3">
                                     <Form.Control
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, year: e.target.value.trim() })}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, courseyear: e.target.value.trim() })}
                                         type="number"
-                                        value={workExp_Value.year}
+                                        value={workExp_Value.courseyear}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Year" 
+                                        placeholder="year" 
                                         required />
                                 </Col>
                             </Row>
@@ -557,16 +554,16 @@ function PersonalDetails() {
                                         <th>S.No</th>
                                         <th>Company Name</th>
                                         <th>Institude name</th>
-                                        <th>Year.of.year</th>
+                                        <th>year.of.Exp</th>
                                         <th>Delete</th>
                                      </tr>
                                 </thead>
                                 <tbody>
-                                    {userInputValue.workExperience?.map((v,i) => <tr>
+                                    {userInputValue.workexperience?.map((v,i) => <tr>
                                         <td>{i+1}</td>
                                         <td>{v.companyName}</td>
-                                        <td>{v.institudeName}</td>
-                                        <td>{v.year}</td>
+                                        <td>{v.courseinstitute}</td>
+                                        <td>{v.courseyear}</td>
                                         <td><CIcon icon={cilTrash} onClick={() => deleteWorkExp(v)} size="sm" style={{width:"30px",marginLeft:"9px"}} /></td>
                                     </tr>)}
                                 </tbody>
@@ -589,8 +586,8 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        value={courseValue.courseName}
-                                        onChange={(e) => setCourseValue({ ...courseValue, courseName: e.target.value.trim() })}
+                                        value={courseValue.coursename}
+                                        onChange={(e) => setCourseValue({ ...courseValue, coursename: e.target.value.trim() })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
@@ -612,8 +609,8 @@ function PersonalDetails() {
                                 <Col sm="5">
                                     <Form.Control
                                         type="text"
-                                        value={courseValue.institudeName}
-                                        onChange={(e) => setCourseValue({ ...courseValue, institudeName: e.target.value.trim() })}
+                                        value={courseValue.courseinstitute}
+                                        onChange={(e) => setCourseValue({ ...courseValue, courseinstitute: e.target.value.trim() })}
                                         style={
                                             {
                                                 backgroundColor: "inherit",
@@ -630,15 +627,15 @@ function PersonalDetails() {
                                 <Col sm="4">
                                     <p>
                                         <Form.Label style={{ marginTop: "10px", marginLeft: "20px" }}>
-                                            Year
+                                            courseyear
                                         </Form.Label>
                                     </p>
                                 </Col>
                                 <Col sm="3">
                                     <Form.Control
                                         type="number"
-                                        value={courseValue.year}
-                                        onChange={(e) => setCourseValue({ ...courseValue, year: e.target.value.trim() })}
+                                        value={courseValue.courseyear}
+                                        onChange={(e) => setCourseValue({ ...courseValue, courseyear: e.target.value.trim() })}
                                         style={
                                             {
                                                 backgroundColor: "inherit",
@@ -646,7 +643,7 @@ function PersonalDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="Year" 
+                                        placeholder="year" 
                                         required />
                                 </Col>
                             </Row>
@@ -698,17 +695,17 @@ function PersonalDetails() {
                                         <th>S.No</th>
                                         <th>Company Name</th>
                                         <th>Institude name</th>
-                                        <th>Year.of.year</th>
+                                        <th>year.of.Exp</th>
                                         <th>Place</th>
                                         <th>Delete</th>
                                      </tr>
                                 </thead>
                                 <tbody>
-                                    {userInputValue.course?.map((v,i) => <tr>
-                                        <td>{i+1}</td>
-                                        <td>{v.courseName}</td>
-                                        <td>{v.institudeName}</td>
-                                        <td>{v.year}</td>
+                                    {userInputValue.educationdetails?.map((v,i) => <tr>
+                                        <td key={i}>{i+1}</td>
+                                        <td>{v.coursename}</td> 
+                                        <td>{v.courseinstitute}</td>
+                                        <td>{v.courseyear}</td>
                                         <td>{v.place}</td>
                                         <td><CIcon icon={cilTrash} onClick={() => deletecourse(v)} size="sm" style={{width:"30px",marginLeft:"9px"}} /></td>
                                     </tr>)}
