@@ -104,7 +104,6 @@ const submitBtn =() => {
                    )}
                    
                   </span>
-                   {/* <p>  {v.answer == v.correctAnswer ? "Correct": "Incorrect"}</p> */}
             </div>
         )}
    
