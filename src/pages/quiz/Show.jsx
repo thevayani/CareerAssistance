@@ -5,67 +5,92 @@ import { useSelector,useDispatch } from 'react-redux';
 
 import { useEffect, useState } from "react";
 
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from "@google/generative-ai";
+
+
 function Show (){
 
   // const globalAnswer = useSelector((state) => state.quiz)
 
-  const globalQuestion  =  useSelector((state) => state.question);
-  
+  const globalQuestion  =  useSelector((state) => state.quiz);
 
-
-   
-    const [answer,getAnswer] = useState({})
     const[summary,setSummary] = useState([])
 
+    const[markShow,setMarkshow] = useState("show")
+
+
+    const[verifyAnswer,setverifyAnswer] = useState("")
+
 
    
 
-    useEffect(() =>{
-        questionAi()
-    },[])
-
-
+   
     const questionAi = () => {
-        let v =  globalQuestion.question
-        // let z = JSON.stringify(v)
-        console.log(v)
-        
-        setSummary(v)
-       
-    }
+      let v =  globalQuestion.answer      
+      console.log(v)     
+      setSummary(v)
+  }
 
+  useEffect(() =>{
+    questionAi()
+},[])
+
+
+      const cx = "84c171dacf1aa43c1"
+        const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
+    
+        const genAI = new GoogleGenerativeAI(apiKey);
+    
+       
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.0-flash",
+            generationConfig: {
+              responseMimeType: "application/json",
+            },
+          });
+    
+         
+    
+        async function run() {
+          const prompt = `
+        Check how many answers are correct from this data: ${JSON.stringify(summary)}.
+        Return only this exact JSON format:  
+
+        { "total marks": "correctAnswers / totalQuestions" }
+
+        No extra text or explanation
+        `;
+          
+      
+           
+              const result = await model.generateContent(prompt);
+               const responseText = result.response.text();  
+
+                  const text = JSON.parse(responseText);
+                  console.log(text)
+                  const totalMarks = text["total marks"]; 
+                  setverifyAnswer(totalMarks);
+                  setMarkshow("update")
+
+    
+        }
+
+    
 
   
 
     return <div>
      
-        <h1 style={{textAlign:"center"}}>Quiz Question</h1>
+        <h1 style={{textAlign:"center"}}>Quiz</h1>
+        {markShow == "show" ?
+          <Button variant='primary' style={{marginLeft:"600px",marginTop:"20px"}} onClick={run}>Verify Answer</Button>:
+          <h3 style={{marginLeft:"580px",marginTop:"20px"}}>Total marks = {verifyAnswer}</h3>
+        }
        
-        
-        
-        {summary.questions?.map((v) => 
-          <div style={
-              {
-                marginLeft:"480px",
-                marginTop:"30px"
-              }
-            }>
-            <h4>{v.question}</h4>
-                <span>{v.options.map((option) => 
-                     <Form.Check type="radio" 
-                        style={{marginLeft:"120px",marginTop:"20px"}} 
-                        aria-label="radio 1"  
-                        label={option}
-                        disabled 
-                     />
-                    
-                   )}
-              
-                  </span>
-                {/* <h6>{v.id}</h6>
-                <h6 style={{color:"gray",marginTop:"15px"}}>User Answer :<span style={{color:'black',marginLeft:"10px"}}>{globalAnswer.answer.map((val) => val[v.id])}</span></h6> */}
-            </div>      
-        )} 
          
        
     </div>

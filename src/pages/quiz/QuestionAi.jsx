@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import{useNavigate} from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { setanswer } from '../../redux/slices/quiz';
-import { setquestion } from '../../redux/slices/quizQuestion';
 
 import {
     GoogleGenerativeAI,
@@ -13,20 +12,15 @@ import {
 
 import { useEffect, useState } from "react";
 
-function QuestionAi (){
+function QuestionAi(){
 
-  const globalAnswer = useSelector((state) => state.quiz)
+  const globalQuestion =  useSelector((state) => state.quiz);
 
-  const globalQuestion  =  useSelector((state) => state.question)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+    const[summary,setSummary] = useState([]);
 
-     const navigate = useNavigate()
-     const dispatch = useDispatch()
-
-    const[summary,setSummary] = useState([])
-
-    const[answers,setAnswer] = useState({})
-
-    // const[questionAi,setQuestionAi] = useState()
 
     const cx = "84c171dacf1aa43c1"
     const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
@@ -52,7 +46,8 @@ function QuestionAi (){
             {
           "id":0,
             "question":"",
-            "options":[]           
+            "options":[],
+            "answer" : ""     
             },...]}`
 
        
@@ -60,73 +55,66 @@ function QuestionAi (){
 
           const responseText = result.response.text();
           let val = JSON.parse(responseText)
-          setSummary(val)
+          setSummary(val.questions.map(q => ({ 
+            question: q.question, 
+            options: q.options, 
+            answer: ""
+          })));
         
 }
 
-const checkHandler = (v,i) => {
-    
-    setAnswer((prev) => ({
-      ...prev,[i]: v,  
-    }))
-}
+const checkHandler = (index, selectedOption) => {
+  setSummary(prev => {
+    const updatedSummary = [...prev];
+    updatedSummary[index] = { ...updatedSummary[index], answer: selectedOption };
+    return updatedSummary;
+  });
+};
+
 
 const submitBtn =() => {
 
-  // console.log(answers[3])
 
-  
-
-    // let x = [...globalAnswer.answer,answers]
-    // dispatch(setanswer(x))
-    // console.log(x)
-
-
-
-        let z = {...summary,answer: answers}
-
-    let y =  [...globalQuestion.question,z]
-    dispatch(setquestion(y))
-
-
+    const val = [...globalQuestion.answer,summary]
+    dispatch(setanswer(val))
     navigate("/show")
+
 }
     return <div>
      
         <h1 style={{textAlign:"center"}}>Quiz Question</h1>
-        {summary.questions?.map((v) => 
+        {summary?.map((v,index) => 
           <div style={
               {
                 marginLeft:"480px",
-                marginTop:"30px"
+                marginTop:"20px"
               }
             }>
             <h4>{v.question}</h4>
-                <span>{v.options.map((option) => 
+                <span>{v.options.map((option,i) => 
                      <Form.Check type="radio" 
                         style={{marginLeft:"120px",marginTop:"20px"}} 
                         aria-label="radio 1"  
                         label={option}
                         value={option}
-                        onChange={() => checkHandler(option,v.id)}
-                        checked = {answers[v.id] === option}
+                        onChange={() => checkHandler(index,option)}
+                        checked = {v.answer === option}
                      />
                   
                    )}
-                
                    
                   </span>
-
+                   {/* <p>  {v.answer == v.correctAnswer ? "Correct": "Incorrect"}</p> */}
             </div>
-
-          
         )}
-         
+   
         <Button style={{
           marginLeft:"600px",
           textAlign:"center",
           marginTop:"30px"
         }} variant='primary' onClick={submitBtn}>Submit</Button>
+
+       
     </div>
 }
 
