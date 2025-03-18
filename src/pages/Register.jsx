@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
 import{useState} from "react";
 import{useNavigate} from "react-router-dom";
-import image from '../assets/green.jpg';
+import image from '../assets/bluewh.webp';
 import axios from 'axios';
 
 
@@ -18,9 +18,9 @@ function Register(){
     const submit=()=>{
        
 
-        const name = user.name.trim();
-        const email = user.email.trim();
-        const password = user.password.trim();
+        const name = user.name
+        const email = user.email
+        const password = user.password
         
     
 
@@ -48,52 +48,61 @@ function Register(){
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "550px",
-            width:"500px",
-            marginLeft:"350px"
+            height: "680px",
+          
+        
             
             
         }
     }>
-
-    <Container style={
-        {
-            width :  "500PX"
-        }
-    }>
-                    <h1 style={{
+         <h1 style={{
                         textAlign:"center",
 
 
                     }}>Register</h1>
+
+    <Container style={
+        {
+            width :  "500PX",
+            backgroundColor:"inherit",
+            borderRadius:"30px"
+        }
+    }>
+                   
 
         <Form style={
             
                 {
                     WebkitBackdropFilter: "blur(5px)",
                     backdropFilter: "blur(5px)",
-                    marginTop: "20px",
+                    marginTop: "50px",
                     padding: "30px",
                     marginRight: "20px",
-                    marginTop : "70px",
 
                 }
 
         
         }>
             Name
-            <Form.Control type="text" value={user.name} placeholder="enter your name" onChange={(e)=>setUser({...user,name:e.target.value})} required ></Form.Control> 
+            <Form.Control type="text" 
+            value={user.name} 
+            style={{padding:"12px",marginTop:"9px",marginBottom:"12px"}}
+            placeholder="enter your name" onChange={(e)=>setUser({...user,name:e.target.value.trimStart()})} required ></Form.Control> 
             Email
-            <Form.Control type="text" value={user.email} placeholder="enter your email" onChange={(e)=>setUser({...user,email:e.target.value})} required ></Form.Control> 
+            <Form.Control type="text" 
+             style={{padding:"12px",marginTop:"9px",marginBottom:"12px"}}
+            value={user.email} placeholder="enter your email" onChange={(e)=>setUser({...user,email:e.target.value.trimStart()})} required ></Form.Control> 
             Password
-            <Form.Control type="text" value={user.password} placeholder="enter your password" onChange={(e)=>setUser({...user,password:e.target.value})}required ></Form.Control> 
+            <Form.Control type="text" 
+             style={{padding:"12px",marginTop:"9px",marginBottom:"12px"}}
+            value={user.password} placeholder="enter your password" onChange={(e)=>setUser({...user,password:e.target.value.trimStart()})}required ></Form.Control> 
             <Button style={
                 {
                     textAlign:"center",
                     marginLeft:"140px",
                     marginTop:"20px"
                 }
-            } variant="dark" onClick={submit}>Register</Button>
+            } variant="danger" onClick={submit}>Register</Button>
 
             </Form>
 
