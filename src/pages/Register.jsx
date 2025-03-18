@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,Container,Form } from 'react-bootstrap';
-import{useState} from "react";
-import{useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import image from '../assets/bluewh.webp';
 import axios from 'axios';
 
@@ -25,7 +25,6 @@ function Register(){
     
 
                 if(name && email && password){ 
-                    alert("Register Success")
                     const formData = new FormData();
                     formData.append("name",name);
                     formData.append("email",email);
@@ -34,6 +33,7 @@ function Register(){
                         .then((res)=>{
                              console.log(res)
                         })
+                        alert("Register Success")
                     setUser({name:"",email:"",password:""})
                     navigate('/login')
                  }
@@ -48,17 +48,11 @@ function Register(){
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "680px",
-          
-        
-            
-            
+            height: "680px",      
         }
     }>
          <h1 style={{
                         textAlign:"center",
-
-
                     }}>Register</h1>
 
     <Container style={
@@ -69,7 +63,6 @@ function Register(){
         }
     }>
                    
-
         <Form style={
             
                 {
