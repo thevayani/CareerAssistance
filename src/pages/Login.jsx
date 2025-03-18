@@ -14,11 +14,9 @@ function Login() {
         password: ""
     })
 
-    // const [loggedUser, setLoggedUser] = useState([])
+    
 
     const Save = () => {
-
-
         const formData = new FormData();
         formData.append("email", loginDetails.email);
         formData.append("password", loginDetails.password);
