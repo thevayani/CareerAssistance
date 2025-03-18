@@ -1,9 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Register from './pages/Register.jsx'
-import Login from './pages/Login.jsx'
-import PersonalDetails from './pages/PersonalDetails.jsx'
-import CareerGuidance from './pages/CareerGuidance.jsx'
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
 
