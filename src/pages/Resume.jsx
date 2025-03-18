@@ -6,12 +6,12 @@ import axios from 'axios';
 
 
 function Resume() {
-   
+
 
     const [skillValue, setSkillValue] = useState([])
     const [languageKnownValue, setLanguageKnownValue] = useState([])
     const [hobbiesValue, setHobbiesValue] = useState([])
-    const [resumeData, setResumeData] = useState()
+    const [resumeData, setResumeData] = useState("")
 
 
     const [courseValue, setCourseValue] = useState({
@@ -64,7 +64,7 @@ function Resume() {
         getApi()
     }, [])
 
-   
+
 
     const addlanguageValue = () => {
         let a = [languageKnownValue]
@@ -91,7 +91,7 @@ function Resume() {
 
 
     const addhobbiesValue = () => {
-        let a=[hobbiesValue]
+        let a = [hobbiesValue]
         let b = [...inputValue.hobbies, ...a]
         setInputValue({ ...inputValue, hobbies: b })
         setHobbiesValue("")
@@ -103,7 +103,7 @@ function Resume() {
 
 
     const addcourseValue = () => {
-        let a=[courseValue]
+        let a = [courseValue]
         let b = [...inputValue.course, ...a]
         setInputValue({ ...inputValue, course: b })
         setCourseValue({
@@ -119,7 +119,7 @@ function Resume() {
     }
 
     const addcertification = () => {
-        let a=[certification]
+        let a = [certification]
         let b = [...inputValue.certification, ...a]
         setInputValue({ ...inputValue, certification: b })
         setCertification({
@@ -154,7 +154,7 @@ function Resume() {
 
 
     const addproject = () => {
-        let a=[project]
+        let a = [project]
         let b = [...inputValue.project, ...a]
         setInputValue({ ...inputValue, project: b })
         setProject({
@@ -169,7 +169,7 @@ function Resume() {
         let del = inputValue.project.filter((items) => items != v)
         setInputValue({ ...inputValue, project: del })
     }
-  
+
 
     const submit = () => {
         const formData = new FormData();
@@ -182,330 +182,373 @@ function Resume() {
         alert("submit")
 
     }
-    const getApi = () => {
+    const getApi = () => { 
 
-        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res) => {
-            let getData = res.data.data.data
-            // console.log(getData)
-            setInputValue({...inputValue,...JSON.parse(getData)})
-
-        });
 
         axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_resume&user_id=4')
         .then((res) => {
-            console.log( res);
-    
-            const resumeData = res.data?.data;
-            console.log( resumeData);
-
-            
+            console.log(res)
+             const getDatas = res.data.data.data
+             console.log(getDatas)
+             setInputValue(JSON.parse(getDatas));
         })
-        
+
+        // axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res) => {
+        //     // console.log(res)
+        //     let getData = res.data.data.data
+        //     // console.log(getData)
+        //     setInputValue({ ...inputValue, ...JSON.parse(getData) })
+
+        // });
+
        
-    
 
-        
-        
+    };
 
-        //     // setResumeData(JSON.parse.(getDatas));  
-
-       
-    }
-   
 
     return <div>
         <h1 style={{ textAlign: "center" }}>Resume</h1>
         <Container style={{ backgroundColor: "lightgreen" }}>
             <Row>
-                <Col>
                 <Col sm="6">
-                    
-                    <h3>Name</h3>
-                    <Form.Control type="text" value={inputValue.fullname} placeholder='enter your name'
+
+                    <h3 style={{
+                        marginTop: "20px",
+                        marginBottom: "5px", width: "400px", marginLeft: "100px"
+                    }}>Name</h3>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.fullname} placeholder='enter your name'
                         onChange={(e) => setInputValue({ ...inputValue, fullname: e.target.value })} />
 
-                    <h3>Email</h3>
-                    <Form.Control type="email" value={inputValue.email} placeholder='enter your email'
+                    <h3 style={{
+                        marginTop: "8px",
+                        marginBottom: "5px", width: "400px", marginLeft: "100px"
+                    }}>Email</h3>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="email" value={inputValue.email} placeholder='enter your email'
                         onChange={(e) => setInputValue({ ...inputValue, email: e.target.value })} />
 
 
-                    <h3>Objective</h3>
-                    <Form.Control type="objective" value={inputValue.objective} placeholder='enter your objective'
+                    <h3 style={{
+                        marginTop: "8px",
+                        marginBottom: "5px", width: "400px", marginLeft: "100px"
+                    }}>Objective</h3>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="objective" value={inputValue.objective} placeholder='enter your objective'
                         onChange={(e) => setInputValue({ ...inputValue, objective: e.target.value })} />
 
-                    <h1>Personal details:</h1>
-                    
-                        <h4>Fathername</h4>
-                        <Form.Control type="text" value={inputValue.fatherName} placeholder='enter your fathername'
-                            onChange={(e) => setInputValue({ ...inputValue, fatherName: e.target.value })} />
+                    <h1 style={{
+                        marginTop: "20px",
+                        marginBottom: "10px", marginLeft: "100px"
+                    }}>Personal details:</h1>
 
-                        <h4>Mothername</h4>
-                        <Form.Control type="text" value={inputValue.motherName} placeholder='enter your mothername'
-                            onChange={(e) => setInputValue({ ...inputValue, motherName: e.target.value })} />
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Fathername</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.fatherName} placeholder='enter your fathername'
+                        onChange={(e) => setInputValue({ ...inputValue, fatherName: e.target.value })} />
 
-                        <h4>address</h4>
-                        <Form.Control type="text" value={inputValue.address} placeholder='enter your address'
-                            onChange={(e) => setInputValue({ ...inputValue, address: e.target.value })} />
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Mothername</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.motherName} placeholder='enter your mothername'
+                        onChange={(e) => setInputValue({ ...inputValue, motherName: e.target.value })} />
+
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>address</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.address} placeholder='enter your address'
+                        onChange={(e) => setInputValue({ ...inputValue, address: e.target.value })} />
 
 
-                        <h4>Gender</h4>
-                        
-                            <Form.Check inline type="radio" label="Male" value="male" checked={inputValue.gender === "male"}
-                                onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })} />
-                            <Form.Check inline type="radio" label="Female" value="female" checked={inputValue.gender === "female"}
-                                onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })} />
-                        
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Gender</h4>
 
-                        <h4>Maritial Status</h4>
-                        
-                            <Form.Check inline type="radio" label="Married" value="married"
-                                checked={inputValue.marital_status === "married"}
-                                onChange={(e) => setInputValue({ ...inputValue, marital_status: e.target.value })} />
-                            <Form.Check inline type="radio" label="Single" value="single"
-                                checked={inputValue.marital_status === "single"}
-                                onChange={(e) => setInputValue({ ...inputValue, marital_status: e.target.value })} />
-                        
+                    <Form.Check style={{ marginLeft: "100px" }} inline type="radio" label="Male" value="male" checked={inputValue.gender === "male"}
+                        onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })} />
+                    <Form.Check style={{ width: "400px", marginLeft: "100px" }} inline type="radio" label="Female" value="female" checked={inputValue.gender === "female"}
+                        onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })} />
 
-                        <h4>Nationality</h4>
 
-                        <Form.Control type="text" value={inputValue.nationality} placeholder='enter nationality'
-                            onChange={(e) => setInputValue({ ...inputValue, nationality: e.target.value })} />
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Maritial Status</h4>
 
-                        <h4>Contact Number</h4>
+                    <Form.Check style={{ marginLeft: "100px" }} inline type="radio" label="Married" value="married"
+                        checked={inputValue.marital_status === "married"}
+                        onChange={(e) => setInputValue({ ...inputValue, marital_status: e.target.value })} />
+                    <Form.Check style={{ width: "400px", marginLeft: "100px" }} inline type="radio" label="unmarried" value="unmarried"
+                        checked={inputValue.marital_status === "unmarried"}
+                        onChange={(e) => setInputValue({ ...inputValue, marital_status: e.target.value })} />
 
-                        <Form.Control type="number" value={inputValue.contact_number} placeholder='enter your contact'
-                            onChange={(e) => setInputValue({ ...inputValue, contact_number: e.target.value })} />
-                    
-                
 
-                    <h3>Course</h3>
-                    <Form.Label>CourseName</Form.Label>
-                    <Form.Control type="text" value={courseValue.courseName} placeholder="Enter CourseName"
-                        onChange={(e) => setCourseValue({ ...courseValue, courseName: e.target.value })} />
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Nationality</h4>
 
-                    <Form.Label>CourseInstitute</Form.Label>
-                    <Form.Control type="text" value={courseValue.institude} placeholder="Enter institute"
-                        onChange={(e) => setCourseValue({ ...courseValue, institude: e.target.value })} />
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.nationality} placeholder='enter nationality'
+                        onChange={(e) => setInputValue({ ...inputValue, nationality: e.target.value })} />
 
-                    <Form.Label>Year</Form.Label>
-                    <Form.Control type="number" value={courseValue.year} placeholder="Enter year"
-                        onChange={(e) => setCourseValue({ ...courseValue, year: e.target.value })} />
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Contact Number</h4>
 
-                    <Form.Label>Place</Form.Label>
-                    <Form.Control type="text" value={courseValue.place} placeholder="Enter place"
-                        onChange={(e) => setCourseValue({ ...courseValue, place: e.target.value })} />
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="number" value={inputValue.contact_number} placeholder='enter your contact'
+                        onChange={(e) => setInputValue({ ...inputValue, contact_number: e.target.value })} />
 
-                    <Button onClick={addcourseValue} variant='info'>+</Button>
-
-                    <Table striped bordered cover>
-                        <thead>
-                            <tr>
-                                <th>courseName</th>
-                                <th>institude</th>
-                                <th>year</th>
-                                <th>place</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {inputValue.course?.map((v) =>
-                                <tr>
-                                    <td>{v.courseName}</td>
-                                    <td>{v.institude}</td>
-                                    <td>{v.year}</td>
-                                    <td>{v.place}</td>
-                                    <td><Button variant='dark' onClick={() => deleteEdu(v)}>x</Button></td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </Table>
-                </Col>
                 </Col>
 
-            
 
-            
-            <Col>
-                <Col sm="6">
-                    <h4>Language</h4>
-                    <Form.Control
+
+                <Col sm="4">
+                    <h4 style={{
+                        marginTop: "20px",
+                        marginBottom: "10px", marginLeft: "80px", width: "400px", marginLeft: "100px"
+                    }}>Language</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }}
                         type="text"
                         value={languageKnownValue} placeholder="Enter language" onChange={(e) => setLanguageKnownValue(e.target.value)} />
                     <ul>
-                        <Button onClick={addlanguageValue} variant='info' >+</Button>
+                        <Button style={{ marginLeft: "100px" }} onClick={addlanguageValue} variant='info' >+</Button>
                         {inputValue.languageKnown?.map((v) =>
-                            <li>{v}
-                                <td><Button variant='dark' onClick={() => deletelanguage(v)}>x</Button></td>
+                            <li style={{ width: "400px", marginLeft: "100px" }}>{v}
+                                <td ><Button style={{ marginLeft: "px" }} variant='dark' onClick={() => deletelanguage(v)}>x</Button></td>
                             </li>
                         )}
                     </ul>
 
-                
-            
-                    <h4>Skills</h4>
-                    <Form.Control
+
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Skills</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }}
                         type="text"
                         value={skillValue} placeholder="Enter skill" onChange={(e) => setSkillValue(e.target.value)} />
                     <ul>
-                        <Button onClick={addskillValue} variant='info' >+</Button>
+                        <Button style={{ marginLeft: "100px" }} onClick={addskillValue} variant='info' >+</Button>
 
                         {inputValue.skills?.map((v) =>
-                            <li>{v}
+                            <li style={{ width: "400px", marginLeft: "100px" }}>{v}
                                 <td><Button variant='dark' onClick={() => deleteskill(v)}>x</Button></td>
                             </li>
                         )}
                     </ul>
-                </Col>
-            
 
 
 
-            
-                <Col sm="6">
-                    <h4>Hobbies</h4>
-                    <Form.Control
+
+
+
+                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Hobbies</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }}
                         type="text"
                         value={hobbiesValue} placeholder="Enter hobbies" onChange={(e) => setHobbiesValue(e.target.value)} />
                     <ul>
-                        <Button onClick={addhobbiesValue} variant='info' >+</Button>
+                        <Button style={{ marginLeft: "100px" }} onClick={addhobbiesValue} variant='info' >+</Button>
                         {inputValue.hobbies?.map((v) =>
-                            <li>{v}
+                            <li style={{ width: "400px", marginLeft: "100px" }}>{v}
                                 <td><Button variant='dark' onClick={() => deletehobbies(v)}>x</Button></td>
                             </li>
                         )}
                     </ul>
                 </Col>
-            
-
-
-
-
-
-
-            <h3>certification</h3>
-            <Col sm="6">
-                <Form.Label>coursename</Form.Label>
-                <Form.Control type="text" value={certification.certification_name} placeholder="Enter CourseName"
-                    onChange={(e) => setCertification({ ...certification, certification_name: e.target.value })} />
-
-                <Form.Label>institute</Form.Label>
-                <Form.Control type="text" value={certification.institute} placeholder="Enter institute"
-                    onChange={(e) => setCertification({ ...certification, institute: e.target.value })} />
-
-                <Form.Label>duration</Form.Label>
-                <Form.Control type="text" value={certification.duration} placeholder="Enter duration"
-                    onChange={(e) => setCertification({ ...certification, duration: e.target.value })} />
-
-                <Form.Label>place</Form.Label>
-                <Form.Control type="text" value={certification.place} placeholder="Enter place"
-                    onChange={(e) => setCertification({ ...certification, place: e.target.value })} />
-
-                <Button onClick={addcertification} variant='info' >+</Button>
-
-                <Table striped bordered cover>
-                    <thead>
-                        <tr>
-                            <th>certification_name</th>
-                            <th>institute</th>
-                            <th>duration</th>
-                            <th>place</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {inputValue.certification?.map((v) =>
-                            <tr>
-                                <td>{v.certification_name}</td>
-                                <td>{v.institute}</td>
-                                <td>{v.duration}</td>
-                                <td>{v.place}</td>
-                                <td><Button variant='dark' onClick={() => deletecertification(v)}>x</Button></td>
-                            </tr>
-                        )}
-                    </tbody>
-                </Table>
-            </Col>
-
-
-            <h3>WorkExperience</h3>
-            <Col sm="6">
-                <Form.Label>CompanyName</Form.Label>
-                <Form.Control type="text" value={workExp_Value.company_name} placeholder="Enter CompanyName"
-                    onChange={(e) => setWorkExp_Value({ ...workExp_Value, company_name: e.target.value })} />
-
-                <Form.Label>role</Form.Label>
-                <Form.Control type="text" value={workExp_Value.role} placeholder="Enter role"
-                    onChange={(e) => setWorkExp_Value({ ...workExp_Value, role: e.target.value })} />
-
-                <Form.Label>year</Form.Label>
-                <Form.Control type="number" value={workExp_Value.year} placeholder="Enter year"
-                    onChange={(e) => setWorkExp_Value({ ...workExp_Value, year: e.target.value })} />
-
-                <Form.Label>place</Form.Label>
-                <Form.Control type="text" value={workExp_Value.place} placeholder="Enter place"
-                    onChange={(e) => setWorkExp_Value({ ...workExp_Value, place: e.target.value })} />
-                <Button onClick={addworkexperience} variant='info' >+</Button>
-
-                <Table striped bordered cover>
-                    <thead>
-                        <tr>
-                            <th>company_name</th>
-                            <th>role</th>
-                            <th>year</th>
-                            <th>place</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {inputValue.workExperience?.map((v) =>
-                            <tr>
-                                <td>{v.company_name}</td>
-                                <td>{v.role}</td>
-                                <td>{v.year}</td>
-                                <td>{v.place}</td>
-                                <td><Button variant='dark' onClick={() => deletework(v)}>x</Button></td>
-                            </tr>
-                        )}
-                    </tbody>
-                </Table>
-            </Col>
-
-            <h3 >Project</h3>
-            <Col sm="6" >
-                <Form.Label>project title</Form.Label>
-                <Form.Control type="text" value={project.project_title} placeholder="Enter project title"
-                    onChange={(e) => setProject({ ...project, project_title: e.target.value })} />
-
-                <Form.Label>project description</Form.Label>
-                <Form.Control type="text" value={project.project_description} placeholder="Enter project description"
-                    onChange={(e) => setProject({ ...project, project_description: e.target.value })} />
-                <Button onClick={addproject} variant='info' >+</Button>
-
-                <Table striped bordered cover>
-                    <thead>
-                        <tr>
-                            <th>tiltle</th>
-                            <th>description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {inputValue.project?.map((v) =>
-                            <tr>
-                                <td>{v.project_title}</td>
-                                <td>{v.project_description}</td>
-                                <td><Button variant='dark' onClick={() => deleteproject(v)}>x</Button></td>
-                            </tr>
-                        )}
-                    </tbody>
-                </Table>
-            </Col>
-            </Col>
             </Row>
-                        
-            <td><Button variant='danger' onClick={submit}>submit</Button></td>
-        </Container>
 
+
+
+
+            <Row>
+                <Col sm="6">
+                    <h3 style={{
+                        marginTop: "20px",
+                        marginBottom: "10px", marginLeft: "80px", width: "400px", marginLeft: "100px"
+                    }}>Course</h3>
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>CourseName</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={courseValue.courseName} placeholder="Enter CourseName"
+                        onChange={(e) => setCourseValue({ ...courseValue, courseName: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>CourseInstitute</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={courseValue.institude} placeholder="Enter institute"
+                        onChange={(e) => setCourseValue({ ...courseValue, institude: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>Year</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="number" value={courseValue.year} placeholder="Enter year"
+                        onChange={(e) => setCourseValue({ ...courseValue, year: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>Place</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={courseValue.place} placeholder="Enter place"
+                        onChange={(e) => setCourseValue({ ...courseValue, place: e.target.value })} />
+
+                    <Button style={{ marginLeft: "100px" }} onClick={addcourseValue} variant='info'>+</Button>
+
+                    <table striped bordered cover style={{
+                        borderCollapse: "collapse", marginTop: "20px",
+                        borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
+                        backgroundColor: "lavender", height: "120px", width: "400px", marginLeft: "100px"
+                    }}>
+
+                        <thead style={{ backgroundColor: "pink", height: "40px" }}>
+                            <tr>
+                                <th style={{ padding: "10px" }}>courseName</th>
+                                <th style={{ padding: "10px" }}>institude</th>
+                                <th style={{ padding: "10px" }}>year</th>
+                                <th style={{ padding: "10px" }}>place</th>
+                                <th style={{ padding: "10px" }}>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inputValue.course?.map((v) =>
+                                <tr>
+                                    <td style={{ padding: "10px" }}>{v.courseName}</td>
+                                    <td style={{ padding: "10px" }}>{v.institude}</td>
+                                    <td style={{ padding: "10px" }}>{v.year}</td>
+                                    <td style={{ padding: "10px" }}>{v.place}</td>
+                                    <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deleteEdu(v)}>x</Button></td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </Col>
+
+
+
+
+
+
+                <Col sm="4">
+                    <h3 style={{
+                        marginTop: "20px",
+                        marginBottom: "10px", marginLeft: "100px"
+                    }}>Certification</h3>
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>coursename</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={certification.certification_name} placeholder="Enter CourseName"
+                        onChange={(e) => setCertification({ ...certification, certification_name: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>institute</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={certification.institute} placeholder="Enter institute"
+                        onChange={(e) => setCertification({ ...certification, institute: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>duration</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={certification.duration} placeholder="Enter duration"
+                        onChange={(e) => setCertification({ ...certification, duration: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>place</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={certification.place} placeholder="Enter place"
+                        onChange={(e) => setCertification({ ...certification, place: e.target.value })} />
+
+                    <Button style={{ marginLeft: "100px" }} onClick={addcertification} variant='info' >+</Button>
+
+                    <table striped bordered cover style={{
+                        borderCollapse: "collapse", marginLeft: "100px", marginTop: "20px",
+                        borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
+                        backgroundColor: "lavender", width: "400px"
+                    }}>
+                        <thead style={{ backgroundColor: "pink", height: "40px" }}>
+                            <tr>
+                                <th style={{ padding: "10px" }}>name</th>
+                                <th style={{ padding: "10px" }}>institute</th>
+                                <th style={{ padding: "10px" }}>duration</th>
+                                <th style={{ padding: "10px" }}>place</th>
+                                <th style={{ padding: "10px" }}>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inputValue.certification?.map((v) =>
+                                <tr>
+                                    <td style={{ padding: "10px" }}>{v.certification_name}</td>
+                                    <td style={{ padding: "10px" }}>{v.institute}</td>
+                                    <td style={{ padding: "10px" }}>{v.duration}</td>
+                                    <td style={{ padding: "10px" }}>{v.place}</td>
+                                    <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deletecertification(v)}>x</Button></td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </Col>
+
+                <Col sm="6">
+                    <h3 style={{
+                        marginTop: "20px",
+                        marginBottom: "10px", marginLeft: "100px", width: "400px"
+                    }}>WorkExperience</h3>
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>CompanyName</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={workExp_Value.company_name} placeholder="Enter CompanyName"
+                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, company_name: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>role</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={workExp_Value.role} placeholder="Enter role"
+                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, role: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>year</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="number" value={workExp_Value.year} placeholder="Enter year"
+                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, year: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>place</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={workExp_Value.place} placeholder="Enter place"
+                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, place: e.target.value })} />
+                    <Button style={{ marginLeft: "100px" }} onClick={addworkexperience} variant='info' >+</Button>
+
+                    <table striped bordered cover style={{
+                        borderCollapse: "collapse", marginLeft: "100px", marginTop: "20px",
+                        borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
+                        backgroundColor: "lavender", width: "400px"
+                    }} >
+                        <thead style={{ backgroundColor: "pink", height: "40px" }}>
+                            <tr>
+                                <th style={{ padding: "10px" }}>company_name</th>
+                                <th style={{ padding: "10px" }}>role</th>
+                                <th style={{ padding: "10px" }}>year</th>
+                                <th style={{ padding: "10px" }}>place</th>
+                                <th style={{ padding: "10px" }}>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inputValue.workExperience?.map((v) =>
+                                <tr>
+                                    <td style={{ padding: "10px" }}>{v.company_name}</td>
+                                    <td style={{ padding: "10px" }}>{v.role}</td>
+                                    <td style={{ padding: "10px" }}>{v.year}</td>
+                                    <td style={{ padding: "10px" }}>{v.place}</td>
+                                    <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deletework(v)}>x</Button></td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </Col>
+
+                <Col sm="4">
+                    <h3 style={{
+                        marginTop: "20px",
+                        marginBottom: "10px", marginLeft: "100px", width: "400px"
+                    }}>Project</h3>
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>project title</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={project.project_title} placeholder="Enter project title"
+                        onChange={(e) => setProject({ ...project, project_title: e.target.value })} />
+
+                    <Form.Label style={{ width: "400px", marginLeft: "100px" }}>project description</Form.Label>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={project.project_description} placeholder="Enter project description"
+                        onChange={(e) => setProject({ ...project, project_description: e.target.value })} />
+                    <Button style={{ marginLeft: "100px" }} onClick={addproject} variant='info' >+</Button>
+
+                    <table striped bordered cover style={{
+                        borderCollapse: "collapse", marginLeft: "100px", marginTop: "20px",
+                        borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
+                        backgroundColor: "lavender", width: "400px"
+                    }} >
+                        <thead style={{ backgroundColor: "pink", height: "40px" }}>
+                            <tr>
+                                <th style={{ padding: "10px" }}>tiltle</th>
+                                <th style={{ padding: "10px" }}>description</th>
+                                <th style={{ padding: "10px" }}>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inputValue.project?.map((v) =>
+                                <tr>
+                                    <td style={{ padding: "10px" }}>{v.project_title}</td>
+                                    <td style={{ padding: "10px" }}>{v.project_description}</td>
+                                    <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deleteproject(v)}>x</Button></td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </Col>
+            </Row>
+
+
+            <div style={
+                {
+                    textAlign: "center",
+                    marginTop: "30px",
+                    marginLeft: "50%"
+
+                }
+            }>
+                <td><Button variant='danger' onClick={submit}>submit</Button></td>
+            </div>
+        </Container>
     </div>
 
 }
