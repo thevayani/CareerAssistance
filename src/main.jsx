@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
-import PersonalDetails from './pages/PersonalDetails.jsx'
+import UserDetails from './pages/UserDetails.jsx'
 
 
 import {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/details",
-    element: (<PersonalDetails/>),
+    element: (<UserDetails/>),
   },
   
   

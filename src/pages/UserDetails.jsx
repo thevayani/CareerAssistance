@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import axios from 'axios'
 
-function PersonalDetails() {
+function UserDetails() {
 
     const navigate =  useNavigate()
     
@@ -736,4 +736,4 @@ function PersonalDetails() {
     </div>
 }
 
-export default PersonalDetails
+export default UserDetails
