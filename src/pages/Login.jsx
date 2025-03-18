@@ -73,7 +73,7 @@ function Login() {
 
                 Email:
 
-                <Form.Control type="email" placeholder="Enter emailid"  style={{ marginTop: "10px", marginBottom: "16px" }} value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
+                <Form.Control type="email" placeholder="Enter mail Id"  style={{ marginTop: "10px", marginBottom: "16px" }} value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
 
                 Password:
 
