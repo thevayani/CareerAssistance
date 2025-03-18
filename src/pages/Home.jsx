@@ -12,6 +12,8 @@ function Home() {
   const [inputValue, setInputValue] = useState({})
   const [goalValue, setGoalValue] = useState({})
 
+  const [val,setVal] = useState([])
+
 
   const getApi = () => {
     axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4')
@@ -40,6 +42,9 @@ function Home() {
   const submit = () => {
     alert("Ask Guidance")
     navigate("/careerAi")
+
+    let getData = [...val,inputValue,goalValue]
+    console.log(getData)
   }
 
   const save = () => {
@@ -51,7 +56,7 @@ function Home() {
     <div style={
       {
           backgroundImage: `url(${image})`,
-          backgroundSize: "cover",
+          backgroundSize: "cover",  
           backgroundRepeat: "no-repeat",
           height: "1200px",
       }}>
