@@ -1,4 +1,4 @@
-import { Form, Container, Button, Row, Col,Navbar,Nav, Table } from 'react-bootstrap';
+import { Form, Container, Button, Row, Col, Navbar, Nav, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { CIcon } from '@coreui/icons-react';
@@ -11,8 +11,8 @@ import axios from 'axios'
 
 function UserDetails() {
 
-    const navigate =  useNavigate()
-    
+    const navigate = useNavigate()
+
     const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -20,7 +20,7 @@ function UserDetails() {
         courseinstitute: "",
         courseyear: ""
     });
-  
+
     const [courseValue, setCourseValue] = useState({
         coursename: "",
         courseinstitute: "",
@@ -28,9 +28,9 @@ function UserDetails() {
         place: ""
     });
 
-    useEffect (() =>{
+    useEffect(() => {
         getApi()
-    },[])
+    }, [])
 
     const [userInputValue, setuserInputValue] = useState(
         {
@@ -51,77 +51,74 @@ function UserDetails() {
 
 
     const submitBtn = () => {
+        if (userInputValue.fullname == "" ||
+            userInputValue.fathername == "" ||
+            userInputValue.mothername == "" ||
+            userInputValue.gender == "" ||
+            userInputValue.dob == "" ||
+            userInputValue.address == "" ||
+            userInputValue.phone == "") {
+            alert("please enter the value")
+        }
+        else {
+            alert("Submitted Successfully")
+            const formData = new FormData();
+            formData.append("user_id", 4);
+            formData.append("data", JSON.stringify(userInputValue))
 
-             
-       
-                if (userInputValue.fullname == "" ||
-                    userInputValue.fathername == "" ||
-                    userInputValue.mothername == "" ||
-                    userInputValue.gender == "" ||
-                    userInputValue.dob == "" ||
-                    userInputValue.address == "" ||
-                    userInputValue.phone == "") {
-                    alert("please enter the value")
-                }
-                else {
-                  alert("Submitted Successfully")
-                    const formData = new FormData();
-                    formData.append("user_id",4);
-                    formData.append("data",JSON.stringify(userInputValue))
-
-                    axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
-                        console.log(res)
-                    });
-                    navigate("/home")
-                }
+            axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
+                console.log(res)
+            });
+            navigate("/home")
+        }
     }
 
     const getApi = () => {
 
-        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res)=>{
-        let getData = res.data.data.data
-        console.log(getData)
-        setuserInputValue(JSON.parse(getData))
-        
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res) => {
+            let getData = res.data.data.data
+            console.log(getData)
+            setuserInputValue(JSON.parse(getData))
+
         });
     }
 
 
     const addLanguage = () => {
-       
+
         if (languageknownValue == "") {
             alert("please enter the value")
         } else {
-            let x = [languageknownValue]
-            let y = [...userInputValue?.languageknown,...x]
+           
+            let y = [...userInputValue?.languageknown, languageknownValue]
             console.log(y)
-            setuserInputValue({...userInputValue,languageknown: y})
+            setuserInputValue({ ...userInputValue, languageknown: y })
             setlanguageknownValue("")
         }
     }
 
 
     const addhobbies = () => {
-      
+
         if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
-            let x = [hobbiesValue]
-            let y = [...userInputValue?.hobbies,...x]
+         
+            let y = [...userInputValue?.hobbies, hobbiesValue]
             console.log(y)
-            setuserInputValue({...userInputValue, hobbies: y})
+            setuserInputValue({ ...userInputValue, hobbies: y })
             setHobbiesValue("")
         }
     }
 
     const addWork_exp = () => {
-       
+
         if (workExp_Value.companyName == "" || workExp_Value.courseinstitute == "" || workExp_Value.courseyear == "") {
             alert("please enter the value")
         }
         else {
-            let workExp = [workExp_Value]
-            let y = [...userInputValue?.workexperience,...workExp]
+         
+            let y = [...userInputValue?.workexperience,workExp_Value]
             setuserInputValue({ ...userInputValue, workexperience: y })
 
             setWorkExp_Value({ companyName: "", courseinstitute: "", courseyear: "" })
@@ -130,42 +127,40 @@ function UserDetails() {
 
 
     const addCourseBtn = () => {
-       
-
         if (courseValue.coursename == "" || courseValue.courseinstitute == "" || courseValue.courseyear == "" || courseValue.place == "") {
             alert("please enter the value")
         } else {
-            let education = [courseValue]
-            let y = [...userInputValue?.educationdetails,...education]
+           
+            let y = [...userInputValue?.educationdetails, courseValue]
             setuserInputValue({ ...userInputValue, educationdetails: y })
 
             setCourseValue({ coursename: "", courseinstitute: "", courseyear: "", place: "" })
         }
     }
 
-    const deleteLanguage = (v) =>{
+    const deleteLanguage = (v) => {
         alert("Do you want to delete?")
         let del = userInputValue.languageknown.filter((items) => items != v)
-        setuserInputValue({...userInputValue,languageknown:del})
+        setuserInputValue({ ...userInputValue, languageknown: del })
     }
 
-    const deletehobbies =((v) =>{
+    const deletehobbies = ((v) => {
         alert("Do you want to delete?")
         let del = userInputValue.hobbies.filter((items) => items != v)
-        setuserInputValue({...userInputValue,hobbies:del})
+        setuserInputValue({ ...userInputValue, hobbies: del })
     })
 
 
-    const deleteWorkExp =((v) =>{
+    const deleteWorkExp = ((v) => {
         alert("Do you want to delete?")
         let del = userInputValue.workexperience.filter((items) => items != v)
-        setuserInputValue({...userInputValue,workexperience:del})
+        setuserInputValue({ ...userInputValue, workexperience: del })
     })
 
-    const deletecourse =((v) =>{
+    const deletecourse = ((v) => {
         alert("Do you want to delete?")
         let del = userInputValue.educationdetails.filter((items) => items != v)
-        setuserInputValue({...userInputValue,educationdetails:del})
+        setuserInputValue({ ...userInputValue, educationdetails: del })
     })
 
 
@@ -179,11 +174,11 @@ function UserDetails() {
         }
     }>
         <Navbar bg='dark' data-bs-theme="dark" sticky>
-        <Container className='mt-25'>
-            <Navbar.Brand href="#" style={{textAlign:"center",marginLeft:"440px"}}>
-                User Details
-            </Navbar.Brand>
-        </Container>
+            <Container className='mt-25'>
+                <Navbar.Brand href="#" style={{ textAlign: "center", marginLeft: "440px" }}>
+                    User Details
+                </Navbar.Brand>
+            </Container>
         </Navbar>
 
         <Container>
@@ -213,11 +208,11 @@ function UserDetails() {
                                         color: "white"
                                     }}
                                     type="text"
-                                    required 
+                                    required
                                     value={userInputValue.fullname}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, fullname: e.target.value.trimStart()})}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, fullname: e.target.value.trimStart() })}
                                     placeholder="Enter full Name"
-                                   />
+                                />
                             </Col>
                         </Form.Group>
 
@@ -235,7 +230,7 @@ function UserDetails() {
                                     type="text"
                                     value={userInputValue.fathername}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, fathername: e.target.value.trimStart() })}
-                                    placeholder="Enter Father Name" 
+                                    placeholder="Enter Father Name"
                                     required />
                             </Col>
                         </Form.Group>
@@ -254,7 +249,7 @@ function UserDetails() {
                                     type="text"
                                     value={userInputValue.mothername}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, mothername: e.target.value.trimStart() })}
-                                    placeholder="Enter Mother Name" 
+                                    placeholder="Enter Mother Name"
                                     required />
                             </Col>
                         </Form.Group>
@@ -270,8 +265,8 @@ function UserDetails() {
                                         label="Male"
                                         value="male"
                                         checked={userInputValue.gender == "male"}
-                                        onChange={(e) => setuserInputValue({ ...userInputValue, gender: e.target.value })} 
-                                         />
+                                        onChange={(e) => setuserInputValue({ ...userInputValue, gender: e.target.value })}
+                                    />
                                 </Col>
                                 <Col sm="2" className="mt-2">
                                     <Form.Check type="radio"
@@ -300,7 +295,7 @@ function UserDetails() {
                                     placeholder="Enter full Name" />
                             </Col>
                         </Form.Group>
-                        
+
 
 
                         <Form.Group as={Row} className="mb-3"   >
@@ -317,7 +312,7 @@ function UserDetails() {
                                     }}
                                     onChange={(e) => setuserInputValue({ ...userInputValue, address: e.target.value.trimStart() })}
                                     value={userInputValue.address}
-                                    placeholder="Leave a comment here" 
+                                    placeholder="Leave a comment here"
                                     required />
                             </Col>
                         </Form.Group>
@@ -336,23 +331,23 @@ function UserDetails() {
                                             backgroundColor: "inherit",
                                             border: "1px solid black", color: "white"
                                         }}
-                                        placeholder="Hobbies" 
+                                        placeholder="Hobbies"
                                         required />
-                                      
-                                            <ul style={{marginTop:"10px"}}>
-                                            {userInputValue.hobbies?.map((v) =>
-                                                    <li>{v}<CloseButton 
-                                                    onClick={() => deletehobbies(v)}
-                                                    style={
-                                                            {
-                                                                fontSize:"12px",
-                                                                marginLeft:"10px",
-                                                                backgroundColor:"Background"
-                                                            }
-                                                        } />
-                                                </li>)}
-                                            </ul>
-                                         
+
+                                    <ul style={{ marginTop: "10px" }}>
+                                        {userInputValue.hobbies?.map((v) =>
+                                            <li>{v}<CloseButton
+                                                onClick={() => deletehobbies(v)}
+                                                style={
+                                                    {
+                                                        fontSize: "12px",
+                                                        marginLeft: "10px",
+                                                        backgroundColor: "Background"
+                                                    }
+                                                } />
+                                            </li>)}
+                                    </ul>
+
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -382,23 +377,23 @@ function UserDetails() {
                                             backgroundColor: "inherit",
                                             border: "1px solid black", color: "white"
                                         }}
-                                        placeholder="Language" 
+                                        placeholder="Language"
                                         required />
-                                      
-                                            <ul style={{marginTop:"10px"}}>
-                                            {userInputValue.languageknown?.map((v) =>
-                                                    <li>{v}<CloseButton 
-                                                    onClick={() => deleteLanguage(v)}
-                                                    style={
-                                                            {
-                                                                fontSize:"12px",
-                                                                marginLeft:"10px",
-                                                                backgroundColor:"Background"
-                                                            }
-                                                        } />
-                                                </li>)}
-                                            </ul>
-                                         
+
+                                    <ul style={{ marginTop: "10px" }}>
+                                        {userInputValue.languageknown?.map((v) =>
+                                            <li>{v}<CloseButton
+                                                onClick={() => deleteLanguage(v)}
+                                                style={
+                                                    {
+                                                        fontSize: "12px",
+                                                        marginLeft: "10px",
+                                                        backgroundColor: "Background"
+                                                    }
+                                                } />
+                                            </li>)}
+                                    </ul>
+
                                 </Col>
                                 <Col sm="4">
                                     <Button
@@ -414,7 +409,7 @@ function UserDetails() {
                             </Row>
                         </Form.Group>
 
-                       
+
 
                         <Form.Group as={Row} className="mb-3">
                             <Row>
@@ -449,14 +444,14 @@ function UserDetails() {
                                 <Form.Control
                                     type="number"
                                     value={userInputValue.phone}
-                                    onChange={(e) => setuserInputValue({ ...userInputValue, phone: e.target.value.trimStart()})}
+                                    onChange={(e) => setuserInputValue({ ...userInputValue, phone: e.target.value.trimStart() })}
                                     style={{
                                         backgroundColor: "inherit",
                                         border: "1px solid black",
                                         color: "white"
                                     }}
                                     placeholder="Contact Number"
-                                    required  />
+                                    required />
                             </Col>
                         </Form.Group>
                     </Col>
@@ -480,13 +475,13 @@ function UserDetails() {
                                     <Form.Control
                                         type="text"
                                         value={workExp_Value.companyName}
-                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value,companyName: e.target.value.trimStart() })}
+                                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, companyName: e.target.value.trimStart() })}
                                         style={{
                                             backgroundColor: "inherit",
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Company Name" 
+                                        placeholder="Company Name"
                                         required />
                                 </Col>
                             </Row>
@@ -509,7 +504,7 @@ function UserDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Institude Name" 
+                                        placeholder="Institude Name"
                                         required />
                                 </Col>
                             </Row>
@@ -532,7 +527,7 @@ function UserDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="year" 
+                                        placeholder="year"
                                         required />
                                 </Col>
                             </Row>
@@ -549,23 +544,23 @@ function UserDetails() {
                                     Add
                                 </Button>
                             </Col>
-                            <Table   striped="columns" bordered hover  style={{marginTop:"20px",borderRadius:"10px",backgroundColor:"inherit"}}>
-                                <thead style={{backgroundColor:"inherit"}}>
+                            <Table striped="columns" bordered hover style={{ marginTop: "20px", borderRadius: "10px", backgroundColor: "inherit" }}>
+                                <thead style={{ backgroundColor: "inherit" }}>
                                     <tr>
                                         <th>S.No</th>
                                         <th>Company Name</th>
                                         <th>Institude name</th>
                                         <th>year.of.Exp</th>
                                         <th>Delete</th>
-                                     </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    {userInputValue.workexperience?.map((v,i) => <tr>
-                                        <td>{i+1}</td>
+                                    {userInputValue.workexperience?.map((v, i) => <tr>
+                                        <td>{i + 1}</td>
                                         <td>{v.companyName}</td>
                                         <td>{v.courseinstitute}</td>
                                         <td>{v.courseyear}</td>
-                                        <td><CIcon icon={cilTrash} onClick={() => deleteWorkExp(v)} size="sm" style={{width:"30px",marginLeft:"9px"}} /></td>
+                                        <td><CIcon icon={cilTrash} onClick={() => deleteWorkExp(v)} size="sm" style={{ width: "30px", marginLeft: "9px" }} /></td>
                                     </tr>)}
                                 </tbody>
                             </Table>
@@ -594,7 +589,7 @@ function UserDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Course Name" 
+                                        placeholder="Course Name"
                                         required />
                                 </Col>
                             </Row>
@@ -619,7 +614,7 @@ function UserDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="Institude Name" 
+                                        placeholder="Institude Name"
                                         required />
                                 </Col>
                             </Row>
@@ -644,7 +639,7 @@ function UserDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="year" 
+                                        placeholder="year"
                                         required />
                                 </Col>
                             </Row>
@@ -670,8 +665,8 @@ function UserDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="place" 
-                                         required />
+                                        placeholder="place"
+                                        required />
 
                                 </Col>
                             </Row>
@@ -690,7 +685,7 @@ function UserDetails() {
                                 </Button>
                             </Col>
 
-                        <Table striped="columns" bordered hover  style={{marginTop:"20px",borderRadius:"20px",backgroundColor:"inherit"}}>
+                            <Table striped="columns" bordered hover style={{ marginTop: "20px", borderRadius: "20px", backgroundColor: "inherit" }}>
                                 <thead >
                                     <tr>
                                         <th>S.No</th>
@@ -699,20 +694,20 @@ function UserDetails() {
                                         <th>year.of.Exp</th>
                                         <th>Place</th>
                                         <th>Delete</th>
-                                     </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    {userInputValue.educationdetails?.map((v,i) => <tr>
-                                        <td key={i}>{i+1}</td>
-                                        <td>{v.coursename}</td> 
+                                    {userInputValue.educationdetails?.map((v, i) => <tr>
+                                        <td key={i}>{i + 1}</td>
+                                        <td>{v.coursename}</td>
                                         <td>{v.courseinstitute}</td>
                                         <td>{v.courseyear}</td>
                                         <td>{v.place}</td>
-                                        <td><CIcon icon={cilTrash} onClick={() => deletecourse(v)} size="sm" style={{width:"30px",marginLeft:"9px"}} /></td>
+                                        <td><CIcon icon={cilTrash} onClick={() => deletecourse(v)} size="sm" style={{ width: "30px", marginLeft: "9px" }} /></td>
                                     </tr>)}
                                 </tbody>
                             </Table>
-                                        
+
                         </Form.Group>
 
                     </Col>
