@@ -1,19 +1,16 @@
 
-import { useState, useEffect } from 'react';
-
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form, Table } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import image from '../assets/image.jpg'
+import { useSelector, useDispatch } from 'react-redux';
 import {setLoginUsers} from '../redux/slices/login'
-
-
 
 
 function Login() {
     const careerGlobalState = useSelector((state) => state.login.loginUsers)
-    // const [registeredUsers,setRegisteredUsers] = useState()
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [loginDetails, setLoginDetails] = useState({
@@ -21,72 +18,75 @@ function Login() {
         password: ""
     })
 
+    
+
     const Save = () => {
-
-
         const formData = new FormData();
         formData.append("email", loginDetails.email);
         formData.append("password", loginDetails.password);
 
         axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_user_login', formData).then((res) => {
-             console.log(res.data);
+            console.log(res.data);
 
-           
-            
 
-            if (res.data.status === "success") {
-                alert("Login Successfull")
 
-                dispatch(setLoginUsers(res.data))                
-                console.log(careerGlobalState)
-                
-                navigate('/details')
+
+            if (loginDetails.email && loginDetails.password) {
+                if (res.data.status === "success") {
+                    alert("Login Successfull")
+                    console.log(res.data.data)
+                    dispatch(setLoginUsers(res.data.data))                
+                    navigate('/details')
+                }
+                else {
+                    alert("Not registered")
+                    navigate('/register')
+                }
             }
+
             else {
-                alert("Not registered")
-                navigate('/register')
+                alert("please fill up")
             }
 
         });
 
-
-        // useEffect(() => {
-           
-        //     if (careerGlobalState) {
-        //         navigate('/details');
-        //     }
-        // }, [careerGlobalState, navigate]);
-
-
-
-
-        // careerGlobalState.forEach((a) => {
-
-        //     if (a.email == loginDetails.email && a.password == loginDetails.password) {
-        //         alert("Login Successfull")
-        //         navigate('/details')
-
-        //     }
-        //     else {
-        //         navigate('/register')
-        //     }
-        // })
     }
 
+    return <div style={
+        {
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            height: "750px",
+        }
+    }>
 
+        <h1 style={{ textAlign: "center" }}>Login</h1>
 
+        <div style={{
+            backgroundColor: "rgba(163, 24, 91, 0.27)",
+            width: "500px",
+            marginRight: "350px",
+            borderRadius: "15px",
+            marginLeft: "500px",
+            marginTop: "60px",
+            background: "transparent",
+            boxShadow: "0 0 10px"
+        }}>
 
-    return <div>
+            <Form style={{ padding: "45px" }}>
 
-        Email:
-        <Form.Control type="email" placeholder="Enter emailid" value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
+                Email:
 
-        Password:
+                <Form.Control type="email" placeholder="Enter mail Id"  style={{ marginTop: "10px", marginBottom: "16px" }} value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
 
-        <Form.Control type="password" placeholder="Enter password" value={loginDetails.password} onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
+                Password:
 
-        <Button variant="success" onClick={Save}>Save</Button>
+                <Form.Control type="password"  style={{marginTop: "10px",marginBottom: "16px"}}placeholder="Enter password" value={loginDetails.password} onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
 
+                <Button variant="success"  style={{ textAlign: "center", marginLeft: "170px", marginTop: "20px" }} onClick={Save}>Save</Button>
+            </Form>
+        </div>
     </div>
 }
 
