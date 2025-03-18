@@ -32,10 +32,13 @@ function Register(){
                         axios.post("https://agaram.academy/api/b4/action.php?request=ai_carrier_user_register",formData)
                         .then((res)=>{
                              console.log(res)
+                             if(res.data.status==="success"){
+                                alert("Register Success")
+                                setUser({name:"",email:"",password:""})
+                                navigate('/login')
+                             }
                         })
-                        alert("Register Success")
-                    setUser({name:"",email:"",password:""})
-                    navigate('/login')
+                       
                  }
                  else{
                     alert("Please fill up")
