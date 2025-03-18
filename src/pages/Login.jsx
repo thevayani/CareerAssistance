@@ -66,7 +66,7 @@ function Login() {
         <div style={{
             backgroundColor: "rgba(163, 24, 91, 0.27)",
             width: "500px",
-            marginLeft: "350px",
+            marginRight: "350px",
             borderRadius: "15px",
             marginLeft: "500px",
             marginTop: "60px",
