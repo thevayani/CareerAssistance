@@ -175,7 +175,7 @@ function PersonalDetails() {
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "1100px",
+            height: "1200px",
         }
     }>
         <Navbar bg='dark' data-bs-theme="dark" sticky>
@@ -695,7 +695,7 @@ function PersonalDetails() {
                                     <tr>
                                         <th>S.No</th>
                                         <th>Company Name</th>
-                                        <th>Institude name</th>
+                                        <th>Designation</th>
                                         <th>year.of.Exp</th>
                                         <th>Place</th>
                                         <th>Delete</th>
