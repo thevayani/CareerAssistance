@@ -1,12 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import './index.css'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx' 
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
 import UserDetails from './pages/UserDetails.jsx'
+
 
 import {
   createBrowserRouter,

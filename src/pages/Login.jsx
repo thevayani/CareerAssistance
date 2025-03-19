@@ -34,7 +34,6 @@ function Login() {
             if (loginDetails.email && loginDetails.password) {
                 if (res.data.status === "success") {
                     alert("Login Successfull")
-                    console.log(res.data.data)
                     dispatch(setLoginUsers(res.data.data))                
                     navigate('/details')
                 }
