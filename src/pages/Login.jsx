@@ -37,7 +37,7 @@ function Login() {
                     alert("Login Successfull")
                     console.log(res.data.data)
                     dispatch(setLoginUsers(res.data.data))     
-                    localStorage.setItem("users", JSON.stringify(res.data.data));           
+                    localStorage.setItem("users", JSON.stringify(res.data.data));        
                     navigate('/details')
                 }
                 else {
