@@ -45,8 +45,7 @@ function Home() {
   const submit = () => {
     alert("Ask Guidance")
     navigate("/careerAi")
-
-  
+    
   }
 
   const save = () => {
