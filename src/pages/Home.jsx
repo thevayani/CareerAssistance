@@ -2,17 +2,20 @@ import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Row, Col, Button,Form } from 'react-bootstrap';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import image from '../assets/home1.avif'
+import image from '../assets/image.jpg'
 
 
 function Home() {
+
+  const careerGlobalState = useSelector((state) => state.home.userProfile)
+  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const [inputValue, setInputValue] = useState({})
   const [goalValue, setGoalValue] = useState({})
 
-  const [val,setVal] = useState([])
 
 
   const getApi = () => {
@@ -43,8 +46,7 @@ function Home() {
     alert("Ask Guidance")
     navigate("/careerAi")
 
-    let getData = [...val,inputValue,goalValue]
-    console.log(getData)
+  
   }
 
   const save = () => {
@@ -66,7 +68,7 @@ function Home() {
 
         <Row>
           <Col sm="6">
-                <h4>Personal Details</h4>
+                <h4 style={{marginLeft:"40px"}}>Personal Details</h4>
             <div>
               <table style={{
                 borderCollapse: "collapse", marginLeft: "80px", marginTop: "20px",
@@ -79,8 +81,8 @@ function Home() {
                   }
                 }>
                   <tr>
-                    <th style={{padding:"10px"}}>Key</th>
-                    <th>Value</th>
+                    <th style={{padding:"10px",backgroundColor:"grey"}}>Key</th>
+                    <th style={{padding:"10px",backgroundColor:"grey"}}>Value</th>
                   </tr>
                 </thead>
                 <tbody >
@@ -123,7 +125,7 @@ function Home() {
           <div>
           <h4>Hobbies & Languages</h4>
               <div style={{
-                 marginLeft: "40px", width: "80%", height: "325px", borderRadius: "1px",
+                 marginLeft: "40px", width: "80%", height: "350px", borderRadius: "1px",
                 boxShadow: "0 0 10px black",
                 backgroundColor:"inherit"
               }}>
@@ -164,30 +166,30 @@ function Home() {
           <Col sm="6">
           <div>
           <h5 style={{
-            marginTop:"20px",
+            marginTop:"20px",marginLeft:"40px",
               marginBottom: "20px",
             }}>Work Experience</h5>
               <table striped bordered hover style={{
-                marginLeft: "80px", marginTop: "5%", width: "80%",
-                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",padding:"28px"
+                marginLeft: "80px", marginTop: "1%", width: "80%",
+                borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black"
               }}>
                 <thead style={
                   {
-                    backgroundColor:"",
+                    backgroundColor:"grey",
                   }
                 }>
                   <tr>
-                    <th style={{padding:"15px"}}>companyName</th>
-                    <th style={{padding:"15px"}}>instituteName</th>
-                    <th style={{padding:"15px"}}>Year</th>
+                    <th style={{padding:"10px"}}>companyName</th>
+                    <th style={{padding:"10px"}}>instituteName</th>
+                    <th style={{padding:"10px"}}>Year</th>
                   </tr>
                 </thead>
                 <tbody>
                   {inputValue.workExperience?.map((workExperience) => (
                     <tr>
-                      <td style={{padding:"15px"}}>{workExperience.companyName}</td>
-                      <td style={{padding:"15px"}}>{workExperience.institudeName}</td>
-                      <td style={{padding:"15px"}}>{workExperience.year}</td>
+                      <td style={{padding:"10px"}}>{workExperience.companyName}</td>
+                      <td style={{padding:"10px"}}>{workExperience.institudeName}</td>
+                      <td style={{padding:"10px"}}>{workExperience.year}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -206,7 +208,7 @@ function Home() {
               marginLeft: "40px", marginTop: "1%", width: "80%",
               boxShadow: "0 0 10px black"
             }}>
-              <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px", backgroundColor:""}}>
+              <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px", backgroundColor:"grey"}}>
                 <tr >
                   <th style={{padding:"10px"}}>Course Name</th>
                   <th style={{padding:"10px"}}>Institute Name</th>
@@ -235,20 +237,21 @@ function Home() {
      <Row>
         
           <Col sm="6">
-          <h4 style={{marginTop:"20px"}}>Skils & Goals</h4>
+          <h4 style={{marginTop:"20px",marginLeft:"40px"}}>Skils & Goals</h4>
 
           <div style={
             {
                 marginLeft: "80px",
                 marginTop: "20px", 
-                width: "70%",
+                width: "80%",
                 maxHeight:"350px",
                 borderRadius: "5px 5px 0 0", 
                 boxShadow: "0 0 10px black",
                 padding:"10px",
+                height:"80%",
                   backgroundColor:"inherit"
                 }}>
-                   <div style={{ marginLeft: "30%",  padding: "30px",listStyleType:"square" }}>
+                   <div style={{ marginLeft: "40%",  padding: "30px",listStyleType:"square" }}>
                       <h5>Goal</h5>
                         <ul style={{ listStyleType:"square"}} >
                             <li>{goalValue.goal}</li>
