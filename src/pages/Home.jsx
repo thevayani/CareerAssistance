@@ -1,29 +1,39 @@
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, Row, Col, Button,Form } from 'react-bootstrap';
+import {  Row, Col, Button} from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import image from '../assets/image.jpg'
+import image from '../assets/home1.avif'
+import { setUserProfile,setUserGoal } from '../redux/slices/home';
+import { useParams } from 'react-router-dom';
 
 
-function Home() {
+
+
+function Home() { 
+
+
 
   const careerGlobalState = useSelector((state) => state.home.userProfile)
-  const dispatch = useDispatch();
+  console.log(careerGlobalState)
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [inputValue, setInputValue] = useState({})
-  const [goalValue, setGoalValue] = useState({})
+  const [inputValue, setInputValue] = useState("")
+  const [goalValue, setGoalValue] = useState("")
 
 
 
   const getApi = () => {
-    axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4')
+    axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${user_id}`)
       .then((res) => {
         if (res.data.data.data) {
           const getData = JSON.parse(res.data.data.data);
-          console.log(getData);
+          dispatch(setUserProfile(getData))
+
+          // console.log(getData);
           setInputValue(getData);
         }
       })
@@ -32,7 +42,7 @@ function Home() {
       .then((res) => {
         if (res.data.data.data) {
           const getDatas = JSON.parse(res.data.data.data);
-          console.log(getDatas);
+          // console.log(getDatas);
           setGoalValue(getDatas);
         }
       })
@@ -80,8 +90,8 @@ function Home() {
                   }
                 }>
                   <tr>
-                    <th style={{padding:"10px",backgroundColor:"grey"}}>Key</th>
-                    <th style={{padding:"10px",backgroundColor:"grey"}}>Value</th>
+                    <th style={{padding:"10px",backgroundColor:"grey",color:"white"}}>Key</th>
+                    <th style={{padding:"10px",backgroundColor:"grey",color:"white"}}>Value</th>
                   </tr>
                 </thead>
                 <tbody >
@@ -90,12 +100,16 @@ function Home() {
                     <td>{inputValue.fullname}</td>
                   </tr>
                   <tr>
-                    <td  style={{padding:"10px"}}>fatherName</td>
-                    <td>{inputValue.fatherName}</td>
+                    <td  style={{padding:"10px"}}>fathername</td>
+                    <td>{inputValue.fathername}</td>
                   </tr>
                   <tr>
-                    <td  style={{padding:"10px"}}>motherName</td>
-                    <td>{inputValue.motherName}</td>
+                    <td  style={{padding:"10px"}}>mothername</td>
+                    <td>{inputValue.mothername}</td>
+                  </tr>
+                  <tr>
+                    <td  style={{padding:"10px"}}>gender</td>
+                    <td>{inputValue.gender}</td>
                   </tr>
                   <tr>
                     <td  style={{padding:"10px"}}>dob</td>
@@ -110,8 +124,8 @@ function Home() {
                     <td>{inputValue.whether_employee}</td>
                   </tr>
                   <tr>
-                    <td  style={{padding:"10px"}}>contact_number</td>
-                    <td>{inputValue.contact_number}</td>
+                    <td  style={{padding:"10px"}}>phone</td>
+                    <td>{inputValue.phone}</td>
                   </tr>
                 </tbody>
               </table>
@@ -148,7 +162,7 @@ function Home() {
                     <div>
                       <h4>Language</h4>
                       <ul style={{listStyleType:"square"}}>
-                        {inputValue.languageKnown?.map((v) => <li>
+                        {inputValue.languageknown?.map((v) => <li>
                           {v}
                         </li>
                         )}
@@ -174,21 +188,21 @@ function Home() {
               }}>
                 <thead style={
                   {
-                    backgroundColor:"grey",
+                    backgroundColor:"grey",color:"white"
                   }
                 }>
                   <tr>
                     <th style={{padding:"10px"}}>companyName</th>
-                    <th style={{padding:"10px"}}>instituteName</th>
-                    <th style={{padding:"10px"}}>Year</th>
+                    <th style={{padding:"10px"}}>courseinstitute</th>
+                    <th style={{padding:"10px"}}>courseyear</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {inputValue.workExperience?.map((workExperience) => (
+                  {inputValue.workexperience?.map((workexperience) => (
                     <tr>
-                      <td style={{padding:"10px"}}>{workExperience.companyName}</td>
-                      <td style={{padding:"10px"}}>{workExperience.institudeName}</td>
-                      <td style={{padding:"10px"}}>{workExperience.year}</td>
+                      <td style={{padding:"10px"}}>{workexperience.companyName}</td>
+                      <td style={{padding:"10px"}}>{workexperience.courseinstitute}</td>
+                      <td style={{padding:"10px"}}>{workexperience.courseyear}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -207,21 +221,21 @@ function Home() {
               marginLeft: "40px", marginTop: "1%", width: "80%",
               boxShadow: "0 0 10px black"
             }}>
-              <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px", backgroundColor:"grey"}}>
+              <thead style={{ textAlign: "left", fontWeight: "bold", padding: "1px", backgroundColor:"grey",color:"white"}}>
                 <tr >
-                  <th style={{padding:"10px"}}>Course Name</th>
-                  <th style={{padding:"10px"}}>Institute Name</th>
-                  <th style={{padding:"10px"}}>Year</th>
-                  <th style={{padding:"10px"}}>Place</th>
+                  <th style={{padding:"10px"}}>coursename</th>
+                  <th style={{padding:"10px"}}>courseinstitute</th>
+                  <th style={{padding:"10px"}}>courseyear</th>
+                  <th style={{padding:"10px"}}>place</th>
                 </tr>
               </thead>
-              <tbody>
-                {inputValue.course?.map((course) => (
+              <tbody> 
+                {inputValue.educationdetails?.map((educationdetails) => (
                   <tr>
-                    <td style={{padding:"10px"}}>{course.courseName}</td>
-                    <td style={{padding:"10px"}}>{course.institudeName}</td>
-                    <td style={{padding:"10px"}}>{course.year}</td>
-                    <td style={{padding:"10px"}}>{course.place}</td>
+                    <td style={{padding:"10px"}}>{educationdetails.coursename}</td>
+                    <td style={{padding:"10px"}}>{educationdetails.courseinstitute}</td>
+                    <td style={{padding:"10px"}}>{educationdetails.courseyear}</td>
+                    <td style={{padding:"10px"}}>{educationdetails.place}</td>
                   </tr>
                 ))}
               </tbody>
@@ -248,7 +262,7 @@ function Home() {
                 boxShadow: "0 0 10px black",
                 padding:"10px",
                 height:"80%",
-                  backgroundColor:"inherit"
+                backgroundColor:"inherit"
                 }}>
                    <div style={{ marginLeft: "40%",  padding: "30px",listStyleType:"square" }}>
                       <h5>Goal</h5>
@@ -259,7 +273,7 @@ function Home() {
                   
                         <div>
                           <h5>Skills</h5>
-                              <ul style={{ listStyleType:"square"}} >
+                              <ul style={{listStyleType:"square"}} >
                                   {goalValue.skill?.map((v) => <li>
                                     {v}
                                   </li>
@@ -280,7 +294,7 @@ function Home() {
                   }}>
                   {goalValue.questions?.map((v) => 
                   <ul>
-                    <h6><li style={{listStyleType:"none",color:"black",textAlign:"center"}}>
+                    <h6 ><li style={{listStyleType:"none",color:"black",textAlign:"center",marginTop:"20px"}}>
                       {v.question}
                     </li></h6>
                     <li style={{listStyleType:"none",textAlign:"center"}}>
@@ -289,7 +303,7 @@ function Home() {
                   </ul>
                   )}         
                 <ul>
-                  {goalValue.answer?.map((v,index) => <li>
+                  {goalValue.answer?.map((v) => <li>
                     {v}
                   </li>
                   )}
@@ -313,7 +327,7 @@ function Home() {
                         {
                         marginLeft:"20px"
                         }
-                     } variant="dark" onClick={save}>Update</Button>
+                     } variant="danger" onClick={save}>Update</Button>
       </div>
     </div>
   )
