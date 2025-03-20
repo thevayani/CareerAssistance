@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {setLoginUsers} from '../redux/slices/login'
 
 
+
 function Login() {
     const careerGlobalState = useSelector((state) => state.login.loginUsers)
     const navigate = useNavigate();
@@ -35,7 +36,8 @@ function Login() {
                 if (res.data.status === "success") {
                     alert("Login Successfull")
                     console.log(res.data.data)
-                    dispatch(setLoginUsers(res.data.data))                
+                    dispatch(setLoginUsers(res.data.data))     
+                    localStorage.setItem("users", JSON.stringify(res.data.data));        
                     navigate('/details')
                 }
                 else {
