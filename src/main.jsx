@@ -5,6 +5,7 @@ import Register from './pages/Register.jsx'
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
 import UserDetails from './pages/UserDetails.jsx'
+import ShowUser from './pages/ShowUser.jsx'
 
 import {
   createBrowserRouter,
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/details",
     element: (<UserDetails/>),
+  },
+  {
+    path: "/show",
+    element: (<ShowUser/>),
   },
   
   

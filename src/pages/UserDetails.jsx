@@ -10,8 +10,12 @@ import react from '../assets/image.jpg';
 import axios from 'axios'
 
 function UserDetails() {
-    const careerGlobalState = useSelector((state) => state.login.loginUsers);
-    const userId = careerGlobalState.user_id;
+    // const careerGlobalState = useSelector((state) => state.login.loginUsers);
+
+    
+
+    let val = JSON.parse(localStorage.getItem("users"))
+    const userId = val.id;
     const navigate = useNavigate()
 
     const [languageknownValue, setlanguageknownValue] = useState([]);
