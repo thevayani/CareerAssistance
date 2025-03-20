@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
+import { useSelector } from 'react-redux';
 import axios from 'axios'
 
 function UserDetails() {
@@ -66,7 +67,7 @@ function UserDetails() {
         else {
             alert("Submitted Successfully")
             const formData = new FormData();
-            formData.append("user_id", 4);
+            formData.append("user_id", val.id);
             formData.append("data", JSON.stringify(userInputValue))
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
@@ -78,7 +79,7 @@ function UserDetails() {
 
     const getApi = () => {
 
-        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res) => {
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
             console.log(getData)
             setuserInputValue(JSON.parse(getData))
