@@ -7,14 +7,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
+import { useSelector } from 'react-redux';
+
 import axios from 'axios'
 
 function UserDetails() {
-    const careerGlobalState = useSelector((state) => state.login.loginUsers);
-    const userId = careerGlobalState.user_id;
-    const navigate = useNavigate()
-    let val = JSON.parse(localStorage.getItem("users"))
 
+    let val = JSON.parse(localStorage.getItem("users"))
+    const navigate = useNavigate()
     const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -31,7 +31,7 @@ function UserDetails() {
     });
 
     useEffect(() => {
-        getApi()
+        getUsersdetailsapi()
        
     }, [])
 
@@ -72,11 +72,11 @@ function UserDetails() {
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
                 console.log(res)
             });
-            navigate("/home")
+            navigate("/goal")
         }
     }
 
-    const getApi = () => {
+    const getUsersdetailsapi = () => {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
@@ -86,14 +86,11 @@ function UserDetails() {
         });
     }
 
-    console
-
+  
     const addLanguage = () => {
-
         if (languageknownValue == "") {
             alert("please enter the value")
         } else {
-           
             let y = [...userInputValue?.languageknown, languageknownValue]
             console.log(y)
             setuserInputValue({ ...userInputValue, languageknown: y })
@@ -103,7 +100,6 @@ function UserDetails() {
 
 
     const addhobbies = () => {
-
         if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
@@ -494,7 +490,7 @@ function UserDetails() {
                                 <Col sm="4">
                                     <p>
                                         <Form.Label style={{ marginTop: "10px", marginLeft: "20px" }}>
-                                            Institude Name
+                                            Institute Name
                                         </Form.Label>
                                     </p>
                                 </Col>
@@ -508,7 +504,7 @@ function UserDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Institude Name"
+                                        placeholder="Institute Name"
                                         required />
                                 </Col>
                             </Row>
@@ -553,7 +549,7 @@ function UserDetails() {
                                     <tr>
                                         <th>S.No</th>
                                         <th>Company Name</th>
-                                        <th>Institude name</th>
+                                        <th>Institute name</th>
                                         <th>year.of.Exp</th>
                                         <th>Delete</th>
                                     </tr>
@@ -618,7 +614,7 @@ function UserDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="Institude Name"
+                                        placeholder="Institute Name"
                                         required />
                                 </Col>
                             </Row>

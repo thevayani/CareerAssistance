@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import CareerGoals from './pages/CareerGoals.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx' 
 import store from './redux/store.js'
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/details",
     element: (<UserDetails/>),
+  },
+  {
+    path: "/goal",
+    element: (<CareerGoals/>),
   },
   
   
