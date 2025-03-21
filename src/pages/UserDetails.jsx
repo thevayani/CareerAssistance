@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import { useSelector } from 'react-redux';
+
 import axios from 'axios'
 
 function UserDetails() {
@@ -73,7 +74,7 @@ function UserDetails() {
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
                 console.log(res)
             });
-            navigate("/home")
+            navigate("/goal")
         }
     }
 
