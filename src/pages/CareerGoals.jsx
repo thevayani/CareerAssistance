@@ -157,7 +157,7 @@ const [goalsQues, setgoalsQues] = useState([
         }}>
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>Goal:</h5>
-            <Form.Control type="text" value={goalsDetails.goal} placeholder="Enter your goal" onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trim() })} required  ></Form.Control>
+            <Form.Control type="text" value={goalsDetails.goal} placeholder="Enter your goal" onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trimStart() })} required  ></Form.Control>
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>skill:</h5>
 
@@ -167,7 +167,7 @@ const [goalsQues, setgoalsQues] = useState([
                     <Form.Control
                         type="text"
                         value={skillDetails}
-                        onChange={(e) => setSkillDetails(e.target.value.trim())}
+                        onChange={(e) => setSkillDetails(e.target.value.trimStart())}
                         required
                         className="me-2"  
                     />
@@ -191,12 +191,12 @@ const [goalsQues, setgoalsQues] = useState([
             {goalsDetails?.questions?.length ? goalsDetails.questions.map((q, index) => (
                 <div>
                    <b>{q.question}</b> 
-                    <Form.Control type="text" value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
+                    <Form.Control type="text" value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
                 </div>
             )) : goalsQues.map((q, index) => (
                 <div>
                     {q.question}
-                    <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "25px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trim())} required />
+                    <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "25px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
                 </div>
             ))}
         <div style={{ textAlign: "center", color: "black", paddingTop:"20px"}} >
