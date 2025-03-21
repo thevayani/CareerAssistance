@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 function CareerGoals() {
     let user = JSON.parse(localStorage.getItem("users"));
     const navigate = useNavigate()
-const [goalsQues, setgoalsQues] = useState([
+    const [goalsQues, setgoalsQues] = useState([
         {
             question: "what is your preferred work location?",
             answer: ""
@@ -34,15 +34,15 @@ const [goalsQues, setgoalsQues] = useState([
         goal: "",
         skill: [],
         questions: [],
-})
-    
- useEffect(() => {
+    })
+
+    useEffect(() => {
         getgoalDetailsApi()
     }, [])
 
 
-const addskill = () => {
-       if (skillDetails == "") {
+    const addskill = () => {
+        if (skillDetails == "") {
             alert("Please enter the value")
 
         }
@@ -69,26 +69,26 @@ const addskill = () => {
     };
 
     const submit = () => {
-       if (goalsDetails.goal == "" ||
-        goalsDetails.skill == "" ||
-        goalsDetails.questions[0].answer== "" ||
-        goalsDetails.questions[1].answer== "" ||
-        goalsDetails.questions[2].answer== "" ||
-        goalsDetails.questions[3].answer== "" ) {
-        alert("please enter the value")
-    }
-    else {
-        const formData = new FormData();
-        formData.append("user_id", user.id);
-        formData.append("data", JSON.stringify(goalsDetails));
+        if (goalsDetails.goal == "" ||
+            goalsDetails.skill == "" ||
+            goalsDetails.questions[0].answer == "" ||
+            goalsDetails.questions[1].answer == "" ||
+            goalsDetails.questions[2].answer == "" ||
+            goalsDetails.questions[3].answer == "") {
+            alert("please enter the value")
+        }
+        else {
+            const formData = new FormData();
+            formData.append("user_id", user.id);
+            formData.append("data", JSON.stringify(goalsDetails));
 
-        axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_goals', formData).then((res) => {
-            console.log(res)
-        })
-        alert("submitted successfully");
-        navigate("/show");
+            axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_goals', formData).then((res) => {
+                console.log(res)
+            })
+            alert("submitted successfully");
+            navigate("/show");
+        }
     }
-}
 
     const getgoalDetailsApi = () => {
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=${user.id}`)
@@ -96,7 +96,7 @@ const addskill = () => {
                 let getData = res.data.data.data
                 setGoalDetails(JSON.parse(getData))
                 console.log(getData)
-})
+            })
     }
 
     return <div style={
@@ -105,7 +105,7 @@ const addskill = () => {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             height: "900px",
-            background : "20"
+            background: "20"
         }
     }>
         <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
@@ -127,32 +127,32 @@ const addskill = () => {
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>skill:</h5>
 
-<div>
+            <div>
                 <div className="d-flex align-items-center">
                     <Form.Control
                         type="text"
                         value={skillDetails}
                         onChange={(e) => setSkillDetails(e.target.value.trimStart())}
                         required
-                        className="me-2"  
+                        className="me-2"
                     />
                     <Button variant="warning" onClick={addskill}><IoAddOutline /></Button>
                 </div>
 
                 <ul>
                     <div>
-                    {goalsDetails.skill?.map((v) =>
-                        <li>{v} <Button variant="danger" onClick={() => deleteBtn(v)}><AiTwotoneDelete /></Button>
+                        {goalsDetails.skill?.map((v) =>
+                            <li>{v} <Button variant="danger" onClick={() => deleteBtn(v)}><AiTwotoneDelete /></Button>
 
-                        </li>
-                    )}
+                            </li>
+                        )}
                     </div>
                 </ul>
-</div>
+            </div>
 
             {goalsDetails?.questions?.length ? goalsDetails.questions.map((q, index) => (
                 <div>
-                   <b>{q.question}</b> 
+                    <b>{q.question}</b>
                     <Form.Control type="text" value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
                 </div>
             )) : goalsQues.map((q, index) => (
@@ -161,9 +161,9 @@ const addskill = () => {
                     <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "25px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
                 </div>
             ))}
-            
-        <div style={{ textAlign: "center", color: "black", paddingTop:"20px"}} >
-            <Button variant="success"  onClick={submit}>Submit</Button>
+
+            <div style={{ textAlign: "center", color: "black", paddingTop: "20px" }} >
+                <Button variant="success" onClick={submit}>Submit</Button>
             </div>
         </div>
     </div>
