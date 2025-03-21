@@ -75,23 +75,14 @@ function ShowUser() {
 
                 <Row>
                     <Col sm="6">
-                        <h4 style={{ marginLeft: "40px" }}>Personal Details</h4>
+                        <h4 style={{ marginLeft: "40px",marginTop:"20px" }}>Personal Details</h4>
                         <div>
                             <table style={{
                                 borderCollapse: "collapse", marginLeft: "80px", marginTop: "20px",
                                 borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
                                 backgroundColor: "inherit", width: "80%", height: "325px"
                             }}>
-                                <thead style={
-                                    {
-                                        backgroundColor: "",
-                                    }
-                                }>
-                                    <tr>
-                                        <th style={{ padding: "10px", backgroundColor: "grey", color: "white" }}>Key</th>
-                                        <th style={{ padding: "10px", backgroundColor: "grey", color: "white" }}>Value</th>
-                                    </tr>
-                                </thead>
+                               
                                 <tbody >
                                     <tr>
                                         <td style={{ padding: "10px" }}>fullname</td>
@@ -132,9 +123,8 @@ function ShowUser() {
 
 
                     <Col sm="6">
-
                         <div>
-                            <h4>Hobbies & Languages</h4>
+                            <h4 style={{marginTop:"20px"}}>Hobbies & Languages</h4>
                             <div style={{
                                 marginLeft: "40px", width: "80%", height: "350px", borderRadius: "1px",
                                 boxShadow: "0 0 10px black",
