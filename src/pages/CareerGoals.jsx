@@ -34,18 +34,14 @@ const [goalsQues, setgoalsQues] = useState([
         goal: "",
         skill: [],
         questions: [],
-
-    })
+})
     
-
-    useEffect(() => {
+ useEffect(() => {
         getgoalDetailsApi()
     }, [])
 
 
-
-
-    const addskill = () => {
+const addskill = () => {
        if (skillDetails == "") {
             alert("Please enter the value")
 
@@ -57,8 +53,6 @@ const [goalsQues, setgoalsQues] = useState([
             let skills = [...goalsDetails.skill, ...value]
             setGoalDetails({ ...goalsDetails, skill: skills })
         }
-
-
     }
 
     const deleteBtn = (v) => {
@@ -73,10 +67,6 @@ const [goalsQues, setgoalsQues] = useState([
         updatedQuestions[index].answer = value;
         setGoalDetails({ ...goalsDetails, questions: updatedQuestions });
     };
-
-
-
-
 
     const submit = () => {
        if (goalsDetails.goal == "" ||
@@ -106,8 +96,7 @@ const [goalsQues, setgoalsQues] = useState([
                 let getData = res.data.data.data
                 setGoalDetails(JSON.parse(getData))
                 console.log(getData)
-
-            })
+})
     }
 
     return <div style={
@@ -138,8 +127,7 @@ const [goalsQues, setgoalsQues] = useState([
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>skill:</h5>
 
-
-            <div>
+<div>
                 <div className="d-flex align-items-center">
                     <Form.Control
                         type="text"
@@ -160,11 +148,8 @@ const [goalsQues, setgoalsQues] = useState([
                     )}
                     </div>
                 </ul>
+</div>
 
-
-            </div>
-
-            {() => console.log(goalsDetails.questions)}
             {goalsDetails?.questions?.length ? goalsDetails.questions.map((q, index) => (
                 <div>
                    <b>{q.question}</b> 
@@ -176,6 +161,7 @@ const [goalsQues, setgoalsQues] = useState([
                     <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "25px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
                 </div>
             ))}
+            
         <div style={{ textAlign: "center", color: "black", paddingTop:"20px"}} >
             <Button variant="success"  onClick={submit}>Submit</Button>
             </div>
