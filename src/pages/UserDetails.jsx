@@ -13,9 +13,8 @@ import axios from 'axios'
 
 function UserDetails() {
 
-    const navigate = useNavigate()
     let val = JSON.parse(localStorage.getItem("users"))
-
+    const navigate = useNavigate()
     const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -32,7 +31,7 @@ function UserDetails() {
     });
 
     useEffect(() => {
-        getUsersetailsapi()
+        getUsersdetailsapi()
        
     }, [])
 
@@ -89,11 +88,9 @@ function UserDetails() {
 
   
     const addLanguage = () => {
-
         if (languageknownValue == "") {
             alert("please enter the value")
         } else {
-           
             let y = [...userInputValue?.languageknown, languageknownValue]
             console.log(y)
             setuserInputValue({ ...userInputValue, languageknown: y })
@@ -103,7 +100,6 @@ function UserDetails() {
 
 
     const addhobbies = () => {
-
         if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
@@ -494,7 +490,7 @@ function UserDetails() {
                                 <Col sm="4">
                                     <p>
                                         <Form.Label style={{ marginTop: "10px", marginLeft: "20px" }}>
-                                            Institude Name
+                                            Institute Name
                                         </Form.Label>
                                     </p>
                                 </Col>
@@ -508,7 +504,7 @@ function UserDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Institude Name"
+                                        placeholder="Institute Name"
                                         required />
                                 </Col>
                             </Row>
@@ -553,7 +549,7 @@ function UserDetails() {
                                     <tr>
                                         <th>S.No</th>
                                         <th>Company Name</th>
-                                        <th>Institude name</th>
+                                        <th>Institute name</th>
                                         <th>year.of.Exp</th>
                                         <th>Delete</th>
                                     </tr>
@@ -618,7 +614,7 @@ function UserDetails() {
                                                 color: "white"
                                             }
                                         }
-                                        placeholder="Institude Name"
+                                        placeholder="Institute Name"
                                         required />
                                 </Col>
                             </Row>
