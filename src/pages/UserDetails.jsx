@@ -12,8 +12,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios'
 
 function UserDetails() {
-    const careerGlobalState = useSelector((state) => state.login.loginUsers);
-    const userId = careerGlobalState.user_id;
+
     const navigate = useNavigate()
     let val = JSON.parse(localStorage.getItem("users"))
 
@@ -33,7 +32,7 @@ function UserDetails() {
     });
 
     useEffect(() => {
-        getApi()
+        getUsersetailsapi()
        
     }, [])
 
@@ -78,7 +77,7 @@ function UserDetails() {
         }
     }
 
-    const getApi = () => {
+    const getUsersetailsapi = () => {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
@@ -88,8 +87,7 @@ function UserDetails() {
         });
     }
 
-    console
-
+  
     const addLanguage = () => {
 
         if (languageknownValue == "") {
