@@ -9,20 +9,20 @@ function Resume() {
 
 
     const [skillValue, setSkillValue] = useState([])
-    const [languageKnownValue, setLanguageKnownValue] = useState([])
+    const [languageknownValue, setlanguageknownValue] = useState([])
     const [hobbiesValue, setHobbiesValue] = useState([])
     const [resumeData, setResumeData] = useState("")
 
 
     const [courseValue, setCourseValue] = useState({
         courseName: "",
-        institude: "",
+        institute: "",
         year: "",
         place: ""
     })
 
     const [workExp_Value, setWorkExp_Value] = useState({
-        company_name: "",
+        companyName: "",
         role: "",
         year: "",
         place: ""
@@ -50,12 +50,12 @@ function Resume() {
         dob: "",
         address: "",
         nationality: "",
-        languageKnown: [],
+        languageknown: [],
         skills: [],
         hobbies: [],
-        course: [],
+        educationdetails: [],
         certification: [],
-        workExperience: [],
+        workexperience: [],
         project: [],
         marital_status: "",
         contact_number: ""
@@ -67,14 +67,14 @@ function Resume() {
 
 
     const addlanguageValue = () => {
-        let a = [languageKnownValue]
-        let b = [...inputValue.languageKnown, ...a]
-        setInputValue({ ...inputValue, languageKnown: b })
-        setLanguageKnownValue("")
+        let b = [...inputValue.languageknown, languageknownValue]
+        console.log(b)
+        setInputValue({ ...inputValue, languageknown: b })
+        setlanguageknownValue("")
     }
     const deletelanguage = (v) => {
-        let del = inputValue.languageKnown.filter((items) => items != v)
-        setInputValue({ ...inputValue, languageKnown: del })
+        let del = inputValue.languageknown.filter((items) => items != v)
+        setInputValue({ ...inputValue, languageknown: del })
     }
 
 
@@ -104,18 +104,18 @@ function Resume() {
 
     const addcourseValue = () => {
         let a = [courseValue]
-        let b = [...inputValue.course, ...a]
-        setInputValue({ ...inputValue, course: b })
+        let b = [...inputValue.educationdetails, ...a]
+        setInputValue({ ...inputValue, educationdetails: b })
         setCourseValue({
             courseName: "",
-            institude: "",
+            institute: "",
             year: "",
             place: ""
         })
     }
     const deleteEdu = (v) => {
-        let del = inputValue.course.filter((items) => items != v)
-        setInputValue({ ...inputValue, course: del })
+        let del = inputValue.educationdetails.filter((items) => items != v)
+        setInputValue({ ...inputValue, educationdetails: del })
     }
 
     const addcertification = () => {
@@ -138,24 +138,24 @@ function Resume() {
 
     const addworkexperience = () => {
         let a = [workExp_Value]
-        let b = [...inputValue.workExperience, ...a]
-        setInputValue({ ...inputValue, workExperience: b })
+        let b = [...inputValue.workexperience, ...a]
+        setInputValue({ ...inputValue, workexperience: b })
         setWorkExp_Value({
-            company_name: "",
+            companyName: "",
             role: "",
             year: "",
             place: ""
         })
     }
     const deletework = (v) => {
-        let del = inputValue.workExperience.filter((items) => items != v)
-        setInputValue({ ...inputValue, workExperience: del })
+        let del = inputValue.workexperience.filter((items) => items != v)
+        setInputValue({ ...inputValue, workexperience: del })
     }
 
 
     const addproject = () => {
-        let a = [project]
-        let b = [...inputValue.project, ...a]
+        // let a = [project]
+        let b = [...inputValue.project, ...project]
         setInputValue({ ...inputValue, project: b })
         setProject({
             project_title: "",
@@ -182,26 +182,27 @@ function Resume() {
         alert("submit")
 
     }
-    const getApi = () => { 
+    const getApi = () => {
 
 
         axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_resume&user_id=4')
-        .then((res) => {
-            console.log(res)
-             const getDatas = res.data.data.data
-             console.log(getDatas)
-             setInputValue(JSON.parse(getDatas));
-        })
+            .then((res) => {
+                console.log(res)
+                const getDatas = res.data.data.data
+                console.log(getDatas)
+                setInputValue(JSON.parse(getDatas));
+            })
 
-        // axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res) => {
-        //     // console.log(res)
-        //     let getData = res.data.data.data
-        //     // console.log(getData)
-        //     setInputValue({ ...inputValue, ...JSON.parse(getData) })
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=4').then((res) => {
+            // console.log(res)
+            let getData = res.data.data.data
+            // console.log(getData)
+            setInputValue({ ...inputValue, ...JSON.parse(getData) })
+        setInputValue(JSON.parse(getData))
 
-        // });
+        });
 
-       
+
 
     };
 
@@ -239,20 +240,24 @@ function Resume() {
                         marginBottom: "10px", marginLeft: "100px"
                     }}>Personal details:</h1>
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Fathername</h4>
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px"}}>Fathername</h4>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.fatherName} placeholder='enter your fathername'
                         onChange={(e) => setInputValue({ ...inputValue, fatherName: e.target.value })} />
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Mothername</h4>
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>Mothername</h4>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.motherName} placeholder='enter your mothername'
                         onChange={(e) => setInputValue({ ...inputValue, motherName: e.target.value })} />
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>address</h4>
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>Address</h4>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.address} placeholder='enter your address'
                         onChange={(e) => setInputValue({ ...inputValue, address: e.target.value })} />
 
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>DOB</h4>
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="date" value={inputValue.dob} placeholder='enter your dob'
+                        onChange={(e) => setInputValue({ ...inputValue, dob: e.target.value })} />
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Gender</h4>
+
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>Gender</h4>
 
                     <Form.Check style={{ marginLeft: "100px" }} inline type="radio" label="Male" value="male" checked={inputValue.gender === "male"}
                         onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })} />
@@ -260,7 +265,7 @@ function Resume() {
                         onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })} />
 
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Maritial Status</h4>
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>Maritial Status</h4>
 
                     <Form.Check style={{ marginLeft: "100px" }} inline type="radio" label="Married" value="married"
                         checked={inputValue.marital_status === "married"}
@@ -270,12 +275,12 @@ function Resume() {
                         onChange={(e) => setInputValue({ ...inputValue, marital_status: e.target.value })} />
 
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Nationality</h4>
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>Nationality</h4>
 
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={inputValue.nationality} placeholder='enter nationality'
                         onChange={(e) => setInputValue({ ...inputValue, nationality: e.target.value })} />
 
-                    <h4 style={{ width: "400px", marginLeft: "100px" }}>Contact Number</h4>
+                    <h4 style={{ width: "400px", marginLeft: "100px", marginTop: "8px" }}>Contact Number</h4>
 
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="number" value={inputValue.contact_number} placeholder='enter your contact'
                         onChange={(e) => setInputValue({ ...inputValue, contact_number: e.target.value })} />
@@ -291,10 +296,10 @@ function Resume() {
                     }}>Language</h4>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }}
                         type="text"
-                        value={languageKnownValue} placeholder="Enter language" onChange={(e) => setLanguageKnownValue(e.target.value)} />
+                        value={languageknownValue} placeholder="Enter language" onChange={(e) => setlanguageknownValue(e.target.value)} />
                     <ul>
                         <Button style={{ marginLeft: "100px" }} onClick={addlanguageValue} variant='info' >+</Button>
-                        {inputValue.languageKnown?.map((v) =>
+                        {inputValue.languageknown?.map((v) =>
                             <li style={{ width: "400px", marginLeft: "100px" }}>{v}
                                 <td ><Button style={{ marginLeft: "px" }} variant='dark' onClick={() => deletelanguage(v)}>x</Button></td>
                             </li>
@@ -344,14 +349,14 @@ function Resume() {
                     <h3 style={{
                         marginTop: "20px",
                         marginBottom: "10px", marginLeft: "80px", width: "400px", marginLeft: "100px"
-                    }}>Course</h3>
+                    }}>Education</h3>
                     <Form.Label style={{ width: "400px", marginLeft: "100px" }}>CourseName</Form.Label>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={courseValue.courseName} placeholder="Enter CourseName"
                         onChange={(e) => setCourseValue({ ...courseValue, courseName: e.target.value })} />
 
                     <Form.Label style={{ width: "400px", marginLeft: "100px" }}>CourseInstitute</Form.Label>
-                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={courseValue.institude} placeholder="Enter institute"
-                        onChange={(e) => setCourseValue({ ...courseValue, institude: e.target.value })} />
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={courseValue.institute} placeholder="Enter institute"
+                        onChange={(e) => setCourseValue({ ...courseValue, institute: e.target.value })} />
 
                     <Form.Label style={{ width: "400px", marginLeft: "100px" }}>Year</Form.Label>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="number" value={courseValue.year} placeholder="Enter year"
@@ -371,19 +376,19 @@ function Resume() {
 
                         <thead style={{ backgroundColor: "pink", height: "40px" }}>
                             <tr>
-                                <th style={{ padding: "10px" }}>courseName</th>
-                                <th style={{ padding: "10px" }}>institude</th>
+                                <th style={{ padding: "10px" }}>coursename</th>
+                                <th style={{ padding: "10px" }}>institute</th>
                                 <th style={{ padding: "10px" }}>year</th>
                                 <th style={{ padding: "10px" }}>place</th>
                                 <th style={{ padding: "10px" }}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {inputValue.course?.map((v) =>
+                            {inputValue.educationdetails?.map((v) =>
                                 <tr>
-                                    <td style={{ padding: "10px" }}>{v.courseName}</td>
-                                    <td style={{ padding: "10px" }}>{v.institude}</td>
-                                    <td style={{ padding: "10px" }}>{v.year}</td>
+                                    <td style={{ padding: "10px" }}>{v.coursename}</td>
+                                    <td style={{ padding: "10px" }}>{v.courseinstitute}</td>
+                                    <td style={{ padding: "10px" }}>{v.courseyear}</td>
                                     <td style={{ padding: "10px" }}>{v.place}</td>
                                     <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deleteEdu(v)}>x</Button></td>
                                 </tr>
@@ -454,8 +459,8 @@ function Resume() {
                         marginBottom: "10px", marginLeft: "100px", width: "400px"
                     }}>WorkExperience</h3>
                     <Form.Label style={{ width: "400px", marginLeft: "100px" }}>CompanyName</Form.Label>
-                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={workExp_Value.company_name} placeholder="Enter CompanyName"
-                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, company_name: e.target.value })} />
+                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={workExp_Value.companyName} placeholder="Enter CompanyName"
+                        onChange={(e) => setWorkExp_Value({ ...workExp_Value, companyName: e.target.value })} />
 
                     <Form.Label style={{ width: "400px", marginLeft: "100px" }}>role</Form.Label>
                     <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="text" value={workExp_Value.role} placeholder="Enter role"
@@ -477,7 +482,7 @@ function Resume() {
                     }} >
                         <thead style={{ backgroundColor: "pink", height: "40px" }}>
                             <tr>
-                                <th style={{ padding: "10px" }}>company_name</th>
+                                <th style={{ padding: "10px" }}>companyName</th>
                                 <th style={{ padding: "10px" }}>role</th>
                                 <th style={{ padding: "10px" }}>year</th>
                                 <th style={{ padding: "10px" }}>place</th>
@@ -485,9 +490,9 @@ function Resume() {
                             </tr>
                         </thead>
                         <tbody>
-                            {inputValue.workExperience?.map((v) =>
+                            {inputValue.workexperience?.map((v) =>
                                 <tr>
-                                    <td style={{ padding: "10px" }}>{v.company_name}</td>
+                                    <td style={{ padding: "10px" }}>{v.companyName}</td>
                                     <td style={{ padding: "10px" }}>{v.role}</td>
                                     <td style={{ padding: "10px" }}>{v.year}</td>
                                     <td style={{ padding: "10px" }}>{v.place}</td>

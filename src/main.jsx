@@ -7,7 +7,7 @@ import Login from './pages/Login.jsx'
 import PersonalDetails from './pages/PersonalDetails.jsx'
 import CareerGuidance from './pages/CareerGuidance.jsx'
  import CareerGoals from './pages/CareerGoals.jsx'
-import Resume from './pages/resume.jsx'
+import Resume from './pages/Resume.jsx'
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
 
