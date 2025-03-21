@@ -77,7 +77,7 @@ function UserDetails() {
         }
     }
 
-    const getUsersetailsapi = () => {
+    const getUsersdetailsapi = () => {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
