@@ -59,7 +59,7 @@ const [goalsQues, setgoalsQues] = useState([
     }
 
     const deleteBtn = (v) => {
-        //alert("do you want to delete?")
+        alert("Do you want to delete?")
         let del = goalsDetails.skill.filter((items) => items != v)
         setGoalDetails({ ...goalsDetails, skill: del })
     }
@@ -141,16 +141,15 @@ const [goalsQues, setgoalsQues] = useState([
             background : "20"
         }
     }>
-        <h1 style={{ textAlign: "center", color: "black" }}>Career Goal</h1>
+        <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
 
         <div style={{
             backgroundColor: "rgb(34, 160, 195)",
             width: "500px",
-           marginLeft: "34%",
+            marginLeft: "34%",
             borderRadius: "15px",
             marginRight: "50%",
             marginTop: "50px",
-            // background: "transparent",
             boxShadow: "0 0 10px",
             padding: "30px"
 
