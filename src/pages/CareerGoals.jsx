@@ -36,17 +36,17 @@ const [goalsQues, setgoalsQues] = useState([
         questions: [],
 
     })
+    
 
     useEffect(() => {
-        getApi()
+        getgoalDetailsApi()
     }, [])
 
 
 
 
     const addskill = () => {
-
-        if (skillDetails == "") {
+       if (skillDetails == "") {
             alert("Please enter the value")
 
         }
@@ -69,8 +69,7 @@ const [goalsQues, setgoalsQues] = useState([
 
 
     const handleQuestion = (index, value) => {
-        const updatedQuestions = [...goalsQues];
-
+        let updatedQuestions = goalsDetails.questions.length ? [...goalsDetails.questions] : [...goalsQues];
         updatedQuestions[index].answer = value;
         setGoalDetails({ ...goalsDetails, questions: updatedQuestions });
     };
@@ -80,8 +79,15 @@ const [goalsQues, setgoalsQues] = useState([
 
 
     const submit = () => {
-
-
+       if (goalsDetails.goal == "" ||
+        goalsDetails.skill == "" ||
+        goalsDetails.questions[0].answer== "" ||
+        goalsDetails.questions[1].answer== "" ||
+        goalsDetails.questions[2].answer== "" ||
+        goalsDetails.questions[3].answer== "" ) {
+        alert("please enter the value")
+    }
+    else {
         const formData = new FormData();
         formData.append("user_id", user.id);
         formData.append("data", JSON.stringify(goalsDetails));
@@ -89,44 +95,12 @@ const [goalsQues, setgoalsQues] = useState([
         axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_goals', formData).then((res) => {
             console.log(res)
         })
-
-
-
-        if (goalsDetails.goal && goalsDetails.skill && goalsQues[0].answer
-            && goalsQues[1].answer && goalsQues[2].answer && goalsQues[3].answer) {
-
-            console.log(goalsDetails)
-            setGoalDetails({ goal: "" })
-
-
-
-            setgoalsQues([
-                {
-                    question: "what is your preferred work location?",
-                    answer: ""
-                },
-                {
-                    question: "what relevant certification do you hold?",
-                    answer: ""
-                },
-                {
-                    question: "Get a job within?",
-                    answer: ""
-                },
-                {
-                    question: "What is your salary range expectation?",
-                    answer: ""
-                }
-            ])
-            alert("submitted")
-            navigate("/details");
-        }
-        else {
-            alert("Please fillup")
-        }
+        alert("submitted successfully");
+        navigate("/show");
     }
+}
 
-    const getApi = () => {
+    const getgoalDetailsApi = () => {
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=${user.id}`)
             .then((res) => {
                 let getData = res.data.data.data
@@ -141,7 +115,7 @@ const [goalsQues, setgoalsQues] = useState([
             backgroundImage: `url(${image})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            height: "1000px",
+            height: "900px",
             background : "20"
         }
     }>
