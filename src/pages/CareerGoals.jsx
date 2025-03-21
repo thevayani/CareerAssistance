@@ -5,8 +5,11 @@ import axios from 'axios';
 import image from '../assets/goal.jpg'
 import { IoAddOutline } from "react-icons/io5";
 import { AiTwotoneDelete } from "react-icons/ai";
+import { useNavigate } from 'react-router';
 
 function CareerGoals() {
+    let user = JSON.parse(localStorage.getItem("users"));
+    const navigate = useNavigate()
 const [goalsQues, setgoalsQues] = useState([
         {
             question: "what is your preferred work location?",
@@ -80,7 +83,7 @@ const [goalsQues, setgoalsQues] = useState([
 
 
         const formData = new FormData();
-        formData.append("user_id", 4);
+        formData.append("user_id", user.id);
         formData.append("data", JSON.stringify(goalsDetails));
 
         axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_goals', formData).then((res) => {
@@ -116,6 +119,7 @@ const [goalsQues, setgoalsQues] = useState([
                 }
             ])
             alert("submitted")
+            navigate("/details");
         }
         else {
             alert("Please fillup")
@@ -123,7 +127,7 @@ const [goalsQues, setgoalsQues] = useState([
     }
 
     const getApi = () => {
-        axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=4')
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=${user.id}`)
             .then((res) => {
                 let getData = res.data.data.data
                 setGoalDetails(JSON.parse(getData))
