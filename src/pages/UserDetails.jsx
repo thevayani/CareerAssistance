@@ -716,9 +716,8 @@ function UserDetails() {
                         }}>
                         Submit
                     </Button>}
-            </Form>
+             </Form>
         </Container>
-
     </div>
 }
 
