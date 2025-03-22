@@ -10,7 +10,7 @@ import react from '../assets/image.jpg';
 import axios from 'axios'
 
 function UserDetails() {
-    
+
     let val = JSON.parse(localStorage.getItem("users"))
     const navigate = useNavigate()
     const [isupdated, setupdated] = useState(false)
@@ -692,12 +692,9 @@ function UserDetails() {
                                     </tr>)}
                                 </tbody>
                             </Table>
-
                         </Form.Group>
-
                     </Col>
                 </Row>
-
 
                 {isupdated ? <Button variant="primary"
                     onClick={updateBtn}
