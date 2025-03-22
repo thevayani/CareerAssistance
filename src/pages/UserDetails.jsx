@@ -7,15 +7,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
-
 import axios from 'axios'
 
 function UserDetails() {
 
     let val = JSON.parse(localStorage.getItem("users"))
     const navigate = useNavigate()
-    const[isupdated,setupdated] = useState(false)
-
+    const [isupdated, setupdated] = useState(false)
     const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -71,13 +69,13 @@ function UserDetails() {
             formData.append("data", JSON.stringify(userInputValue))
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
-                console.log(res) 
+                console.log(res)
             });
             navigate("/goal")
         }
     }
 
-    const updateBtn = ()=>{
+    const updateBtn = () => {
         navigate("/show")
     }
 
@@ -85,19 +83,15 @@ function UserDetails() {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
-            if (getData  !== "") {
+            if (getData !== "") {
                 setuserInputValue(JSON.parse(getData));
-                setupdated(true); 
+                setupdated(true);
             } else {
-                setupdated(false); 
+                setupdated(false);
             }
         })
-
-
-       
     }
 
-  
     const addLanguage = () => {
         if (languageknownValue == "") {
             alert("please enter the value")
@@ -113,7 +107,7 @@ function UserDetails() {
         if (hobbiesValue == "") {
             alert("please enter the value")
         } else {
-         
+
             let y = [...userInputValue?.hobbies, hobbiesValue]
             setuserInputValue({ ...userInputValue, hobbies: y })
             setHobbiesValue("")
@@ -121,15 +115,12 @@ function UserDetails() {
     }
 
     const addWork_exp = () => {
-
         if (workExp_Value.companyName == "" || workExp_Value.courseinstitute == "" || workExp_Value.courseyear == "") {
             alert("please enter the value")
         }
         else {
-         
-            let y = [...userInputValue?.workexperience,workExp_Value]
+            let y = [...userInputValue?.workexperience, workExp_Value]
             setuserInputValue({ ...userInputValue, workexperience: y })
-
             setWorkExp_Value({ companyName: "", courseinstitute: "", courseyear: "" })
         }
     }
@@ -139,10 +130,8 @@ function UserDetails() {
         if (courseValue.coursename == "" || courseValue.courseinstitute == "" || courseValue.courseyear == "" || courseValue.place == "") {
             alert("please enter the value")
         } else {
-           
             let y = [...userInputValue?.educationdetails, courseValue]
             setuserInputValue({ ...userInputValue, educationdetails: y })
-
             setCourseValue({ coursename: "", courseinstitute: "", courseyear: "", place: "" })
         }
     }
@@ -305,8 +294,6 @@ function UserDetails() {
                             </Col>
                         </Form.Group>
 
-
-
                         <Form.Group as={Row} className="mb-3"   >
                             <Form.Label column sm="3">
                                 <h5>Address</h5>
@@ -356,8 +343,8 @@ function UserDetails() {
                                                 } />
                                             </li>)}
                                     </ul>
-
                                 </Col>
+
                                 <Col sm="4">
                                     <Button
                                         onClick={addhobbies}
@@ -418,8 +405,6 @@ function UserDetails() {
                             </Row>
                         </Form.Group>
 
-
-
                         <Form.Group as={Row} className="mb-3">
                             <Row>
                                 <Form.Label column sm="4">
@@ -465,9 +450,7 @@ function UserDetails() {
                         </Form.Group>
                     </Col>
 
-
                     <Col sm="6">
-
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm="5">
                                 <h5>Work Experience</h5>
@@ -575,7 +558,6 @@ function UserDetails() {
                             </Table>
                         </Form.Group>
 
-
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm="5">
                                 <h5>Course details</h5>
@@ -653,7 +635,6 @@ function UserDetails() {
                                 </Col>
                             </Row>
 
-
                             <Row>
                                 <Col sm="4">
                                     <p>
@@ -679,7 +660,6 @@ function UserDetails() {
 
                                 </Col>
                             </Row>
-
 
                             <Col sm="3">
                                 <Button
@@ -723,7 +703,7 @@ function UserDetails() {
                 </Row>
 
 
-               {isupdated ? <Button variant="primary"
+                {isupdated ? <Button variant="primary"
                     onClick={updateBtn}
                     style={{
                         padding: "10px",
@@ -731,19 +711,18 @@ function UserDetails() {
                         textAlign: "center",
                         marginTop: "5px"
                     }}>
-                   update
+                    update
                 </Button> :
-                <Button variant="primary"
-                onClick={submitBtn}
-                style={{
-                    padding: "10px",
-                    width: "120px",
-                    textAlign: "center",
-                    marginTop: "5px"
-                }}>
-                Submit
-            </Button>}
-
+                    <Button variant="primary"
+                        onClick={submitBtn}
+                        style={{
+                            padding: "10px",
+                            width: "120px",
+                            textAlign: "center",
+                            marginTop: "5px"
+                        }}>
+                        Submit
+                    </Button>}
             </Form>
         </Container>
 
