@@ -10,7 +10,7 @@ import react from '../assets/image.jpg';
 import axios from 'axios'
 
 function UserDetails() {
-
+    
     let val = JSON.parse(localStorage.getItem("users"))
     const navigate = useNavigate()
     const [isupdated, setupdated] = useState(false)
@@ -51,7 +51,6 @@ function UserDetails() {
         }
     );
 
-
     const submitBtn = () => {
         if (userInputValue.fullname == "" ||
             userInputValue.fathername == "" ||
@@ -80,7 +79,6 @@ function UserDetails() {
     }
 
     const getUsersdetailsapi = () => {
-
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
             if (getData !== "") {
@@ -148,7 +146,6 @@ function UserDetails() {
         setuserInputValue({ ...userInputValue, hobbies: del })
     })
 
-
     const deleteWorkExp = ((v) => {
         alert("Do you want to delete?")
         let del = userInputValue.workexperience.filter((items) => items != v)
@@ -160,7 +157,6 @@ function UserDetails() {
         let del = userInputValue.educationdetails.filter((items) => items != v)
         setuserInputValue({ ...userInputValue, educationdetails: del })
     })
-
 
     return <div style={
         {
