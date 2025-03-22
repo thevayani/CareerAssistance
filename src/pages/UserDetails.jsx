@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
-import { useSelector } from 'react-redux';
 
 import axios from 'axios'
 
@@ -15,6 +14,8 @@ function UserDetails() {
 
     let val = JSON.parse(localStorage.getItem("users"))
     const navigate = useNavigate()
+    const[isupdated,setupdated] = useState(false)
+
     const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -32,7 +33,7 @@ function UserDetails() {
 
     useEffect(() => {
         getUsersdetailsapi()
-       
+        setupdated(false);
     }, [])
 
     const [userInputValue, setuserInputValue] = useState(
@@ -70,20 +71,30 @@ function UserDetails() {
             formData.append("data", JSON.stringify(userInputValue))
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
-                console.log(res)
+                console.log(res) 
             });
             navigate("/goal")
         }
+    }
+
+    const updateBtn = ()=>{
+        navigate("/show")
     }
 
     const getUsersdetailsapi = () => {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`).then((res) => {
             let getData = res.data.data.data
-            console.log(getData)
-            setuserInputValue(JSON.parse(getData))
+            if (getData  !== "") {
+                setuserInputValue(JSON.parse(getData));
+                setupdated(true); 
+            } else {
+                setupdated(false); 
+            }
+        })
 
-        });
+
+       
     }
 
   
@@ -92,7 +103,6 @@ function UserDetails() {
             alert("please enter the value")
         } else {
             let y = [...userInputValue?.languageknown, languageknownValue]
-            console.log(y)
             setuserInputValue({ ...userInputValue, languageknown: y })
             setlanguageknownValue("")
         }
@@ -105,7 +115,6 @@ function UserDetails() {
         } else {
          
             let y = [...userInputValue?.hobbies, hobbiesValue]
-            console.log(y)
             setuserInputValue({ ...userInputValue, hobbies: y })
             setHobbiesValue("")
         }
@@ -714,16 +723,26 @@ function UserDetails() {
                 </Row>
 
 
-                <Button variant="primary"
-                    onClick={submitBtn}
+               {isupdated ? <Button variant="primary"
+                    onClick={updateBtn}
                     style={{
                         padding: "10px",
                         width: "120px",
                         textAlign: "center",
                         marginTop: "5px"
                     }}>
-                    Submit
-                </Button>
+                   update
+                </Button> :
+                <Button variant="primary"
+                onClick={submitBtn}
+                style={{
+                    padding: "10px",
+                    width: "120px",
+                    textAlign: "center",
+                    marginTop: "5px"
+                }}>
+                Submit
+            </Button>}
 
             </Form>
         </Container>
