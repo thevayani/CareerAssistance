@@ -3,28 +3,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import image from '../assets/image.jpg'
-
-
-
+import image from '../assets/image12.avif'
 
 function ShowUser() {
 
     let val = JSON.parse(localStorage.getItem("users"))
-    console.log(val)
 
     const navigate = useNavigate()
-
     const [inputValue, setInputValue] = useState("")
     const [goalValue, setGoalValue] = useState("")
 
+    const [userDetails, setuserDetails] = useState({})
+    let getVal = { ...userDetails, details: inputValue, goals: goalValue }
+    localStorage.setItem("userdetails", JSON.stringify(getVal));
 
-    const getApi = () => {
+    const getUpdateGoalApi = () => {
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`)
             .then((res) => {
                 if (res.data.data.data) {
                     const getData = JSON.parse(res.data.data.data);
-                    console.log(getData);
                     setInputValue(getData);
                 }
             })
@@ -34,14 +31,13 @@ function ShowUser() {
             .then((res) => {
                 if (res.data.data.data) {
                     const getDatas = JSON.parse(res.data.data.data);
-                    console.log(getDatas);
                     setGoalValue(getDatas);
                 }
             })
     }
 
     useEffect(() => {
-        getApi();
+        getUpdateGoalApi();
     }, []);
 
     const submit = () => {
@@ -51,12 +47,10 @@ function ShowUser() {
     }
 
     const save = () => {
-        alert("update")
         navigate("/details")
     }
 
     const update = () => {
-        alert("update")
         navigate("/goal")
     }
 
@@ -75,14 +69,14 @@ function ShowUser() {
 
                 <Row>
                     <Col sm="6">
-                        <h4 style={{ marginLeft: "40px",marginTop:"20px" }}>Personal Details</h4>
+                        <h4 style={{ marginLeft: "40px", marginTop: "20px" }}>Personal Details</h4>
                         <div>
                             <table style={{
                                 borderCollapse: "collapse", marginLeft: "80px", marginTop: "20px",
                                 borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
                                 backgroundColor: "inherit", width: "80%", height: "325px"
                             }}>
-                               
+
                                 <tbody >
                                     <tr>
                                         <td style={{ padding: "10px" }}>fullname</td>
@@ -124,7 +118,7 @@ function ShowUser() {
 
                     <Col sm="6">
                         <div>
-                            <h4 style={{marginTop:"20px"}}>Hobbies & Languages</h4>
+                            <h4 style={{ marginTop: "20px" }}>Hobbies & Languages</h4>
                             <div style={{
                                 marginLeft: "40px", width: "80%", height: "350px", borderRadius: "1px",
                                 boxShadow: "0 0 10px black",
@@ -300,8 +294,6 @@ function ShowUser() {
                     </div>
                 </Col>
             </Row>
-
-
 
 
             <div style={

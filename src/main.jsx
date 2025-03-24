@@ -6,7 +6,7 @@ import store from './redux/store.js'
 import { Provider } from 'react-redux'
 import UserDetails from './pages/UserDetails.jsx'
 import ShowUser from './pages/ShowUser.jsx'
-
+import CareerGoals from './pages/CareerGoals.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/details",
     element: (<UserDetails/>),
+  },
+  {
+    path: "/goal",
+    element: (<CareerGoals/>),
   },
 
   {

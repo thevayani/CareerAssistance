@@ -1,43 +1,57 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button,Form } from 'react-bootstrap';
-import{useState} from "react";
-import{useNavigate} from "react-router-dom";
+import { Button, Form } from 'react-bootstrap';
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import image from '../assets/goal.jpg'
+import { IoAddOutline } from "react-icons/io5";
+import { AiTwotoneDelete } from "react-icons/ai";
+import { useNavigate } from 'react-router';
 
-import { setCareerUsers } from '../redux/slices/careergoal';
-import { useSelector,useDispatch } from 'react-redux';
+function CareerGoals() {
+    let user = JSON.parse(localStorage.getItem("users"));
+    const navigate = useNavigate()
+    const [goalsQues, setgoalsQues] = useState([
+        {
+            question: "what is your preferred work location?",
+            answer: ""
+        },
+        {
+            question: "what relevant certification do you hold?",
+            answer: ""
+        },
+        {
+            question: "Get a job within?",
+            answer: ""
+        },
+        {
+            question: "What is your salary range expectation?",
+            answer: ""
+        }
+    ])
 
-
-
-function CareerGoals(){
-
-    const careerGlobalState=useSelector((state)=>state.careerGoal.careerGoalUsers)
-    const dispatch=useDispatch()
-
-
-    const[skillDetails,setSkillDetails]=useState([])
-    const[goalsDetails,setGoalDetails]=useState({
-        goal:"",
-        skill:[],
-        what_industries_are_you_most_interested_in:"",
-        what_relevant_certification_do_you_hold:"",
-        period_of_time_to_get_the_job:""
+    const [skillDetails, setSkillDetails] = useState([])
+    const [goalsDetails, setGoalDetails] = useState({
+        goal: "",
+        skill: [],
+        questions: [],
     })
 
+    useEffect(() => {
+        getgoalDetailsApi()
+    }, [])
 
 
-    const addskill=()=>{
-
-        if(skillDetails == ""){
+    const addskill = () => {
+        if (skillDetails == "") {
             alert("Please enter the value")
 
         }
-        else{
-        setSkillDetails("")
-        let value=[skillDetails]
-        console.log(value)
-        let skills=[...goalsDetails.skill,...value]
-        setGoalDetails({...goalsDetails,skill:skills})
+        else {
+            setSkillDetails("")
+            let value = [skillDetails]
+            console.log(value)
+            let skills = [...goalsDetails.skill, ...value]
+            setGoalDetails({ ...goalsDetails, skill: skills })
         }
     }
 
@@ -151,15 +165,7 @@ function CareerGoals(){
                 <Button variant="success" onClick={submit}>Submit</Button>
             </div>
         </div>
-
-        what industries are you most interested in?
-        <Form.Control type="text" value={goalsDetails.what_industries_are_you_most_interested_in} onChange={(e)=>setGoalDetails({...goalsDetails,what_industries_are_you_most_interested_in:e.target.value})} required ></Form.Control> 
-        what relevant certification do you hold?
-        <Form.Control type="text" value={goalsDetails.what_relevant_certification_do_you_hold} onChange={(e)=>setGoalDetails({...goalsDetails,what_relevant_certification_do_you_hold:e.target.value})} required></Form.Control> 
-        period of time to get the job?
-        <Form.Control type="text" value={goalsDetails.period_of_time_to_get_the_job} onChange={(e)=>setGoalDetails({...goalsDetails,period_of_time_to_get_the_job:e.target.value})} required></Form.Control> 
-        <Button variant="primary" onClick={submit}>Submit</Button>
-
     </div>
+
 }
- export default CareerGoals
+export default CareerGoals
