@@ -13,7 +13,7 @@ function CareerAi(){
   const [loading, setLoading] = useState(false);
   const [summary,setSummary] = useState("")
 
-  let val = JSON.parse(localStorage.getItem("userdetils")); 
+  let val = JSON.parse(localStorage.getItem("userdetails")); 
 
         const cx = "84c171dacf1aa43c1"
         const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
@@ -64,8 +64,7 @@ function CareerAi(){
               ): (
               "Generate tips.."
               )
-          }
-          
+          }         
         </Button>:
         <Button variant='primary' style={{marginLeft:"600px"}} onClick={run}>
           {loading == false ? (
