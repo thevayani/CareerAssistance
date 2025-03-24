@@ -1,4 +1,4 @@
-import { Form, Container, Button, Row, Col, Navbar, Nav, Table } from 'react-bootstrap';
+import { Form, Container, Button, Row, Col, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { CIcon } from '@coreui/icons-react';
@@ -13,7 +13,7 @@ function UserDetails() {
 
     let val = JSON.parse(localStorage.getItem("users"))
     const navigate = useNavigate()
-    const [isupdated, setupdated] = useState(false)
+    const [isUpdated, setupdated] = useState(false)
     const [languageknownValue, setlanguageknownValue] = useState([]);
     const [hobbiesValue, setHobbiesValue] = useState([]);
     const [workExp_Value, setWorkExp_Value] = useState({
@@ -703,7 +703,7 @@ function UserDetails() {
                     </Col>
                 </Row>
 
-                {isupdated ? <Button variant="primary"
+                {isUpdated ? <Button variant="primary"
                     onClick={updateBtn}
                     style={{
                         padding: "10px",
