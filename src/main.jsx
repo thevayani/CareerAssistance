@@ -1,12 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import CareerGoals from './pages/CareerGoals.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx' 
 import store from './redux/store.js'
 import { Provider } from 'react-redux'
 import UserDetails from './pages/UserDetails.jsx'
-
+import ShowUser from './pages/ShowUser.jsx'
+import CareerGoals from './pages/CareerGoals.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -29,6 +29,11 @@ const router = createBrowserRouter([
   {
     path: "/goal",
     element: (<CareerGoals/>),
+  },
+
+  {
+    path: "/show",
+    element: (<ShowUser/>),
   },
   
   
