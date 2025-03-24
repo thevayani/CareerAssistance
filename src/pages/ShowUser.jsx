@@ -42,7 +42,6 @@ function ShowUser() {
     const submit = () => {
         alert("Ask Guidance")
         navigate("/careerAi")
-
     }
 
     const save = () => {
@@ -53,7 +52,6 @@ function ShowUser() {
         navigate("/goal")
     }
 
-
     return (
         <div style={
             {
@@ -63,9 +61,7 @@ function ShowUser() {
                 height: "1200px",
             }}>
             <h3 style={{ textAlign: "center" }}>My Profile</h3>
-
             <div>
-
                 <Row>
                     <Col sm="6">
                         <h4 style={{ marginLeft: "40px", marginTop: "20px" }}>Personal Details</h4>
@@ -75,7 +71,6 @@ function ShowUser() {
                                 borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black",
                                 backgroundColor: "inherit", width: "80%", height: "325px"
                             }}>
-
                                 <tbody >
                                     <tr>
                                         <td style={{ padding: "10px" }}>fullname</td>
@@ -114,7 +109,6 @@ function ShowUser() {
                         </div>
                     </Col>
 
-
                     <Col sm="6">
                         <div>
                             <h4 style={{ marginTop: "20px" }}>Hobbies & Languages</h4>
@@ -123,9 +117,7 @@ function ShowUser() {
                                 boxShadow: "0 0 10px black",
                                 backgroundColor: "inherit"
                             }}>
-
                                 <div style={{ marginLeft: "30%", marginTop: "20px", padding: "30px" }}>
-
                                     <Col sm="3">
                                         <div>
                                             <h4>Hobbies</h4>
@@ -137,7 +129,6 @@ function ShowUser() {
                                             </ul>
                                         </div>
                                     </Col>
-
 
                                     <Col sm="3">
                                         <div>
@@ -191,9 +182,7 @@ function ShowUser() {
                         </div>
                     </Col>
 
-
                     <Col sm="6">
-
                         <h5 style={{
                             marginTop: "20px",
                             marginBottom: "20px",
@@ -228,7 +217,6 @@ function ShowUser() {
             <Row>
                 <Col sm="6">
                     <h4 style={{ marginTop: "20px", marginLeft: "40px" }}>Skils & Goals</h4>
-
                     <div style={
                         {
                             marginLeft: "80px",
@@ -265,7 +253,6 @@ function ShowUser() {
                         <div style={{
                             marginLeft: "40px", marginTop: "20px", width: "80%", height: "300px",
                             borderRadius: "5px 5px 0 0", boxShadow: "0 0 10px black", backgroundColor: "inherit"
-
                         }}>
                             {goalValue.questions?.map((v) =>
                                 <ul>
