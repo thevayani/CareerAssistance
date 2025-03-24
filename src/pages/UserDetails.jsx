@@ -485,7 +485,7 @@ function UserDetails() {
                                 <Col sm="4">
                                     <p>
                                         <Form.Label style={{ marginTop: "10px", marginLeft: "20px" }}>
-                                            Institute Name
+                                           Designation
                                         </Form.Label>
                                     </p>
                                 </Col>
@@ -499,7 +499,7 @@ function UserDetails() {
                                             border: "1px solid black",
                                             color: "white"
                                         }}
-                                        placeholder="Institute Name"
+                                        placeholder="Designation"
                                         required />
                                 </Col>
                             </Row>
