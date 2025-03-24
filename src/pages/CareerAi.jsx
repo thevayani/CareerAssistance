@@ -6,10 +6,12 @@ import {
     HarmBlockThreshold,
 } from "@google/generative-ai";
 import { useState} from 'react';
+import { useNavigate } from 'react-router';
 
 function CareerAi(){
 
   const [generate,setRegenerate] = useState("generate")
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const [summary,setSummary] = useState("")
 
@@ -47,6 +49,10 @@ function CareerAi(){
             setRegenerate("upDate")
   }
        
+  const resumeBtn =()=>{
+    alert("Do you want to go Resume Page")
+    navigate("/resume")
+  }
  
     return <div>
       <Container style={{
@@ -79,8 +85,21 @@ function CareerAi(){
           </Button>
       }
         <div style={{marginTop: "20px"}}
-             dangerouslySetInnerHTML={{__html: summary}}
+             dangerouslySetInnerHTML={{__html: summary}}         
         />
+        
+        {generate == "generate" ? 
+            <></> :
+            <Button 
+             style={
+                {marginLeft:"610px",
+                marginTop:"12px"
+                }
+            }
+            variant="danger"
+            onClick={resumeBtn}
+            >Resume Builder</Button>
+        }
     </div>
 }
 
