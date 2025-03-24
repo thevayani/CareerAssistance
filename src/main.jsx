@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import UserDetails from './pages/UserDetails.jsx'
 import ShowUser from './pages/ShowUser.jsx'
 import CareerGoals from './pages/CareerGoals.jsx'
+import CareerAi from './pages/CareerAi.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
   {
     path: "/show",
     element: (<ShowUser/>),
+  },
+
+  {
+    path: "/careerAi",
+    element: (<CareerAi/>),
   },
   
   
