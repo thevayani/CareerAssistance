@@ -75,6 +75,14 @@ function UserDetails() {
     }
 
     const updateBtn = () => {
+        alert("Updated Successfully")
+        const formData = new FormData();
+        formData.append("user_id", val.id);
+        formData.append("data", JSON.stringify(userInputValue))
+
+        axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile', formData).then((res) => {
+            console.log(res)
+        });
         navigate("/show")
     }
 
@@ -99,7 +107,6 @@ function UserDetails() {
             setlanguageknownValue("")
         }
     }
-
 
     const addhobbies = () => {
         if (hobbiesValue == "") {
