@@ -115,7 +115,6 @@ function CareerGoals() {
             width: "500px",
             marginLeft: "34%",
             borderRadius: "15px",
-            marginRight: "50%",
             marginTop: "50px",
             boxShadow: "0 0 10px",
             padding: "30px"
@@ -158,7 +157,7 @@ function CareerGoals() {
             )) : goalsQues.map((q, index) => (
                 <div>
                     {q.question}
-                    <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "25px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
+                    <Form.Control type="text" style={{ textAlign: "left", color: "black", marginLeft: "5px" }} value={q.answer} onChange={(e) => handleQuestion(index, e.target.value.trimStart())} required />
                 </div>
             ))}
 
