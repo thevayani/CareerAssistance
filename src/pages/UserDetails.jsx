@@ -1,4 +1,4 @@
-import { Form, Container, Button, Row, Col, Table } from 'react-bootstrap';
+import { Form, Container, Button, Row, Col,Navbar, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { CIcon } from '@coreui/icons-react';
