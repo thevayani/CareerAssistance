@@ -26,7 +26,6 @@ function ShowUser() {
                 }
             })
 
-
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=${val.id}`)
             .then((res) => {
                 if (res.data.data.data) {
@@ -222,15 +221,11 @@ function ShowUser() {
                                 ))}
                             </tbody>
                         </table>
-
                     </Col>
                 </Row>
             </div>
 
-
-
             <Row>
-
                 <Col sm="6">
                     <h4 style={{ marginTop: "20px", marginLeft: "40px" }}>Skils & Goals</h4>
 
@@ -251,8 +246,6 @@ function ShowUser() {
                             <ul style={{ listStyleType: "square" }} >
                                 <li>{goalValue.goal}</li>
                             </ul>
-
-
                             <div>
                                 <h5>Skills</h5>
                                 <ul style={{ listStyleType: "square" }} >
@@ -294,7 +287,6 @@ function ShowUser() {
                     </div>
                 </Col>
             </Row>
-
 
             <div style={
                 {
