@@ -8,6 +8,7 @@ import UserDetails from './pages/UserDetails.jsx'
 import ShowUser from './pages/ShowUser.jsx'
 import CareerGoals from './pages/CareerGoals.jsx'
 import CareerAi from './pages/CareerAi.jsx'
+import Header from './pages/Header.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/careerAi",
     element: (<CareerAi/>),
+  },
+  {
+    path: "/header",
+    element: (<Header/>),
   },
   
   
