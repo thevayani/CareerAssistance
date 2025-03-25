@@ -8,8 +8,9 @@ function Header(){
                     <Container>
                         <Navbar.Brand href="#home">Career Assistance</Navbar.Brand>
                             <Nav>
-                                <Nav.Link href="/details" style={{color:"white"}}>UserDetails</Nav.Link>
+                                <Nav.Link href="/details" style={{color:"white"}}>User Details</Nav.Link>
                                 <Nav.Link href="/goal" style={{color:"white",marginLeft:"10px"}}>Carrer Goal</Nav.Link>
+                                <Nav.Link href="/show" style={{color:"white",marginLeft:"10px"}}>Show Details</Nav.Link>
                                 <Nav.Link href="/careerAi" style={{color:"white",marginLeft:"10px"}}>Carrer Guidance</Nav.Link>
                                 <Nav.Link href="/resume" style={{color:"white",marginLeft:"10px"}}>Resume</Nav.Link> 
                                 <Nav.Link href="/quiz" style={{color:"white",marginLeft:"10px"}}>Quiz</Nav.Link>
