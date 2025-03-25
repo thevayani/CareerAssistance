@@ -1,12 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form, Table, Container, Row, Col } from 'react-bootstrap';
+import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import image from '../assets/resume3.webp';
+import image from '../assets/resume.webp';
+import { useNavigate } from 'react-router';
 
 function Resume() {
     let user = JSON.parse(localStorage.getItem("users"))
 
+    const navigate = useNavigate()
     const [skillValue, setSkillValue] = useState([])
     const [languageknownValue, setlanguageknownValue] = useState([])
     const [hobbiesValue, setHobbiesValue] = useState([])
@@ -74,7 +76,6 @@ function Resume() {
 
     const addskillValue = () => {
         let b = inputValue?.skills ? [...inputValue?.skills, skillValue]: [skillValue]
-        console.log(inputValue,b)
         setInputValue({ ...inputValue, skills: b })
         setSkillValue("")
     }
@@ -160,18 +161,10 @@ function Resume() {
             console.log(res)
         })
         alert("submit")
-
+        navigate("/quiz")
     }
+
     const getResumeApi = () => {
-
-        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_resume&user_id=${user.id}`)
-            .then((res) => {
-                console.log(res)
-                const getDatas = res.data.data.data
-                console.log(getDatas)
-                setInputValue(JSON.parse(getDatas));
-            })
-
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${user.id}`).then((res) => {
             console.log(res)
             let getData = res.data.data.data
@@ -180,12 +173,25 @@ function Resume() {
         });
     };
 
+    const getUserDetails = () => {
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_resume&user_id=${user.id}`)
+        .then((res) => {
+            console.log(res)
+            const getDatas = res.data.data.data
+            setInputValue(JSON.parse(getDatas));
+        })
+    }
+
+    useEffect(() => {
+        getUserDetails()
+    }, [])
+
     return <div style={{
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundAttachment: "revert",
         backgroundRepeat: "no-repeat",
-        height: "2200px",
+        height: "2250px",
     }}>
         <h1 style={{ textAlign: "center", color: "white" }}><i>Resume</i></h1>
         <Container>
@@ -495,7 +501,8 @@ function Resume() {
                     marginLeft: "50%"
                 }
             }>
-                <td><Button variant='success' onClick={submit}>submit</Button></td>
+                <td><Button variant='danger' onClick={submit}style={{padding:"10px",width:"120px"}}>submit</Button></td>
+                
             </div>
         </Container>
     </div>
