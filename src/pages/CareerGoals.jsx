@@ -62,7 +62,6 @@ function CareerGoals() {
         setGoalDetails({ ...goalsDetails, skill: del })
     }
 
-
     const handleQuestion = (index, value) => {
         let updatedQuestions = goalsDetails.questions.length ? [...goalsDetails.questions] : [...goalsQues];
         updatedQuestions[index].answer = value;
@@ -109,9 +108,9 @@ function CareerGoals() {
             background: "20"
         }
     }>
-         <Header />
-        <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
+        <Header />
 
+        <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
         <div style={{
             backgroundColor: "rgb(34, 160, 195)",
             width: "500px",
@@ -120,14 +119,12 @@ function CareerGoals() {
             marginTop: "50px",
             boxShadow: "0 0 10px",
             padding: "30px"
-
         }}>
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>Goal:</h5>
             <Form.Control type="text" value={goalsDetails.goal} placeholder="Enter your goal" onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trimStart() })} required  ></Form.Control>
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>skill:</h5>
-
             <div>
                 <div className="d-flex align-items-center">
                     <Form.Control
@@ -144,7 +141,6 @@ function CareerGoals() {
                     <div>
                         {goalsDetails.skill?.map((v) =>
                             <li>{v} <Button variant="danger" onClick={() => deleteBtn(v)}><AiTwotoneDelete /></Button>
-
                             </li>
                         )}
                     </div>
@@ -168,6 +164,5 @@ function CareerGoals() {
             </div>
         </div>
     </div>
-
 }
 export default CareerGoals
