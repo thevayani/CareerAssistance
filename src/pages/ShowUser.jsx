@@ -4,6 +4,8 @@ import { Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import image from '../assets/image12.avif'
+import Header from './Header';
+
 
 function ShowUser() {
 
@@ -60,6 +62,9 @@ function ShowUser() {
                 backgroundRepeat: "no-repeat",
                 height: "1200px",
             }}>
+
+             <Header/> 
+               
             <h3 style={{ textAlign: "center" }}>My Profile</h3>
             <div>
                 <Row>
