@@ -6,6 +6,7 @@ import image from '../assets/goal.jpg'
 import { IoAddOutline } from "react-icons/io5";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { useNavigate } from 'react-router';
+import Header from './Header';
 
 function CareerGoals() {
     let user = JSON.parse(localStorage.getItem("users"));
@@ -108,6 +109,7 @@ function CareerGoals() {
             background: "20"
         }
     }>
+         <Header />
         <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
 
         <div style={{
