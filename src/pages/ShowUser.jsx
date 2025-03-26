@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import image from '../assets/image12.avif'
 import Header from './Header';
 
-
 function ShowUser() {
 
     let val = JSON.parse(localStorage.getItem("users"))
@@ -64,7 +63,7 @@ function ShowUser() {
             }}>
 
              <Header/> 
-               
+
             <h3 style={{ textAlign: "center" }}>My Profile</h3>
             <div>
                 <Row>
