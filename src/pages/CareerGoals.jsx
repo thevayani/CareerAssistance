@@ -80,7 +80,8 @@ function CareerGoals() {
             alert("please enter the value")
         }
         else if(val.details == ""){
-            navigate("/details")
+            alert("Please fill in your user details before setting a goal");
+            navigate("/details");
         }
         else {
             const formData = new FormData();
