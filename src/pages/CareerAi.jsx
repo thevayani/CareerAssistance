@@ -5,17 +5,50 @@ import {
     HarmCategory,
     HarmBlockThreshold,
 } from "@google/generative-ai";
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router';
+import Header from './Header';
+import axios from 'axios';
+
 
 function CareerAi(){
+
+  const [inputValue, setInputValue] = useState("")
+  const [goalValue, setGoalValue] = useState("")
+  const [userDetails, setuserDetails] = useState({})
+  let getVal = { ...userDetails, details: inputValue, goals: goalValue }
 
   const [generate,setRegenerate] = useState("generate")
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const [summary,setSummary] = useState("")
 
-  let val = JSON.parse(localStorage.getItem("userdetails")); 
+  let val = JSON.parse(localStorage.getItem("users"))
+
+  const getUpdateGoalApi = () => {
+    axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${val.id}`)
+        .then((res) => {
+            if (res.data.data.data) {
+                const getData = JSON.parse(res.data.data.data);
+                setInputValue(getData);
+            }
+        })
+
+    axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_goals&user_id=${val.id}`)
+        .then((res) => {
+            if (res.data.data.data) {
+                const getDatas = JSON.parse(res.data.data.data);
+                setGoalValue(getDatas);
+            }
+        })
+}
+
+useEffect(() => {
+    getUpdateGoalApi();
+}, []);
+
+
+  // let val = JSON.parse(localStorage.getItem("userdetails")); 
 
         const cx = "84c171dacf1aa43c1"
         const apiKey = "AIzaSyC8kh_wDAmTboxQf3lvjBSChxhiNfjbPdU"
@@ -35,26 +68,37 @@ function CareerAi(){
         };
     
         async function run() {
-          setLoading(true)
+         
+          if(getVal.details == ""){
+            alert("Please Fill the UserDetails")
+            navigate("/details")
+          }else if(getVal.goals == ""){
+            alert("Please Fill the GoalDetails")
+            navigate("/goal")
+          }
+          else{
+            setLoading(true)
             const prompt  = `based on my educationdetails and indicate goals,skills,location,salary range expectation answer,
             Provide careers and job roles well suited to a [insert a fullname]
             provide guidance format as HTML within <div> tag with Css and Bootstrap design and 
             avoid below  key improvement explanation Output response will be HTML format only and avoid text which are placed outside HTML and html tag also: 
-              ${JSON.stringify(val)}`
+              ${JSON.stringify(getVal)}`
 
             const result = await model.generateContent(prompt);
             const responseText = result.response.text().replace(/```html/g, "").replace(/```/g,"");
             setSummary(responseText);
             setLoading(false)
             setRegenerate("upDate")
-  }
+          }
+      }
        
   const resumeBtn =()=>{
-    alert("Do you want to go Resume Page")
+    alert("Do you want to go Resume Page?")
     navigate("/resume")
   }
  
     return <div>
+      <Header />
       <Container style={{
       marginTop:"20px"
     }}>
