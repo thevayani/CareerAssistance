@@ -10,6 +10,8 @@ import Header from './Header';
 
 function CareerGoals() {
     let user = JSON.parse(localStorage.getItem("users"));
+    let val = JSON.parse(localStorage.getItem("userdetails"));
+    console.log(val)
     const navigate = useNavigate()
     const [goalsQues, setgoalsQues] = useState([
         {
@@ -76,6 +78,9 @@ function CareerGoals() {
             goalsDetails.questions[2].answer == "" ||
             goalsDetails.questions[3].answer == "") {
             alert("please enter the value")
+        }
+        else if(val.details == ""){
+            navigate("/details")
         }
         else {
             const formData = new FormData();
