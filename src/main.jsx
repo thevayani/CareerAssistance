@@ -44,8 +44,13 @@ const router = createBrowserRouter([
     element: (<CareerAi/>),
   },
   {
+<<<<<<< HEAD
     path: "/resume",
     element: (<Resume/>),
+=======
+    path: "/header",
+    element: (<Header/>),
+>>>>>>> fd77e6225c6ee0a3e4261b58dd40aac03aea3cf3
   },
   
   

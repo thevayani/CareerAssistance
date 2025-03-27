@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import image from '../assets/resume.webp';
 import { useNavigate } from 'react-router';
+import Header from './Header';
 
 function Resume() {
     let user = JSON.parse(localStorage.getItem("users"))
@@ -193,6 +194,8 @@ function Resume() {
         backgroundRepeat: "no-repeat",
         height: "2250px",
     }}>
+                     <Header/> 
+        
         <h1 style={{ textAlign: "center", color: "white" }}><i>Resume</i></h1>
         <Container>
             <Row>

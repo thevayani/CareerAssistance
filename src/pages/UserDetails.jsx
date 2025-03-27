@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import react from '../assets/image.jpg';
 import axios from 'axios'
+import Header from './Header';
 
 function UserDetails() {
 
@@ -174,14 +175,7 @@ function UserDetails() {
             height: "1200px",
         }
     }>
-        <Navbar bg='dark' data-bs-theme="dark" sticky>
-            <Container className='mt-25'>
-                <Navbar.Brand href="#" style={{ textAlign: "center", marginLeft: "440px" }}>
-                    User Details
-                </Navbar.Brand>
-            </Container>
-        </Navbar>
-
+       <Header />
         <Container>
             <Form style={
                 {

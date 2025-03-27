@@ -6,9 +6,14 @@ import image from '../assets/goal.jpg'
 import { IoAddOutline } from "react-icons/io5";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { useNavigate } from 'react-router';
+import Header from './Header';
 
 function CareerGoals() {
     let user = JSON.parse(localStorage.getItem("users"));
+    const [inputValue, setInputValue] = useState("")
+    const [userDetails, setuserDetails] = useState({})
+    let getVal = { ...userDetails, details: inputValue};    
+    console.log(getVal);
     const navigate = useNavigate()
     const [goalsQues, setgoalsQues] = useState([
         {
@@ -61,7 +66,6 @@ function CareerGoals() {
         setGoalDetails({ ...goalsDetails, skill: del })
     }
 
-
     const handleQuestion = (index, value) => {
         let updatedQuestions = goalsDetails.questions.length ? [...goalsDetails.questions] : [...goalsQues];
         updatedQuestions[index].answer = value;
@@ -76,6 +80,10 @@ function CareerGoals() {
             goalsDetails.questions[2].answer == "" ||
             goalsDetails.questions[3].answer == "") {
             alert("please enter the value")
+        }
+        else if(getVal.details == ""){
+            alert("Please fill in your user details before setting a goal");
+            navigate("/details");
         }
         else {
             const formData = new FormData();
@@ -99,6 +107,20 @@ function CareerGoals() {
             })
     }
 
+    const getUpdateGoalApi = () => {
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${user.id}`)
+            .then((res) => {
+                if (res.data.data.data) {
+                    const getData = JSON.parse(res.data.data.data);
+                    setInputValue(getData);
+                }
+            })
+        }
+        useEffect(() => {
+            getUpdateGoalApi()
+        }, [])
+    
+
     return <div style={
         {
             backgroundImage: `url(${image})`,
@@ -108,8 +130,9 @@ function CareerGoals() {
             background: "20"
         }
     }>
-        <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
+        <Header />
 
+        <h1 style={{ textAlign: "center", color: "black" }}><i>Career Goal</i></h1>
         <div style={{
             backgroundColor: "rgb(34, 160, 195)",
             width: "500px",
@@ -118,14 +141,12 @@ function CareerGoals() {
             marginTop: "50px",
             boxShadow: "0 0 10px",
             padding: "30px"
-
         }}>
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>Goal:</h5>
             <Form.Control type="text" value={goalsDetails.goal} placeholder="Enter your goal" onChange={(e) => setGoalDetails({ ...goalsDetails, goal: e.target.value.trimStart() })} required  ></Form.Control>
 
             <h5 style={{ textAlign: "left", color: "black", marginLeft: "25px" }}>skill:</h5>
-
             <div>
                 <div className="d-flex align-items-center">
                     <Form.Control
@@ -142,7 +163,6 @@ function CareerGoals() {
                     <div>
                         {goalsDetails.skill?.map((v) =>
                             <li>{v} <Button variant="danger" onClick={() => deleteBtn(v)}><AiTwotoneDelete /></Button>
-
                             </li>
                         )}
                     </div>
@@ -166,6 +186,5 @@ function CareerGoals() {
             </div>
         </div>
     </div>
-
 }
 export default CareerGoals
