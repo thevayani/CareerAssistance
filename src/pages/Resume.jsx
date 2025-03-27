@@ -217,7 +217,7 @@ function Resume() {
                         marginTop: "8px",
                         marginBottom: "5px", width: "400px", marginLeft: "100px", color: "white"
                     }}><i>Objective</i></h3>
-                    <Form.Control style={{ width: "400px", marginLeft: "100px" }} type="objective" value={inputValue.objective} placeholder='enter your objective'
+                    <Form.Control style={{ width: "400px",height:"70px", marginLeft: "100px" }} type="objective" value={inputValue.objective} placeholder='enter your objective'
                         onChange={(e) => setInputValue({ ...inputValue, objective: e.target.value })} />
 
                     <h1 style={{
@@ -276,7 +276,7 @@ function Resume() {
                     <ul>
                         <Button style={{ marginLeft: "100px" }} onClick={addlanguageValue} variant='warning' >+</Button>
                         {inputValue.languageknown?.map((v) =>
-                            <li style={{ width: "400px", marginLeft: "100px" , color:"white"}}>{v}
+                            <li style={{ width: "400px", marginLeft: "100px" , color:"white"}}><i>{v}</i>
                                 <td ><Button variant='danger' onClick={() => deletelanguage(v)}>x</Button></td>
                             </li>
                         )}
@@ -290,7 +290,7 @@ function Resume() {
                         <Button style={{ marginLeft: "100px" }} onClick={addskillValue} variant='warning' >+</Button>
 
                         {inputValue.skills?.map((v) =>
-                            <li style={{ width: "400px", marginLeft: "100px", color:"white" }}>{v}
+                            <li style={{ width: "400px", marginLeft: "100px", color:"white" }}><i>{v}</i>
                                 <td><Button variant='danger' onClick={() => deleteskill(v)}>x</Button></td>
                             </li>   
                         )}
@@ -303,7 +303,7 @@ function Resume() {
                     <ul>
                         <Button style={{ marginLeft: "100px" }} onClick={addhobbiesValue} variant='warning' >+</Button>
                         {inputValue.hobbies?.map((v) =>
-                            <li style={{ width: "400px", marginLeft: "100px", color:"white" }}>{v}
+                            <li style={{ width: "400px", marginLeft: "100px", color:"white" }}><i>{v}</i>
                                 <td><Button variant='danger' onClick={() => deletehobbies(v)}>x</Button></td>
                             </li>
                         )}
@@ -339,20 +339,20 @@ function Resume() {
                     }}>
                         <thead style={{ backgroundColor: "grey", height: "40px",color:"white" }}>
                             <tr>
-                                <th style={{ padding: "10px" }}>coursename</th>
-                                <th style={{ padding: "10px" }}>institute</th>
-                                <th style={{ padding: "10px" }}>year</th>
-                                <th style={{ padding: "10px" }}>place</th>
-                                <th style={{ padding: "10px" }}>Action</th>
+                                <th style={{ padding: "10px" }}><i>coursename</i></th>
+                                <th style={{ padding: "10px" }}><i>institute</i></th>
+                                <th style={{ padding: "10px" }}><i>year</i></th>
+                                <th style={{ padding: "10px" }}><i>place</i></th>
+                                <th style={{ padding: "10px" }}><i>Action</i></th>
                             </tr>
                         </thead>
                         <tbody>
                             {inputValue.educationdetails?.map((v) =>
                                 <tr>
-                                    <td style={{ padding: "10px" }}>{v.coursename}</td>
-                                    <td style={{ padding: "10px" }}>{v.courseinstitute}</td>
-                                    <td style={{ padding: "10px" }}>{v.courseyear}</td>
-                                    <td style={{ padding: "10px" }}>{v.place}</td>
+                                    <td style={{ padding: "10px" }}><i>{v.coursename}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.courseinstitute}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.courseyear}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.place}</i></td>
                                     <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deleteEdu(v)}>x</Button></td>
                                 </tr>
                             )}
@@ -390,20 +390,20 @@ function Resume() {
                     }}>
                         <thead style={{ backgroundColor: "grey", height: "40px",color:"white" }}>
                             <tr>
-                                <th style={{ padding: "10px" }}>name</th>
-                                <th style={{ padding: "10px" }}>institute</th>
-                                <th style={{ padding: "10px" }}>duration</th>
-                                <th style={{ padding: "10px" }}>place</th>
-                                <th style={{ padding: "10px" }}>Action</th>
+                                <th style={{ padding: "10px" }}><i>name</i></th>
+                                <th style={{ padding: "10px" }}><i>institute</i></th>
+                                <th style={{ padding: "10px" }}><i>duration</i></th>
+                                <th style={{ padding: "10px" }}><i>place</i></th>
+                                <th style={{ padding: "10px" }}><i>Action</i></th>
                             </tr>
                         </thead>
                         <tbody>
                             {inputValue.certification?.map((v) =>
                                 <tr>
-                                    <td style={{ padding: "10px" }}>{v.certification_name}</td>
-                                    <td style={{ padding: "10px" }}>{v.institute}</td>
-                                    <td style={{ padding: "10px" }}>{v.duration}</td>
-                                    <td style={{ padding: "10px" }}>{v.place}</td>
+                                    <td style={{ padding: "10px" }}><i>{v.certification_name}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.institute}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.duration}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.place}</i></td>
                                     <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deletecertification(v)}>x</Button></td>
                                 </tr>
                             )}
@@ -436,18 +436,18 @@ function Resume() {
                     }} >
                         <thead style={{ backgroundColor: "grey", height: "40px",color:"white" }}>
                             <tr>
-                                <th style={{ padding: "10px" }}>companyName</th>
-                                <th style={{ padding: "10px" }}>role</th>
-                                <th style={{ padding: "10px" }}>year</th>
-                                <th style={{ padding: "10px" }}>Action</th>
+                                <th style={{ padding: "10px" }}><i>companyName</i></th>
+                                <th style={{ padding: "10px" }}><i>role</i></th>
+                                <th style={{ padding: "10px" }}><i>year</i></th>
+                                <th style={{ padding: "10px" }}><i>Action</i></th>
                             </tr>
                         </thead>
                         <tbody>
                             {inputValue.workexperience?.map((v) =>
                                 <tr>
-                                    <td style={{ padding: "10px" }}>{v.companyName}</td>
-                                    <td style={{ padding: "10px" }}>{v.courseinstitute}</td>
-                                    <td style={{ padding: "10px" }}>{v.courseyear}</td>
+                                    <td style={{ padding: "10px" }}><i>{v.companyName}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.courseinstitute}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.courseyear}</i></td>
                                     <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deletework(v)}>x</Button></td>
                                 </tr>
                             )}
@@ -476,16 +476,16 @@ function Resume() {
                     }} >
                         <thead style={{ backgroundColor: "grey", height: "40px",color:"white" }}>
                             <tr>
-                                <th style={{ padding: "10px" }}>tiltle</th>
-                                <th style={{ padding: "10px" }}>description</th>
-                                <th style={{ padding: "10px" }}>Action</th>
+                                <th style={{ padding: "10px" }}><i>tiltle</i></th>
+                                <th style={{ padding: "10px" }}><i>description</i></th>
+                                <th style={{ padding: "10px" }}><i>Action</i></th>
                             </tr>
                         </thead>
                         <tbody>
                             {inputValue.project?.map((v) =>
                                 <tr>
-                                    <td style={{ padding: "10px" }}>{v.project_title}</td>
-                                    <td style={{ padding: "10px" }}>{v.project_description}</td>
+                                    <td style={{ padding: "10px" }}><i>{v.project_title}</i></td>
+                                    <td style={{ padding: "10px" }}><i>{v.project_description}</i></td>
                                     <td style={{ padding: "10px" }}><Button variant='dark' onClick={() => deleteproject(v)}>x</Button></td>
                                 </tr>
                             )}
@@ -501,9 +501,9 @@ function Resume() {
                     marginLeft: "50%"
                 }
             }>
-                <td><Button variant='danger' onClick={submit}style={{padding:"10px",width:"120px"}}>submit</Button></td>
-                
+                <td><Button variant='danger' onClick={submit}style={{padding:"10px",width:"100px"}}>submit</Button></td>
             </div>
+
         </Container>
     </div>
 }
