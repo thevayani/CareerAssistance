@@ -10,8 +10,10 @@ import Header from './Header';
 
 function CareerGoals() {
     let user = JSON.parse(localStorage.getItem("users"));
-    let val = JSON.parse(localStorage.getItem("userdetails"));
-    console.log(val)
+    const [inputValue, setInputValue] = useState("")
+    const [userDetails, setuserDetails] = useState({})
+    let getVal = { ...userDetails, details: inputValue};    
+    console.log(getVal);
     const navigate = useNavigate()
     const [goalsQues, setgoalsQues] = useState([
         {
@@ -79,7 +81,7 @@ function CareerGoals() {
             goalsDetails.questions[3].answer == "") {
             alert("please enter the value")
         }
-        else if(val.details == ""){
+        else if(getVal.details == ""){
             alert("Please fill in your user details before setting a goal");
             navigate("/details");
         }
@@ -104,6 +106,20 @@ function CareerGoals() {
                 console.log(getData)
             })
     }
+
+    const getUpdateGoalApi = () => {
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_carrier_get_user_profile&user_id=${user.id}`)
+            .then((res) => {
+                if (res.data.data.data) {
+                    const getData = JSON.parse(res.data.data.data);
+                    setInputValue(getData);
+                }
+            })
+        }
+        useEffect(() => {
+            getUpdateGoalApi()
+        }, [])
+    
 
     return <div style={
         {
